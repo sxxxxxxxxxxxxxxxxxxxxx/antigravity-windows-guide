@@ -233,7 +233,7 @@ Antigravity 的底层架构默认不会遵循 Windows 的系统代理规则（�
 
 1. **Google 账号年龄限制（常见于新号）**：
    * 观察 Cockpit Tools，如果该账号右上角显示红色的 `unknown`，说明需验证年龄。
-   * 解决：浏览器访问 [Google 年龄认证](https://myaccount.google.com/age-verification) 页面完成认证。等待 5 分钟后刷新 Cockpit，变为 `free/pro/ultra` 后重新注入即可。
+   * 解决：浏览器访问 [https://myaccount.google.com/age-verification?utm_source=p0](https://myaccount.google.com/age-verification?utm_source=p0) 页面完成认证。等待 5 分钟后刷新 Cockpit，变为 `free/pro/ultra` 后重新注入即可。
 2. **多开/历史账号冲突**：
    * 之前如果用过其他辅助脚本登录，容易残留死链。请一律规范使用 Cockpit Tools 重新覆盖登录。
 3. **Gmail 邮箱服务冲突**：
