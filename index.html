@@ -403,7 +403,23 @@
       document.getElementById("tags").innerHTML=meta.tags.map(t=>`<span>${escapeHtml(t)}</span>`).join("");
       document.getElementById("toc").innerHTML=out.toc.map(x=>`<li class="${x.level===3?"sub":""}"><a href="#${x.id}">${escapeHtml(x.text)}</a></li>`).join("");
       document.getElementById("article").innerHTML=out.html;
-      document.querySelectorAll(".toc a").forEach(link=>link.addEventListener("click",e=>{e.preventDefault();const href=link.getAttribute("href")||"";const el=document.getElementById(href.slice(1));if(!el)return;history.replaceState(null,"",href);el.scrollIntoView({behavior:"smooth",block:"start"});}));
+      const headerOffset=()=>(document.querySelector(".top")?.offsetHeight||0)+18;
+      const targetY=el=>el.getBoundingClientRect().top+window.scrollY-headerOffset();
+      let userInterrupt=false,interruptTimer=null;
+      const flagInterrupt=()=>{userInterrupt=true;clearTimeout(interruptTimer);interruptTimer=setTimeout(()=>userInterrupt=false,300)};
+      ["wheel","touchstart","keydown","pointerdown"].forEach(ev=>window.addEventListener(ev,flagInterrupt,{passive:true}));
+      document.querySelectorAll(".toc a").forEach(link=>link.addEventListener("click",e=>{
+        e.preventDefault();
+        const href=link.getAttribute("href")||"";
+        const el=document.getElementById(href.slice(1));
+        if(!el)return;
+        history.replaceState(null,"",href);
+        userInterrupt=false;
+        window.scrollTo({top:targetY(el),behavior:"smooth"});
+        const verify=()=>{if(userInterrupt)return;const desired=targetY(el);if(Math.abs(window.scrollY-desired)>4)window.scrollTo({top:desired,behavior:"auto"});};
+        setTimeout(verify,700);
+        setTimeout(verify,1400);
+      }));
       document.querySelectorAll(".copy").forEach(btn=>btn.addEventListener("click",async()=>{await navigator.clipboard.writeText(btn.nextElementSibling?.innerText||"");btn.textContent="已复制";setTimeout(()=>btn.textContent="复制",1200)}));
     });
   </script>
