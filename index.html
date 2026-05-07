@@ -405,33 +405,25 @@
       document.getElementById("article").innerHTML=out.html;
       const headerOffset=()=>(document.querySelector(".top")?.offsetHeight||0)+18;
       const targetY=el=>el.getBoundingClientRect().top+window.scrollY-headerOffset();
-      let pendingEl=null,userBroke=false,fallbackTimer=null;
-      const stopScroll=()=>{userBroke=true;};
-      const finalize=()=>{
-        const el=pendingEl;pendingEl=null;
-        clearTimeout(fallbackTimer);
-        window.removeEventListener("scrollend",finalize);
-        window.removeEventListener("wheel",stopScroll);
-        window.removeEventListener("touchstart",stopScroll);
-        window.removeEventListener("keydown",stopScroll);
-        if(!el||userBroke)return;
-        const desired=targetY(el);
+      let pendingEl=null,checkTimers=[];
+      const clearChecks=()=>{checkTimers.forEach(clearTimeout);checkTimers=[]};
+      const verify=()=>{
+        if(!pendingEl)return;
+        const desired=targetY(pendingEl);
         if(Math.abs(window.scrollY-desired)>2)window.scrollTo({top:desired,behavior:"auto"});
       };
+      const userBreak=()=>{pendingEl=null;clearChecks();};
+      ["wheel","touchstart","keydown"].forEach(ev=>window.addEventListener(ev,userBreak,{passive:true}));
       document.querySelectorAll(".toc a").forEach(link=>link.addEventListener("click",e=>{
         e.preventDefault();
         const href=link.getAttribute("href")||"";
         const el=document.getElementById(href.slice(1));
         if(!el)return;
         history.replaceState(null,"",href);
-        if(pendingEl){clearTimeout(fallbackTimer);window.removeEventListener("scrollend",finalize);window.removeEventListener("wheel",stopScroll);window.removeEventListener("touchstart",stopScroll);window.removeEventListener("keydown",stopScroll);}
-        pendingEl=el;userBroke=false;
-        window.scrollTo({top:targetY(el),behavior:"smooth"});
-        window.addEventListener("scrollend",finalize,{once:true});
-        window.addEventListener("wheel",stopScroll,{passive:true,once:true});
-        window.addEventListener("touchstart",stopScroll,{passive:true,once:true});
-        window.addEventListener("keydown",stopScroll,{once:true});
-        fallbackTimer=setTimeout(finalize,2500);
+        clearChecks();
+        pendingEl=el;
+        el.scrollIntoView({behavior:"smooth",block:"start"});
+        [800,1500,2500].forEach(ms=>checkTimers.push(setTimeout(()=>{verify();if(ms===2500)pendingEl=null;},ms)));
       }));
       document.querySelectorAll(".copy").forEach(btn=>btn.addEventListener("click",async()=>{await navigator.clipboard.writeText(btn.nextElementSibling?.innerText||"");btn.textContent="已复制";setTimeout(()=>btn.textContent="复制",1200)}));
     });
