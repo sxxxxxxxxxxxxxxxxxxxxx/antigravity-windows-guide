@@ -248,4 +248,4 @@ Antigravity 的底层架构默认不会遵循 Windows 的系统代理规则（�
 
 遇到问题欢迎扫码加入 AI IDE 交流群，与更多用户一起探讨：
 
-![AI IDE 交流群二维码](https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.8l0pcey40s.webp)
+![AI IDE 交流群二维码](https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.webp)

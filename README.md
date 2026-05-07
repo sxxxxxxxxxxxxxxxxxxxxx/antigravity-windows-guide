@@ -129,4 +129,4 @@ php -S localhost:8000
 
 如有任何问题或需要技术支持，请扫描下方二维码加入售后群：
 
-![售后群二维码](https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.8l0pcey40s.webp)
+![售后群二维码](https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.webp)
