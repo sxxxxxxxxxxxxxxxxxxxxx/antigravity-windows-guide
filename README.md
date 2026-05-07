@@ -129,4 +129,4 @@ php -S localhost:8000
 
 如有任何问题或需要技术支持，请扫描下方二维码加入售后群：
 
-![售后群二维码](assets/antigravity/qrcode.jpg)
+![售后群二维码](https://ibb.co/5Xg1Cwn9)
