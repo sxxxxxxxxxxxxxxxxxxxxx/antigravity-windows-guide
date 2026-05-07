@@ -124,3 +124,9 @@ php -S localhost:8000
 
 - [MacOS 版本指南](https://github.com/LuN3cy/antigravity-macos-guide)
 - [Antigravity 官方文档](https://example.com)
+
+## 售后支持
+
+如有任何问题或需要技术支持，请扫描下方二维码加入售后群：
+
+![售后群二维码](assets/antigravity/qrcode.jpg)
