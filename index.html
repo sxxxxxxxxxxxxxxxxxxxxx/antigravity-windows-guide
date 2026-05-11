@@ -383,6 +383,19 @@
       transform: scale(1.04);
       box-shadow: 0 18px 40px -12px rgba(37, 99, 235, 0.28);
     }
+    .article figure.qr-figure {
+      margin: 32px auto;
+      text-align: center;
+    }
+    .article figure.qr-figure img {
+      width: min(360px, 100%);
+      max-width: 100%;
+      aspect-ratio: auto;
+      background: #ffffff;
+      padding: 10px;
+      object-fit: contain;
+      border-radius: 18px;
+    }
     .qr-modal {
       position: fixed;
       inset: 0;
@@ -572,6 +585,7 @@
     });
     function setupQrPreview() {
       document.querySelectorAll('.article img[src*="售后群二维码"]').forEach(img => {
+        img.closest("figure")?.classList.add("qr-figure");
         img.classList.add("qr-preview-card");
         img.title = "点击放大二维码";
         img.addEventListener("click", () => openQrModal(img.src));
