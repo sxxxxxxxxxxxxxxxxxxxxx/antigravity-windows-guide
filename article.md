@@ -183,7 +183,7 @@ Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整�
 > 当遇到地区限制或严苛的设备风控时，常规网页授权会被 Google 阻断。Cockpit Tools 的核心作用是在您的本地环境中提取合法的 Token（身份令牌）并直接注入到客户端中，跳过浏览器的跳转拦截。
 > 只要您是亲自在本地客户端正常使用，**这属于本地授权辅助操作**，风险远低于将额度交给第三方服务器反代使用。（真正高危的行为通常是恶意"反代"——即将额度通过脚本高频转移给第三方工具使用）。
 
-> 🔄 **新版工具说明：** Cockpit Tools 近期也在持续更新，请务必下载最新版再操作。由于 Google 已将客户端拆分为 **Antigravity IDE** 与 **Antigravity 2.0**，新版 Cockpit Tools 里如果出现版本/路径选择，请务必选择与您实际使用的客户端一致的项目。想沿用本教程原截图和 VS Code 风格界面的用户，优先选择 **Antigravity IDE**；如果选择成 Antigravity 2.0，可能会出现路径正确但界面、模型入口或注入结果与教程截图不一致的情况。
+> 🔄 **新版工具说明：** Cockpit Tools v0.24.0 起已明确对齐官方 **Antigravity IDE** 客户端，会按官方重命名后的路径、用户数据目录、进程识别和 Language Server 元数据处理 IDE，并改为读写官方 `antigravityUnifiedStateSync.oauthToken` 状态。请务必下载最新版再操作。想沿用本教程原截图和 VS Code 风格界面的用户，优先选择 **Antigravity IDE**；不要把它和新的 Antigravity 2.0 混在一起操作。
 
 1. **下载工具**：前往 [Cockpit Tools 开源页面](https://github.com/jlcodes99/cockpit-tools/releases)，点击 **Show all assets**，下载最新的 `.exe` 安装包。
 2. **安装说明**：因开源软件缺乏微软签名，浏览器或 Windows Defender 可能会提示"未知风险"。请在弹窗中点击"**更多信息**" -> "**仍要运行**"，一路 Next 完成安装。
@@ -191,7 +191,7 @@ Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整�
 
    ![Cockpit Tools 设置图标](/articles/antigravity/image18.png)
 
-4. **绑定账号**：在左侧导航栏找到 `Antigravity` 图标并点击，点击页面中央的"**添加账号**"按钮（或蓝色加号）。如果 Cockpit Tools 后续区分 IDE / 2.0，请选择与您当前客户端一致的项目。
+4. **绑定账号**：在左侧导航栏找到 `Antigravity IDE` 或 `Antigravity` 图标并点击，点击页面中央的"**添加账号**"按钮（或蓝色加号）。新版 Cockpit Tools 的 Antigravity 集成主要面向官方 **Antigravity IDE**；如果您的目标是新式 Antigravity 2.0，请不要套用旧版 IDE 的截图和路径判断。
 
    ![点击左侧 Antigravity 图标](/articles/antigravity/image19.png)
 
@@ -205,9 +205,9 @@ Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整�
 
    ![点击账号卡片下方的播放按钮](/articles/antigravity/image22.png)
 
-7. 在弹出的路径确认窗口中，点击路径框右侧的"**刷新/选择**"图标，确认路径无误后点击"**保存**"。如果自动识别失败，请手动选择当前客户端的安装目录：Antigravity IDE 通常是旧版安装目录，例如 `E:\Antigravity`，新版 IDE 的主程序可能叫 `Antigravity IDE.exe`；Antigravity 2.0 通常是 `C:\Users\你的用户名\AppData\Local\Programs\antigravity`。此时 Antigravity 会被自动唤醒或重启。
+7. 在弹出的路径确认窗口中，点击路径框右侧的"**刷新/选择**"图标，确认路径无误后点击"**保存**"。新版 Cockpit Tools 已适配官方重命名后的 Windows 主程序 `Antigravity IDE.exe`。如果自动识别失败，请手动选择 **Antigravity IDE** 的安装目录，例如 `E:\Antigravity`，并确认主程序是 `Antigravity IDE.exe`。此时 Antigravity IDE 会被自动唤醒或重启。
 
-   * *关键排错：如果您电脑上同时安装了 Antigravity IDE 和 Antigravity 2.0，Cockpit Tools 可能会自动识别到 2.0 的路径。若您的目标是旧版 VS Code 风格界面，请手动切回 Antigravity IDE 的路径。*
+   * *关键排错：如果您电脑上同时安装了 Antigravity IDE 和 Antigravity 2.0，而路径却指向 `C:\Users\你的用户名\AppData\Local\Programs\antigravity`，这通常是 2.0 路径。若您的目标是旧版 VS Code 风格界面，请手动切回 Antigravity IDE 的路径。*
 
    ![点击刷新图标自动检测路径](/articles/antigravity/image23.png)
 
@@ -279,9 +279,10 @@ Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整�
 
 ### Q2.6：Cockpit Tools 更新后，路径应该怎么选？
 
-* **先下载最新版**：请从 [Cockpit Tools Releases](https://github.com/jlcodes99/cockpit-tools/releases) 下载最新安装包。该工具更新很快，旧版本可能还停留在旧 Antigravity 的识别逻辑。
-* **优先确认目标客户端**：需要旧版 VS Code 风格界面的用户，请选择 **Antigravity IDE**；只想使用新式 Agent 工作台的用户，才选择 **Antigravity 2.0**。
-* **排错重点**：如果 Cockpit Tools 自动识别到 `C:\Users\你的用户名\AppData\Local\Programs\antigravity`，这通常是 Antigravity 2.0 路径。想进入 IDE 的用户，请手动改回 Antigravity IDE 的安装目录。
+* **先下载最新版**：请从 [Cockpit Tools Releases](https://github.com/jlcodes99/cockpit-tools/releases) 下载最新安装包。v0.24.0 起，Cockpit Tools 已将 Antigravity 集成对齐到官方 **Antigravity IDE**。
+* **新版改善**：新版会识别 Windows `Antigravity IDE.exe`，并读写官方 `antigravityUnifiedStateSync.oauthToken` 状态，切号/导入比旧版更贴近官方客户端。
+* **排错重点**：需要旧版 VS Code 风格界面的用户，请确认路径指向 **Antigravity IDE**。如果路径是 `C:\Users\你的用户名\AppData\Local\Programs\antigravity`，这通常是 Antigravity 2.0，不适合按旧 IDE 教程截图操作。
+* **2FA 提示**：v0.24.0 也给 Codex OAuth 授权加入了 2FA 快速取码入口，但这是 Codex 相关能力；Antigravity 登录仍以本节的 Google OAuth 和客户端注入流程为准。
 
 ### Q3：一发消息就报错，右下角弹出蓝色的 Retry 按钮？
 
