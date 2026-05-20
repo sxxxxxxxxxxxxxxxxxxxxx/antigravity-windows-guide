@@ -200,7 +200,10 @@ v2rayN默认端口 (Port): 10808
 
 > 🔄 **新版工具说明：** Cockpit Tools v0.24.0 起已明确对齐官方 **Antigravity IDE** 客户端，会按官方重命名后的路径、用户数据目录、进程识别和 Language Server 元数据处理 IDE，并改为读写官方 `antigravityUnifiedStateSync.oauthToken` 状态。请务必下载最新版再操作。想沿用本教程原截图和 VS Code 风格界面的用户，优先选择 **Antigravity IDE**；不要把它和新的 Antigravity 2.0 混在一起操作。
 
-1. **下载工具**：前往 [Cockpit Tools 开源页面](https://github.com/jlcodes99/cockpit-tools/releases)，点击 **Show all assets**，下载最新的 `.exe` 安装包。
+1. **下载工具**：前往 [Cockpit Tools 开源页面](https://github.com/jlcodes99/cockpit-tools/releases)，点击 **Show all assets**，下载 `Cockpit.Tools_0.24.0_x64-setup.exe` 这类 Windows x64 安装包；如果后续版本号变化，请选择最新版对应的 `x64-setup.exe`。
+
+   ![Cockpit Tools Windows x64 setup 下载位置](/articles/antigravity/cockpit-tools-windows-x64-setup.png)
+
 2. **安装说明**：因开源软件缺乏微软签名，浏览器或 Windows Defender 可能会提示"未知风险"。请在弹窗中点击"**更多信息**" -> "**仍要运行**"，一路 Next 完成安装。
 3. **基础设置**：打开 Cockpit Tools，点击左下角的齿轮/设置图标，将语言切换为**中文**。
 
