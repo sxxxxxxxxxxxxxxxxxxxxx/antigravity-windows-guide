@@ -109,6 +109,13 @@ Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整�
    * 将获取到的端口号填入 `config.json` 并保存。**注意：不要改动系统自身的代理设置，只改 json 文件。**
    * *（如遇协议不兼容，可尝试将 `type` 后的 `socks5` 更改为 `http` 或 `https`）。*
 
+   常见代理软件默认端口极速复制：
+```copy-dashboard
+Clash默认端口 (Port): 7890
+Clash Verge默认端口 (Port): 7897
+v2rayN默认端口 (Port): 10808
+```
+
 ---
 
 ### 🔧 进阶备选二：ProxyBridge 桥接（底层系统代理）
@@ -135,6 +142,13 @@ Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整�
    ![填写 127.0.0.1 及对应端口](/articles/antigravity/image10.png)
 
    * *（如果后续连接失败，可在此处的 http 和 socks5 协议之间来回切换排查）。*
+
+```copy-dashboard
+本机代理地址 (Host): 127.0.0.1
+常见代理端口 (Port): 7897
+备用代理端口 (Port): 7890
+```
+
 5. 点击下方"测试代理连接"，日志出现 `SUCCESS` 提示后保存。
 
    ![测试连接提示 SUCCESS](/articles/antigravity/image11.png)
@@ -248,6 +262,34 @@ Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整�
    * *关键机制：此功能目前**仅兼容系统代理模式**。如果您前面采用的是首选方案（Tun 模式），在连接 SSH 时，必须**同时打开"系统代理"**开关（即 Tun + 系统代理双开）。连接成功后再将系统代理关掉即可。*
 4. 处于 SSH 连接状态后，再次进入侧边栏"扩展"面板，找到类似 `在 SSH:XXX 中安装扩展` 的板块，点击对应的安装按钮将扩展同步至远程服务器终端。
 5. 彻底关闭并重启当前窗口，即可完成通道连通。
+
+### 扩展市场加载慢 / 搜不到插件怎么办？
+
+> 💡 **适用范围：** 这一段只针对 **Antigravity IDE** 的扩展面板。Antigravity 2.0 不是传统 VS Code 风格 IDE，请不要强行套用。
+
+如果扩展面板默认提示正在使用 **Open VSX**，可能会出现插件搜索不全、下载很慢、甚至加载失败的情况。可以把扩展市场源切换为 VS Code 官方源。
+
+![扩展面板提示当前使用 Open VSX](/articles/antigravity/marketplace-open-vsx-notice.png)
+
+操作方法：
+
+1. 打开左侧 **扩展（Extensions）** 面板。
+2. 如果页面提示 `By default, Antigravity uses Open VSX as a marketplace. This can be changed in Antigravity settings.`，点击里面的 **Antigravity settings**。
+
+   ![点击 Antigravity settings 进入扩展市场设置](/articles/antigravity/marketplace-settings-link.png)
+
+3. 在 `Editor -> Marketplace` 设置里，把下面两个地址分别填入对应输入框。
+
+   ![Marketplace 设置里的 Item URL 与 Gallery URL 输入框](/articles/antigravity/marketplace-url-settings-empty.png)
+
+```copy-dashboard
+Marketplace Item URL: https://marketplace.visualstudio.com/items
+Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/gallery
+```
+
+   ![填入 VS Code 官方扩展市场地址后的效果](/articles/antigravity/marketplace-url-settings-filled.png)
+
+填完后，**彻底关闭并重新打开 Antigravity IDE**，再回到扩展面板搜索 `ssh`、`Remote - SSH` 等插件。正常情况下，搜索结果会切到 VS Code 官方插件市场，插件会更全，加载也更稳定。
 
 ---
 
