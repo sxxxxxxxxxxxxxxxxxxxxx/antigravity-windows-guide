@@ -81,7 +81,7 @@ Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整�
 
 **适用场景**：主要适用于 Antigravity IDE 或旧版 VS Code 风格 Antigravity。由于电脑环境复杂（如存在安全软件拦截、企业内网限制）导致 Tun 模式无法使用时，可采用此插件方案。
 
-> 💡 **提示：** Antigravity 2.0 的内部结构已经变化，不建议优先使用 `vension.dll` 这类旧版补丁方案。2.0 用户请优先使用 Tun 模式；Tun 无法使用时，再尝试 ProxyBridge。若您曾安装过此插件，后续出现启动极慢、空白或模型异常，请进入软件根目录删除 `vension.dll` 文件，并切回其他方案。
+> 💡 **提示：** Antigravity 2.0 的内部结构已经变化，不建议优先使用 `version.dll` 这类旧版补丁方案。2.0 用户请优先使用 Tun 模式；Tun 无法使用时，再尝试 ProxyBridge。若您曾安装过此插件，后续出现启动极慢、空白或模型异常，请进入软件根目录删除 `version.dll` 文件，并切回其他方案。
 
 1. **前置网络设置**：打开您的代理软件，**关闭** Tun 模式，**开启**"系统代理"，路由同样选择"**规则**"。
 2. **下载核心插件**：访问开源仓库 [Antigravity-Proxy Releases](https://github.com/yuaotian/antigravity-proxy/releases)。
@@ -89,10 +89,10 @@ Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整�
 
    ![GitHub Assets 下载区域](/articles/antigravity/image1.png)
 
-4. **放置补丁文件**：解压后，将 `config.json` 和 `vension.dll` 两个文件移动到 Antigravity 的安装根目录。
+4. **放置补丁文件**：解压后，将 `config.json` 和 `version.dll` 两个文件移动到 Antigravity 的安装根目录。
    * *定位根目录捷径：在开始菜单或桌面上找到 Antigravity IDE 快捷方式 -> 右键选择"打开文件所在位置"。如果您打开后看到的是 Antigravity 2.0 的新目录，请不要强行套用本插件方案。*
 
-   ![解压出的 config.json 和 vension.dll](/articles/antigravity/image2.png)
+   ![解压出的 config.json 和 version.dll](/articles/antigravity/image2.png)
 
    ![右键"打开文件所在位置"](/articles/antigravity/image3.png)
 
@@ -268,7 +268,7 @@ Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整�
 
 * **诊断**：多为多种网络方案混用导致的底层冲突。
 * **解决**：
-  1. 清除历史配置残留：比如您之前尝试过备选方案一，现在想换 Tun 模式，必须先进入根目录**删掉** `vension.dll`。Antigravity 2.0 用户尤其不建议保留旧版补丁文件。
+  1. 清除历史配置残留：比如您之前尝试过备选方案一，现在想换 Tun 模式，必须先进入根目录**删掉** `version.dll`。Antigravity 2.0 用户尤其不建议保留旧版补丁文件。
   2. 重启电脑：释放被占用的虚拟网卡或代理端口，然后认准一种方案重新配置。
 
 ### Q2.5：ProxyBridge 里应该添加哪个 language_server？
