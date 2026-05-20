@@ -181,7 +181,7 @@ v2rayN默认端口 (Port): 10808
 
 ## 四、 账号登录与授权流程
 
-网络打通后，即可启动 Antigravity IDE 或 Antigravity 2.0 进行授权。两个版本的入口界面不同，但底层逻辑一致：先尝试标准浏览器授权，失败后再考虑 Cockpit Tools 注入。
+网络打通后，即可启动 Antigravity IDE 或 Antigravity 2.0 进行授权。两个版本的入口界面不同，但底层逻辑一致：先尝试标准浏览器授权，失败后再考虑 Cockpit Tools 本地授权辅助。
 
 ### 4.1 标准网页登录
 
@@ -189,12 +189,13 @@ v2rayN默认端口 (Port): 10808
 2. 按照界面提示，软件会拉起您的默认浏览器。使用已开通服务的 Google 账号完成 OAuth 授权。
 3. 若跳转后提示成功，说明授权完毕，可直接进入下一部分的验证与对话测试。
 
-*如果在此步骤页面无响应、反复报错，说明您的账号环境存在风控拦截，请立刻停止尝试，转用下方的 Cockpit Tools 辅助注入登录。*
+*如果在此步骤页面无响应、反复报错，请先分清是网络未接管、账号地区资格不通过，还是本地授权状态异常。不要反复点登录，以免触发更严格的风控。*
 
-### 4.2 强制数据注入登录（Cockpit Tools 辅助方案）
+### 4.2 Cockpit Tools 本地授权辅助（状态注入方案）
 
 > 🛡️ **【技术原理解析：安全吗？会封号吗？】**
-> 当遇到地区限制或严苛的设备风控时，常规网页授权会被 Google 阻断。Cockpit Tools 的核心作用是在您的本地环境中提取合法的 Token（身份令牌）并直接注入到客户端中，跳过浏览器的跳转拦截。
+> Cockpit Tools 的核心作用是在您的本地环境中完成 Google OAuth 授权，并把合法 Token（身份令牌）写入 Antigravity IDE 的本地状态，适合处理浏览器跳转失败、客户端状态错乱、授权写入失败等问题。
+> 但它不是万能强登工具：如果官方已经判定账号地区/资格不符合，或服务端继续二次校验失败，单纯注入 Token 也可能无法通过。
 > 只要您是亲自在本地客户端正常使用，**这属于本地授权辅助操作**，风险远低于将额度交给第三方服务器反代使用。（真正高危的行为通常是恶意"反代"——即将额度通过脚本高频转移给第三方工具使用）。
 
 > 🔄 **新版工具说明：** Cockpit Tools v0.24.0 起已明确对齐官方 **Antigravity IDE** 客户端，会按官方重命名后的路径、用户数据目录、进程识别和 Language Server 元数据处理 IDE，并改为读写官方 `antigravityUnifiedStateSync.oauthToken` 状态。请务必下载最新版再操作。想沿用本教程原截图和 VS Code 风格界面的用户，优先选择 **Antigravity IDE**；不要把它和新的 Antigravity 2.0 混在一起操作。
@@ -215,7 +216,7 @@ v2rayN默认端口 (Port): 10808
 
    ![点击"开始 OAuth 授权"](/articles/antigravity/image21.png)
 
-6. **一键注入**：登录成功后返回软件，会显示已绑定的账号卡片。点击账号卡片下方的"**▶ 播放**"按钮。
+6. **本地状态写入**：登录成功后返回软件，会显示已绑定的账号卡片。点击账号卡片下方的"**▶ 播放**"按钮，把本地授权状态写入 Antigravity IDE。
 
    ![点击账号卡片下方的播放按钮](/articles/antigravity/image22.png)
 
@@ -227,7 +228,7 @@ v2rayN默认端口 (Port): 10808
 
    ![路径已填入，点击保存](/articles/antigravity/image24.png)
 
-8. 观察客户端界面：Antigravity IDE 通常会在编辑器右侧或顶部加载出**模型选择下拉框**；Antigravity 2.0 则可能表现为项目/对话界面可以正常创建 Agent、加载模型或发送消息。只要账号状态能被识别并进入可对话状态，即代表底层数据注入成功。
+8. 观察客户端界面：Antigravity IDE 通常会在编辑器右侧或顶部加载出**模型选择下拉框**；Antigravity 2.0 则可能表现为项目/对话界面可以正常创建 Agent、加载模型或发送消息。只要账号状态能被识别并进入可对话状态，即代表本地授权状态写入成功。若仍提示没资格或认证错误，请按 FAQ 里的三类报错继续判断，不要反复强行注入。
 
    ![成功加载模型下拉框](/articles/antigravity/image25.png)
 
@@ -299,6 +300,34 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 
 * **原因**：Google 已经把产品拆分为 Antigravity 2.0、Antigravity IDE、CLI、SDK 等不同形态。2.0 是新的独立桌面应用，官方定位是 Agent 编排平台；原教程截图更接近 Antigravity IDE。
 * **解决**：网络和登录思路仍可参考本教程，但涉及扩展面板、SSH、VS Code 风格界面、旧版语言服务路径时，请确认自己是否需要改用 Antigravity IDE。若只使用 2.0，请重点参考 Tun 模式、ProxyBridge 的新版路径、账号登录与手机验证部分。
+
+### Q0.5：登录时报错，应该先判断哪一类？
+
+现在 Antigravity 的登录校验比旧版更严格，不建议一看到失败就反复用 Cockpit Tools 注入。请先按截图判断类型：
+
+1. **提示账号没资格：优先处理地区/账号资格**
+
+   如果看到 `Sorry, this account is ineligible to use Antigravity`，这通常不是普通 Token 写入问题，而是账号资格、地区或官方准入校验没有通过。
+
+   ![账号无资格使用 Antigravity 的提示](/articles/antigravity/auth-ineligible-account.png)
+
+   处理建议：先检查 Google 账号地区、付款资料地区、订阅状态和当前代理节点地区是否一致。此类问题目前不能再简单理解为“Cockpit 强制注入即可解决”；必要时只能调整地区环境或更换符合资格的账号。
+
+2. **提示 `oauth2.googleapis.com/token` 连接失败：优先修网络**
+
+   如果报错里出现 `Post "https://oauth2.googleapis.com/token"`、`connectex`、`failed to respond`、`connection attempt failed`，说明客户端请求 Google OAuth token 接口时没有走通网络。
+
+   ![OAuth token 接口连接失败，通常是网络未接管](/articles/antigravity/auth-oauth-network-timeout.jpeg)
+
+   处理建议：回到第三章检查 Tun 是否真的开启、代理节点是否可用、ProxyBridge 是否把主程序和对应 `language_server` 都加入规则。这个问题的重点是“网络没走上代理”，不是账号没资格。
+
+3. **提示认证错误：再考虑 Cockpit 本地授权辅助**
+
+   如果客户端里显示 `There was an error with your authentication. To log in, click here`，更像是本地授权状态、Token 写入或客户端认证状态异常。
+
+   ![客户端提示 authentication 认证错误](/articles/antigravity/auth-token-injection-error.png)
+
+   处理建议：可以使用 Cockpit Tools 重新完成 OAuth 并写入本地状态。但新版官方仍可能继续检测账号资格、地区和 Token 状态，所以 Cockpit 只能作为本地授权辅助，不保证绕过官方服务端校验。
 
 ### Q1：消息发送后一直没反应，一直转圈？
 
