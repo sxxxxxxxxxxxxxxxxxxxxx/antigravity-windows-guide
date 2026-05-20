@@ -81,12 +81,16 @@
       border-color: #bfdbfe;
     }
     .hero {
-      max-width: 920px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      align-items: center;
+      gap: 48px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 80px clamp(20px, 5vw, 40px);
     }
     .hero-inner {
-      max-width: 820px;
+      max-width: 760px;
     }
     .hero-media {
       flex: 1.2;
@@ -160,12 +164,13 @@
     }
     .hero-support {
       display: flex;
+      flex-direction: column;
       align-items: center;
       gap: 14px;
       width: 100%;
-      max-width: 460px;
-      margin-top: 18px;
-      padding: 14px;
+      max-width: 320px;
+      justify-self: end;
+      padding: 18px;
       box-sizing: border-box;
       border: 1px solid #bfdbfe;
       border-radius: 14px;
@@ -180,7 +185,7 @@
       border-color: #93c5fd;
       transform: translateY(-1px);
     }
-    .hero-support-text { min-width: 0; flex: 1; }
+    .hero-support-text { width: 100%; }
     .hero-support-title {
       display: block;
       font-size: 15px;
@@ -195,9 +200,9 @@
       color: var(--text-muted);
     }
     .hero-support img {
-      width: 86px;
-      height: 120px;
-      flex: 0 0 86px;
+      width: 180px;
+      height: 252px;
+      flex: 0 0 auto;
       object-fit: contain;
       border-radius: 10px;
       border: 1px solid var(--border);
@@ -519,10 +524,17 @@
     /* ==================== Tablet (641px – 900px) ==================== */
     @media (max-width: 900px) {
       .top nav a { padding: 6px 12px; font-size: 13px; }
-      .hero { gap: 32px; padding: 40px clamp(16px, 4vw, 32px); }
+      .hero { grid-template-columns: 1fr; gap: 28px; padding: 40px clamp(16px, 4vw, 32px); }
       .hero h1 { font-size: clamp(26px, 5vw, 36px); }
       .hero p { font-size: 16px; }
-      .hero-support { width: 100%; }
+      .hero-support {
+        width: 100%;
+        max-width: 460px;
+        justify-self: start;
+        flex-direction: row;
+      }
+      .hero-support-text { flex: 1; }
+      .hero-support img { width: 86px; height: 120px; flex-basis: 86px; }
       .shell { gap: 32px; padding: 0 clamp(16px, 4vw, 32px) 60px; }
       .article { padding: clamp(24px, 4vw, 48px); }
       .article h2 { font-size: clamp(22px, 3vw, 28px); margin-top: 36px; }
@@ -604,7 +616,7 @@
 <body>
   <header class="top"><a class="brand" href="#"><span class="mark"><img src="./assets/icons/antigravity-color.svg" alt="Antigravity"></span><span>Antigravity Guide</span></a><nav><a href="#content">阅读全文</a><a href="https://antigravity-macos-guide.sumeetsxiang.com/" target="_blank" rel="noreferrer">MacOS 指南</a></nav></header>
   <main>
-    <section class="hero"><div class="hero-inner"><div class="eyebrow">✦ Windows Setup Guide</div><h1 id="title">Antigravity IDE / 2.0 (Windows) 终极网络配置与登录排障指南</h1><p>面向 Windows 用户的 Antigravity IDE 与 Antigravity 2.0 网络配置与登录排障指南，覆盖版本识别、Tun 模式、ProxyBridge 路径分流、账号注入与验证流程。</p><div class="meta" id="meta"></div><div class="tags" id="tags"></div><button class="hero-support" type="button" onclick="openQrModal()" aria-label="查看售后群二维码"><span class="hero-support-text"><span class="hero-support-title">遇到问题先加售后群</span><span class="hero-support-desc">扫码进群，安装、路径、登录和验证问题都在群里处理。</span></span><img src="https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.webp" alt="售后群二维码"></button></div></section>
+    <section class="hero"><div class="hero-inner"><div class="eyebrow">✦ Windows Setup Guide</div><h1 id="title">Antigravity IDE / 2.0 (Windows) 终极网络配置与登录排障指南</h1><p>面向 Windows 用户的 Antigravity IDE 与 Antigravity 2.0 网络配置与登录排障指南，覆盖版本识别、Tun 模式、ProxyBridge 路径分流、账号注入与验证流程。</p><div class="meta" id="meta"></div><div class="tags" id="tags"></div></div><button class="hero-support" type="button" onclick="openQrModal()" aria-label="查看售后群二维码"><span class="hero-support-text"><span class="hero-support-title">遇到问题先加售后群</span><span class="hero-support-desc">扫码进群，安装、路径、登录和验证问题都在群里处理。</span></span><img src="https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.webp" alt="售后群二维码"></button></section>
     <div class="shell" id="content"><aside class="toc"><button class="toc-toggle" id="toc-toggle" type="button">目录 ▾</button><div class="toc-title">目录</div><ol id="toc"></ol></aside><article class="article" id="article">正在加载文章...</article></div>
     <a class="float" href="#">↑</a>
   </main>
