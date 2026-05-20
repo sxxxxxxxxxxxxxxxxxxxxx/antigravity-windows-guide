@@ -1,17 +1,19 @@
 ---
-title: Antigravity (Windows) 终极网络配置与登录排障指南
+title: Antigravity IDE / 2.0 (Windows) 终极网络配置与登录排障指南
 date: 2026-04-21
 tags:
   - 工具
   - 教程
   - 网络配置
   - Antigravity
+  - Antigravity IDE
+  - Antigravity 2.0
 image: /articles/antigravity/cover.png
 ---
 
 ## 一、 环境配置与准备工作
 
-在正式使用 Antigravity 前，请务必完成以下自检，这是保证软件正常运行的基石：
+在正式使用 Antigravity IDE 或 Antigravity 2.0 前，请务必完成以下自检，这是保证软件正常运行的基石：
 
 1. **基础网络通畅**：请确保您的设备已开启有效的代理工具，且能够顺畅访问 Google 等海外服务。（注：本指南不包含基础代理节点的搭建教学）。
 2. **账号状态健康**：准备一个状态正常的 Gemini Pro/Ultra 账号。
@@ -23,10 +25,40 @@ image: /articles/antigravity/cover.png
 
 ---
 
-## 二、 核心网络配置（必做，三选一）
+## 二、版本识别：Antigravity IDE 与 Antigravity 2.0
+
+Google 更新后，Antigravity 已经不再只有一个客户端。请先确认您正在使用的是哪一个版本，否则后面的路径和界面对不上，会直接影响排障判断。
+
+1. **Antigravity IDE**：这才是原教程里那个接近 VS Code 的版本，有侧边栏、扩展面板、SSH、语言服务等结构。旧版 Antigravity 更新后，如果仍保留 VS Code 风格界面，通常就按 Antigravity IDE 处理。
+2. **Antigravity 2.0**：这是新的独立桌面应用，界面和旧版 IDE 已经不是一回事，主打项目与 Agent 编排，不再是 VS Code 那套界面。它的安装目录和后台进程路径也发生了变化。
+3. **Antigravity CLI / SDK**：它们属于命令行和开发者工具链，不在本篇图形客户端教程范围内。
+
+> **关键结论：** 本教程仍然覆盖 Antigravity IDE 和 Antigravity 2.0 的网络、登录与验证问题，但涉及“程序路径”“ProxyBridge 规则”“扩展/SSH”的步骤时，必须按自己实际使用的版本选择对应路径。
+
+> **给老用户的重要提醒：** 如果您原来安装的是旧版 Antigravity，它更新后可能会变成 Antigravity 2.0；这是官方的新产品方向，不是安装包损坏。大多数想继续使用原来 VS Code 风格界面的用户，请安装或保留 **Antigravity IDE**。官方更新流程中可能会提示是否重新安装 IDE，建议需要旧界面的用户选择保留/安装 IDE。
+
+官方下载入口：[https://antigravity.google/download](https://antigravity.google/download)。进入页面后不要只点最上面的 Antigravity 2.0，请向下找到 **Antigravity IDE** 区域，再选择 Windows 对应版本下载：
+
+* 普通 Intel / AMD 电脑：选择 **Windows - Download for x64**。
+* ARM 设备：选择 **Windows - Download for ARM64**。
+
+如果您只是想跟着本教程原来的截图操作，或者需要扩展面板、SSH、ProxyBridge 旧路径，请优先安装 **Antigravity IDE**，不要误装成只面向新界面的 Antigravity 2.0。
+
+常见 Windows 安装路径参考：
+
+| 版本 | 常见安装根目录 | 语言服务进程路径 |
+| --- | --- | --- |
+| Antigravity IDE | `E:\Antigravity` 或您自定义的安装目录 | `resources\app\extensions\antigravity\bin\language_server_windows_x64.exe` |
+| Antigravity 2.0 | `C:\Users\你的用户名\AppData\Local\Programs\antigravity` | `resources\bin\language_server.exe` |
+
+如果不确定自己是哪一版，请看界面：有 VS Code 风格编辑器和扩展面板的，按 **Antigravity IDE**；新式独立 Agent 项目界面的，按 **Antigravity 2.0**。
+
+---
+
+## 三、 核心网络配置（必做，三选一）
 
 **📌 为什么必须要单独配置网络？**
-Antigravity 的底层架构默认不会遵循 Windows 的系统代理规则（常规代理软件无法接管它的流量）。如果不进行额外配置，软件将一直处于"无网络"状态，导致模型无法加载。
+Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整遵循 Windows 的系统代理规则（常规代理软件无法稳定接管它们的流量）。如果不进行额外配置，软件会出现"无网络"、模型无法加载、消息一直转圈等问题。
 
 请根据您的实际情况，在以下三种方案中选择一种。**强烈建议直接使用"首选方案"**，仅在遇到冲突时再尝试进阶方案。
 
@@ -47,9 +79,9 @@ Antigravity 的底层架构默认不会遵循 Windows 的系统代理规则（�
 
 ### 🔧 进阶备选一：Antigravity-Proxy 插件（局部代理）
 
-**适用场景**：由于电脑环境复杂（如存在安全软件拦截、企业内网限制）导致 Tun 模式无法使用时，可采用此插件方案。
+**适用场景**：主要适用于 Antigravity IDE 或旧版 VS Code 风格 Antigravity。由于电脑环境复杂（如存在安全软件拦截、企业内网限制）导致 Tun 模式无法使用时，可采用此插件方案。
 
-> 💡 **提示：** 如果未来 Antigravity 更新导致此方案失效或启动极慢，请进入软件根目录删除 `vension.dll` 文件，并切回其他方案。
+> 💡 **提示：** Antigravity 2.0 的内部结构已经变化，不建议优先使用 `vension.dll` 这类旧版补丁方案。2.0 用户请优先使用 Tun 模式；Tun 无法使用时，再尝试 ProxyBridge。若您曾安装过此插件，后续出现启动极慢、空白或模型异常，请进入软件根目录删除 `vension.dll` 文件，并切回其他方案。
 
 1. **前置网络设置**：打开您的代理软件，**关闭** Tun 模式，**开启**"系统代理"，路由同样选择"**规则**"。
 2. **下载核心插件**：访问开源仓库 [Antigravity-Proxy Releases](https://github.com/yuaotian/antigravity-proxy/releases)。
@@ -58,7 +90,7 @@ Antigravity 的底层架构默认不会遵循 Windows 的系统代理规则（�
    ![GitHub Assets 下载区域](/articles/antigravity/image1.png)
 
 4. **放置补丁文件**：解压后，将 `config.json` 和 `vension.dll` 两个文件移动到 Antigravity 的安装根目录。
-   * *定位根目录捷径：在开始菜单或桌面上找到 Antigravity 快捷方式 -> 右键选择"打开文件所在位置"。*
+   * *定位根目录捷径：在开始菜单或桌面上找到 Antigravity IDE 快捷方式 -> 右键选择"打开文件所在位置"。如果您打开后看到的是 Antigravity 2.0 的新目录，请不要强行套用本插件方案。*
 
    ![解压出的 config.json 和 vension.dll](/articles/antigravity/image2.png)
 
@@ -81,7 +113,7 @@ Antigravity 的底层架构默认不会遵循 Windows 的系统代理规则（�
 
 ### 🔧 进阶备选二：ProxyBridge 桥接（底层系统代理）
 
-**适用场景**：作为最后防线的备用方案。需注意该方案可能会被"火绒"等安全杀毒软件误拦截。
+**适用场景**：作为最后防线的备用方案，适用于 Antigravity IDE 和 Antigravity 2.0。需注意该方案可能会被"火绒"等安全杀毒软件误拦截。
 
 1. **前置网络设置**：同样需**关闭** Tun 模式，**开启**"系统代理"及"**规则**"模式。
 2. **下载桥接软件**：前往 [ProxyBridge Releases](https://github.com/InterceptSuite/ProxyBridge/releases)，在 Assets 处下载 `.exe` 结尾的安装包并完成安装。
@@ -116,37 +148,40 @@ Antigravity 的底层架构默认不会遵循 Windows 的系统代理规则（�
 
    ![点击"浏览"选择程序](/articles/antigravity/image14.png)
 
-   * 第一次添加：选择 Antigravity 根目录下的主程序 `Antigravity.exe`。
+   * 第一次添加：选择当前客户端根目录下的主程序。Antigravity IDE 通常是 `Antigravity.exe`；Antigravity 2.0 通常位于 `C:\Users\你的用户名\AppData\Local\Programs\antigravity`，进入该目录后选择主程序。
 
    ![选中 Antigravity.exe](/articles/antigravity/image15.png)
 
-   * 第二次添加：再次点击"添加"和"浏览"，深入根目录文件夹，选中语言服务进程：`Antigravity\resources\app\extensions\antigravity\bin\language_server_windows_x64.exe`。
+   * 第二次添加：再次点击"添加"和"浏览"，按您使用的版本选择语言服务进程：
+     * **Antigravity IDE**：选择 `Antigravity\resources\app\extensions\antigravity\bin\language_server_windows_x64.exe`。例如安装在 `E:\Antigravity` 时，完整路径通常是 `E:\Antigravity\resources\app\extensions\antigravity\bin\language_server_windows_x64.exe`。
+     * **Antigravity 2.0**：选择 `antigravity\resources\bin\language_server.exe`。默认安装时，完整路径通常是 `C:\Users\你的用户名\AppData\Local\Programs\antigravity\resources\bin\language_server.exe`。
 
    ![选中 language_server_windows_x64.exe](/articles/antigravity/image16.png)
 
+   * 如果 ProxyBridge 支持添加多个规则，建议把主程序和对应的 `language_server` 都加入；如果仍然无法联网，再打开任务管理器观察 Antigravity 正在运行的子进程，把可疑的 `antigravity` / `language_server` 相关 `.exe` 一并加入规则。
    * 滑动到页面底部点击**保存**，配置即刻生效。
 
    ![点击"保存规则"](/articles/antigravity/image17.png)
 
 ---
 
-## 三、 账号登录与授权流程
+## 四、 账号登录与授权流程
 
-网络打通后，即可启动 Antigravity 进行授权。
+网络打通后，即可启动 Antigravity IDE 或 Antigravity 2.0 进行授权。两个版本的入口界面不同，但底层逻辑一致：先尝试标准浏览器授权，失败后再考虑 Cockpit Tools 注入。
 
-### 3.1 标准网页登录
+### 4.1 标准网页登录
 
-1. 直接运行 Antigravity 客户端。
+1. 直接运行当前使用的客户端：Antigravity IDE 或 Antigravity 2.0。
 2. 按照界面提示，软件会拉起您的默认浏览器。使用已开通服务的 Google 账号完成 OAuth 授权。
-3. 若跳转后提示成功，说明授权完毕，可直接跳至第四步。
+3. 若跳转后提示成功，说明授权完毕，可直接进入下一部分的验证与对话测试。
 
 *如果在此步骤页面无响应、反复报错，说明您的账号环境存在风控拦截，请立刻停止尝试，转用下方的 Cockpit Tools 辅助注入登录。*
 
-### 3.2 强制数据注入登录（Cockpit Tools 辅助方案）
+### 4.2 强制数据注入登录（Cockpit Tools 辅助方案）
 
 > 🛡️ **【技术原理解析：安全吗？会封号吗？】**
 > 当遇到地区限制或严苛的设备风控时，常规网页授权会被 Google 阻断。Cockpit Tools 的核心作用是在您的本地环境中提取合法的 Token（身份令牌）并直接注入到客户端中，跳过浏览器的跳转拦截。
-> 只要您是亲自在本地客户端正常使用，**这属于绝对安全的操作**，不会导致封禁。（真正导致封禁的行为通常是恶意"反代"——即将额度通过脚本高频转移给第三方工具使用）。
+> 只要您是亲自在本地客户端正常使用，**这属于本地授权辅助操作**，风险远低于将额度交给第三方服务器反代使用。（真正高危的行为通常是恶意"反代"——即将额度通过脚本高频转移给第三方工具使用）。
 
 1. **下载工具**：前往 [Cockpit Tools 开源页面](https://github.com/jlcodes99/cockpit-tools/releases)，点击 **Show all assets**，下载最新的 `.exe` 安装包。
 2. **安装说明**：因开源软件缺乏微软签名，浏览器或 Windows Defender 可能会提示"未知风险"。请在弹窗中点击"**更多信息**" -> "**仍要运行**"，一路 Next 完成安装。
@@ -154,7 +189,7 @@ Antigravity 的底层架构默认不会遵循 Windows 的系统代理规则（�
 
    ![Cockpit Tools 设置图标](/articles/antigravity/image18.png)
 
-4. **绑定账号**：在左侧导航栏找到 `Antigravity` 图标并点击，点击页面中央的"**添加账号**"按钮（或蓝色加号）。
+4. **绑定账号**：在左侧导航栏找到 `Antigravity` 图标并点击，点击页面中央的"**添加账号**"按钮（或蓝色加号）。如果 Cockpit Tools 后续区分 IDE / 2.0，请选择与您当前客户端一致的项目。
 
    ![点击左侧 Antigravity 图标](/articles/antigravity/image19.png)
 
@@ -168,19 +203,19 @@ Antigravity 的底层架构默认不会遵循 Windows 的系统代理规则（�
 
    ![点击账号卡片下方的播放按钮](/articles/antigravity/image22.png)
 
-7. 在弹出的路径确认窗口中，点击路径框右侧的"**刷新/选择**"图标，确认路径无误后点击"**保存**"。此时 Antigravity 会被自动唤醒或重启。
+7. 在弹出的路径确认窗口中，点击路径框右侧的"**刷新/选择**"图标，确认路径无误后点击"**保存**"。如果自动识别失败，请手动选择当前客户端的安装目录：Antigravity IDE 通常是旧版安装目录，例如 `E:\Antigravity`；Antigravity 2.0 通常是 `C:\Users\你的用户名\AppData\Local\Programs\antigravity`。此时 Antigravity 会被自动唤醒或重启。
 
    ![点击刷新图标自动检测路径](/articles/antigravity/image23.png)
 
    ![路径已填入，点击保存](/articles/antigravity/image24.png)
 
-8. 观察 Antigravity 界面右侧，如果成功加载出了**模型选择下拉框**，即代表底层数据注入成功。
+8. 观察客户端界面：Antigravity IDE 通常会在编辑器右侧或顶部加载出**模型选择下拉框**；Antigravity 2.0 则可能表现为项目/对话界面可以正常创建 Agent、加载模型或发送消息。只要账号状态能被识别并进入可对话状态，即代表底层数据注入成功。
 
    ![成功加载模型下拉框](/articles/antigravity/image25.png)
 
 ---
 
-## 四、 验证与开启对话
+## 五、 验证与开启对话
 
 为防止机器人滥用，首次使用模型时系统可能会要求过一次手机验证。
 
@@ -193,13 +228,13 @@ Antigravity 的底层架构默认不会遵循 Windows 的系统代理规则（�
 4. 国家代码下拉选择 `+86`，输入您的国内手机号接收短信验证码。
 5. 填入验证码后即可解锁全部功能。
    * *排错：如果提示"验证次数达上限"，说明该号码已被风控，请更换亲友号码。如果点击蓝色按钮直接报 `400` 错误，说明默认浏览器环境异常，请在电脑设置中临时将默认浏览器更改为您平时常用的 Chrome/Edge，并确保该浏览器处于登录该 Google 账号的状态。*
-6. **最终确认**：验证通过后，如果 AI 能够正常回复您的消息，恭喜您，所有配置已大功告成！
+6. **最终确认**：验证通过后，如果 AI 能够正常回复您的消息，恭喜您，所有配置已大功告成！Antigravity 2.0 的按钮位置和提示样式可能不同，但核心判断不变：能正常发送、能收到回复、模型或 Agent 状态不再报错。
 
 ---
 
-## 五、 附加功能：SSH 远程连接配置
+## 六、 附加功能：SSH 远程连接配置
 
-> ⚠️ **排雷提示**：Antigravity 内部的 SSH 功能目前处于早期阶段，极其不稳定，体验较差。如果不是刚需，建议直接忽略此步骤。
+> ⚠️ **排雷提示**：本节主要面向 Antigravity IDE。Antigravity 2.0 已经是新的独立 Agent 桌面应用，不再是传统 VS Code 风格 IDE；如果您使用的是 2.0，请优先使用其项目/权限/终端相关新功能，不要强行套用旧版扩展面板截图。如果不是刚需，建议直接忽略此步骤。
 
 如必须使用，遇到连接异常时请按以下步骤适配：
 
@@ -212,20 +247,31 @@ Antigravity 的底层架构默认不会遵循 Windows 的系统代理规则（�
 
 ---
 
-## 六、 常见故障排查 (FAQ)
+## 七、 常见故障排查 (FAQ)
+
+### Q0：为什么我打开的是 Antigravity 2.0，界面和教程截图完全不一样？
+
+* **原因**：Google 已经把产品拆分为 Antigravity 2.0、Antigravity IDE、CLI、SDK 等不同形态。2.0 是新的独立桌面应用，官方定位是 Agent 编排平台；原教程截图更接近 Antigravity IDE。
+* **解决**：网络和登录思路仍可参考本教程，但涉及扩展面板、SSH、VS Code 风格界面、旧版语言服务路径时，请确认自己是否需要改用 Antigravity IDE。若只使用 2.0，请重点参考 Tun 模式、ProxyBridge 的新版路径、账号登录与手机验证部分。
 
 ### Q1：消息发送后一直没反应，一直转圈？
 
 * **现象**：等了很久右下角的发送按钮还是灰色，无法接收回复。
 * **诊断**：100% 是网络配置问题，Antigravity 的流量没有走代理。
-* **解决**：请返回"第二章"，从头检查您的 Tun 模式是否真实生效，或者更换备选的插件/桥接方案。正常情况下，发送消息后几秒钟内，发送按钮应变为"带有红色方块的停止键"，代表网络已连通并在请求数据。
+* **解决**：请返回"第三章"，从头检查您的 Tun 模式是否真实生效，或者更换备选的插件/桥接方案。正常情况下，发送消息后几秒钟内，发送按钮应变为"带有红色方块的停止键"或进入生成状态，代表网络已连通并在请求数据。
 
 ### Q2：对话框能加载，但顶部一直显示不了模型？
 
 * **诊断**：多为多种网络方案混用导致的底层冲突。
 * **解决**：
-  1. 清除历史配置残留：比如您之前尝试过备选方案一，现在想换 Tun 模式，必须先进入根目录**删掉** `vension.dll`。
+  1. 清除历史配置残留：比如您之前尝试过备选方案一，现在想换 Tun 模式，必须先进入根目录**删掉** `vension.dll`。Antigravity 2.0 用户尤其不建议保留旧版补丁文件。
   2. 重启电脑：释放被占用的虚拟网卡或代理端口，然后认准一种方案重新配置。
+
+### Q2.5：ProxyBridge 里应该添加哪个 language_server？
+
+* **Antigravity IDE**：添加 `resources\app\extensions\antigravity\bin\language_server_windows_x64.exe`。
+* **Antigravity 2.0**：添加 `resources\bin\language_server.exe`。
+* **判断方法**：右键桌面或开始菜单快捷方式，选择"打开文件所在位置"，从当前实际安装目录往下找。不要把 IDE 的路径填给 2.0，也不要把 2.0 的路径填给 IDE。
 
 ### Q3：一发消息就报错，右下角弹出蓝色的 Retry 按钮？
 
