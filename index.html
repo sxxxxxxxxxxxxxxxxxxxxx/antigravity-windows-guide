@@ -888,7 +888,7 @@
     }
     .dashboard-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
       gap: 16px;
     }
     .dashboard-card {
@@ -919,14 +919,20 @@
     .dashboard-card-value-row {
       display: flex;
       justify-content: space-between;
-      align-items: center;
+      align-items: flex-start;
       gap: 8px;
+      min-width: 0;
     }
     .dashboard-card-value {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 700;
       color: #1e293b;
+      line-height: 1.55;
+      min-width: 0;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
     .dashboard-card-icon {
       font-size: 14px;
