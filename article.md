@@ -37,6 +37,8 @@ Google 更新后，Antigravity 已经不再只有一个客户端。请先确认�
 
 > **给老用户的重要提醒：** 如果您原来安装的是旧版 Antigravity，它更新后可能会变成 Antigravity 2.0；这是官方的新产品方向，不是安装包损坏。大多数想继续使用原来 VS Code 风格界面的用户，请安装或保留 **Antigravity IDE**。官方更新流程中可能会提示是否重新安装 IDE，建议需要旧界面的用户选择保留/安装 IDE。
 
+> 如果您想要原来 VS Code 那种编辑器界面，请下载 **Antigravity IDE**，不要只点官网页面最上面的 **Antigravity 2.0**。2.0 是新的独立桌面应用，不再是传统 IDE。
+
 官方下载入口：[https://antigravity.google/download](https://antigravity.google/download)。进入页面后不要只点最上面的 Antigravity 2.0，请向下找到 **Antigravity IDE** 区域，再选择 Windows 对应版本下载：
 
 * 普通 Intel / AMD 电脑：选择 **Windows - Download for x64**。
@@ -362,14 +364,21 @@ I'm using Gemini for work and I need to update my location to this US address: 2
 
 * **现象**：等了很久右下角的发送按钮还是灰色，无法接收回复。
 * **诊断**：100% 是网络配置问题，Antigravity 的流量没有走代理。
-* **解决**：请返回"第三章"，从头检查您的 Tun 模式是否真实生效，或者更换备选的插件/桥接方案。正常情况下，发送消息后几秒钟内，发送按钮应变为"带有红色方块的停止键"或进入生成状态，代表网络已连通并在请求数据。
+* **解决**：请按顺序处理：
+  1. 先切换一个干净稳定的代理节点，优先选择日本、新加坡等常用地区。
+  2. 返回"第三章"，从头检查 Tun 模式是否真实生效，或改用 ProxyBridge 重新接管主程序与 `language_server`。
+  3. 如果您当前使用的是 Antigravity 2.0，且反复无回复，可以换成 **Antigravity IDE** 试一次常规登录和对话。
+
+正常情况下，发送消息后几秒钟内，发送按钮应变为"带有红色方块的停止键"或进入生成状态，代表网络已连通并在请求数据。
 
 ### Q2：对话框能加载，但顶部一直显示不了模型？
 
 * **诊断**：多为多种网络方案混用导致的底层冲突。
 * **解决**：
-  1. 清除历史配置残留：比如您之前尝试过备选方案一，现在想换 Tun 模式，必须先进入根目录**删掉** `version.dll`。Antigravity 2.0 用户尤其不建议保留旧版补丁文件。
-  2. 重启电脑：释放被占用的虚拟网卡或代理端口，然后认准一种方案重新配置。
+  1. 先切换代理节点，确认不是当前节点质量差或被服务端拒绝。
+  2. 如果节点没问题，再换一种网络方案，例如从 Tun 切到 ProxyBridge，或从旧 `version.dll` 插件方案切回 Tun。
+  3. 换方案前必须清除历史配置残留：比如您之前尝试过备选方案一，现在想换 Tun 模式，必须先进入根目录**删掉** `version.dll`。Antigravity 2.0 用户尤其不建议保留旧版补丁文件。
+  4. 重启电脑：释放被占用的虚拟网卡或代理端口，然后认准一种方案重新配置。
 
 ### Q2.5：ProxyBridge 里应该添加哪个 language_server？
 
@@ -386,7 +395,7 @@ I'm using Gemini for work and I need to update my location to this US address: 2
 
 ### Q3：一发消息就报错，右下角弹出蓝色的 Retry 按钮？
 
-此报错较为综合，请按以下四大方向逐一排查：
+此报错较为综合，请按以下六大方向逐一排查：
 
 1. **Google 账号年龄限制（常见于新号）**：
    * 观察 Cockpit Tools，如果该账号右上角显示红色的 `unknown`，说明需验证年龄。
@@ -396,7 +405,14 @@ I'm using Gemini for work and I need to update my location to this US address: 2
 3. **Gmail 邮箱服务冲突**：
    * 现象：您之前的主账号可能不带 Gmail，后来误点一键开通了 Gmail 邮箱，导致关联错乱。
    * 解决：进入"管理您的 Google 账号" -> "数据和隐私设置" -> 下滑找到"移除不再使用的服务" -> 删掉关联的 Gmail。
-4. **触发最严风控**：
+4. **Retry 同时伴随 400 报错（节点或登录状态异常）**：
+   * 这通常代表当前代理节点被拒绝，或登录状态与网络状态不稳定。
+   * 先切换到其他可用地区节点（如日本、新加坡等），彻底退出 Antigravity 后重新登录，多试几次。
+   * 如果一直不行，通常说明订阅节点或代理软件质量不佳，建议更换订阅源或代理工具。
+5. **Tun 模式底层冲突**：
+   * 如果您当前使用 Tun，且模型加载、Retry、对话卡死反复出现，可以临时关闭 Tun，改用 ProxyBridge 或系统代理相关方案重新测试。
+   * 切换方案前请清理旧方案残留，尤其不要让 `version.dll`、Tun、ProxyBridge 多套方案同时叠加。
+6. **触发最严风控**：
    * 如果以上均排查无果，极大概率是该账号已被 Google AI 团队列入黑名单封禁。建议更换干净的新账号测试。
 
 ---
