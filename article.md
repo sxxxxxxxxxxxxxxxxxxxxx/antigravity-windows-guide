@@ -11,6 +11,16 @@ tags:
 image: /articles/antigravity/cover.png
 ---
 
+## 先看这里：三句话定位问题
+
+> 💡 **如果您只想要原来 VS Code 那种界面**：请下载 **Antigravity IDE**，不要只点官网页面最上面的 **Antigravity 2.0**。2.0 是新的独立桌面应用，界面和旧教程截图不是一回事。
+>
+> ⚠️ **如果登录没反应、模型刷不出来、发消息一直转圈**：优先判断为网络没有真正接管到 Antigravity，不要先反复注入账号。
+>
+> 🛑 **如果提示 `Sorry, this account is ineligible to use Antigravity`**：优先处理 Google 账号地区、年龄、订阅和资格问题，Cockpit Tools 不能保证绕过官方服务端校验。
+
+---
+
 ## 一、 环境配置与准备工作
 
 在正式使用 Antigravity IDE 或 Antigravity 2.0 前，请务必完成以下自检，这是保证软件正常运行的基石：
@@ -25,7 +35,7 @@ image: /articles/antigravity/cover.png
 
 ---
 
-## 二、版本识别：Antigravity IDE 与 Antigravity 2.0
+## 二、必看：先分清 Antigravity IDE 与 Antigravity 2.0
 
 Google 更新后，Antigravity 已经不再只有一个客户端。请先确认您正在使用的是哪一个版本，否则后面的路径和界面对不上，会直接影响排障判断。
 
@@ -57,7 +67,7 @@ Google 更新后，Antigravity 已经不再只有一个客户端。请先确认�
 
 ---
 
-## 三、 核心网络配置（必做，三选一）
+## 三、必做：核心网络配置（三选一）
 
 **📌 为什么必须要单独配置网络？**
 Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整遵循 Windows 的系统代理规则（常规代理软件无法稳定接管它们的流量）。如果不进行额外配置，软件会出现"无网络"、模型无法加载、消息一直转圈等问题。
@@ -175,6 +185,7 @@ v2rayN默认端口 (Port): 10808
    ![选中 language_server_windows_x64.exe](/articles/antigravity/image16.png)
 
    * 如果 ProxyBridge 支持添加多个规则，建议把主程序和对应的 `language_server` 都加入；如果仍然无法联网，再打开任务管理器观察 Antigravity 正在运行的子进程，把可疑的 `antigravity` / `language_server` 相关 `.exe` 一并加入规则。
+   * **不要误选 `webm_encoder.exe`**：新版 Antigravity 2.0 的 `resources\bin` 里可能会出现 `webm_encoder.exe`，它更像是官方用于录制/视频编码的辅助组件，不是 ProxyBridge 的主要代理目标。ProxyBridge 仍然优先添加主程序和对应的 `language_server.exe`。
    * 滑动到页面底部点击**保存**，配置即刻生效。
 
    ![点击"保存规则"](/articles/antigravity/image17.png)
@@ -304,14 +315,27 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 
 ---
 
-## 七、 常见故障排查 (FAQ)
+## 七、遇到问题先看这里：常见故障排查 (FAQ)
 
-### Q0：为什么我打开的是 Antigravity 2.0，界面和教程截图完全不一样？
+| 你看到的情况 | 优先判断 | 先看哪一段 |
+| --- | --- | --- |
+| 打开后不是 VS Code 那种界面 | 装成了 Antigravity 2.0，或旧版更新到了 2.0 | Q0 |
+| `Sorry, this account is ineligible to use Antigravity` | 账号地区/资格/年龄/订阅问题 | Q0.5 的账号没资格 |
+| `oauth2.googleapis.com/token`、`connectex`、连接超时 | 网络没真正走代理 | Q0.5 的 OAuth 网络失败 |
+| `There was an error with your authentication` | 本地授权状态或 Token 状态异常 | Q0.5 的认证错误 |
+| 点击登录后接近 1 分钟没反应 | 客户端请求超时，网络没接管 | Q1 |
+| 发消息一直转圈、按钮一直灰 | 网络未接管或节点不可用 | Q1 |
+| 模型列表/模型名称刷不出来 | 节点异常或多套网络方案冲突 | Q2 |
+| ProxyBridge 不知道选哪个文件 | IDE 和 2.0 的 `language_server` 路径不同 | Q2.5 |
+| 蓝色 `Retry`，同时有 `400` | 节点/地区/登录状态被拒绝 | Q3 |
+| 扩展市场搜不到插件 | 默认 Open VSX 源不稳定 | 第六章扩展市场 |
+
+### Q0：打开后不是 VS Code 界面，为什么和教程截图不一样？
 
 * **原因**：Google 已经把产品拆分为 Antigravity 2.0、Antigravity IDE、CLI、SDK 等不同形态。2.0 是新的独立桌面应用，官方定位是 Agent 编排平台；原教程截图更接近 Antigravity IDE。
 * **解决**：网络和登录思路仍可参考本教程，但涉及扩展面板、SSH、VS Code 风格界面、旧版语言服务路径时，请确认自己是否需要改用 Antigravity IDE。若只使用 2.0，请重点参考 Tun 模式、ProxyBridge 的新版路径、账号登录与手机验证部分。
 
-### Q0.5：登录时报错，应该先判断哪一类？
+### Q0.5：登录报错先按这三类判断
 
 现在 Antigravity 的登录校验比旧版更严格，不建议一看到失败就反复用 Cockpit Tools 注入。请先按截图判断类型：
 
@@ -360,7 +384,7 @@ I'm using Gemini for work and I need to update my location to this US address: 2
 
    处理建议：可以使用 Cockpit Tools 重新完成 OAuth 并写入本地状态。但新版官方仍可能继续检测账号资格、地区和 Token 状态，所以 Cockpit 只能作为本地授权辅助，不保证绕过官方服务端校验。
 
-### Q1：消息发送后一直没反应，一直转圈？
+### Q1：登录无反应 / 消息发送后一直转圈
 
 * **现象**：等了很久右下角的发送按钮还是灰色，无法接收回复。
 * **诊断**：100% 是网络配置问题，Antigravity 的流量没有走代理。
@@ -371,7 +395,7 @@ I'm using Gemini for work and I need to update my location to this US address: 2
 
 正常情况下，发送消息后几秒钟内，发送按钮应变为"带有红色方块的停止键"或进入生成状态，代表网络已连通并在请求数据。
 
-### Q2：对话框能加载，但顶部一直显示不了模型？
+### Q2：模型刷不出来 / 对话框能加载但无法选择模型
 
 * **诊断**：多为多种网络方案混用导致的底层冲突。
 * **解决**：
@@ -380,11 +404,12 @@ I'm using Gemini for work and I need to update my location to this US address: 2
   3. 换方案前必须清除历史配置残留：比如您之前尝试过备选方案一，现在想换 Tun 模式，必须先进入根目录**删掉** `version.dll`。Antigravity 2.0 用户尤其不建议保留旧版补丁文件。
   4. 重启电脑：释放被占用的虚拟网卡或代理端口，然后认准一种方案重新配置。
 
-### Q2.5：ProxyBridge 里应该添加哪个 language_server？
+### Q2.5：ProxyBridge 应该添加哪个 `language_server`？
 
 * **Antigravity IDE**：添加 `resources\app\extensions\antigravity\bin\language_server_windows_x64.exe`。
 * **Antigravity 2.0**：添加 `resources\bin\language_server.exe`。
 * **判断方法**：右键桌面或开始菜单快捷方式，选择"打开文件所在位置"，从当前实际安装目录往下找。不要把 IDE 的路径填给 2.0，也不要把 2.0 的路径填给 IDE。
+* **不要误选**：如果您在 Antigravity 2.0 的 `resources\bin` 里看到 `webm_encoder.exe`，一般不要把它当作 ProxyBridge 代理目标。它不是语言服务进程，优先选 `language_server.exe`。
 
 ### Q2.6：Cockpit Tools 更新后，路径应该怎么选？
 
@@ -393,7 +418,7 @@ I'm using Gemini for work and I need to update my location to this US address: 2
 * **排错重点**：需要旧版 VS Code 风格界面的用户，请确认路径指向 **Antigravity IDE**。如果路径是 `C:\Users\你的用户名\AppData\Local\Programs\antigravity`，这通常是 Antigravity 2.0，不适合按旧 IDE 教程截图操作。
 * **2FA 提示**：v0.24.0 也给 Codex OAuth 授权加入了 2FA 快速取码入口，但这是 Codex 相关能力；Antigravity 登录仍以本节的 Google OAuth 和客户端注入流程为准。
 
-### Q3：一发消息就报错，右下角弹出蓝色的 Retry 按钮？
+### Q3：蓝色 `Retry` / 一发消息就报错
 
 此报错较为综合，请按以下六大方向逐一排查：
 
