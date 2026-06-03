@@ -386,6 +386,16 @@
       display: block;
       margin: 0 auto;
     }
+    .article figure:has(img[src*="supported-regions"]) {
+      margin: 24px auto 30px;
+      max-width: 380px;
+    }
+    .article figure img[src*="supported-regions"] {
+      width: min(100%, 360px);
+      aspect-ratio: auto;
+      padding: 10px;
+      background: #ffffff;
+    }
     .article figcaption {
       text-align: center;
       color: var(--text-muted);
