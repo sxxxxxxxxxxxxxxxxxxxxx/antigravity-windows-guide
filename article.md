@@ -191,6 +191,8 @@ v2rayN默认端口 (Port): 10808
 
 *如果在此步骤页面无响应、反复报错，请先分清是网络未接管、账号地区资格不通过，还是本地授权状态异常。不要反复点登录，以免触发更严格的风控。*
 
+> 如果点击登录后长时间没有任何反应，通常不是账号问题，而是 Antigravity 客户端请求超时，说明网络还没有真正接管到软件流量。请先停止反复点击登录，回到第三章检查 Tun 是否开启、ProxyBridge 规则是否包含主程序与 `language_server`，以及代理端口是否填对（常见如 `7890`、`7897`）。
+
 ### 4.2 Cockpit Tools 本地授权辅助（状态注入方案）
 
 > 🛡️ **【技术原理解析：安全吗？会封号吗？】**
@@ -323,14 +325,14 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 
    1. 先打开 Google 条款页查看当前账号关联地区：https://policies.google.com/terms。页面底部通常会显示当前账号对应的国家/地区；如果显示的是中国大陆、中国香港、中国澳门等受限地区，就需要继续处理。
    2. 打开 Google 账号地区修改申请页：https://policies.google.com/country-association-form。
-   3. 将账号地区申请修改为 Antigravity 支持的地区，例如美国、日本、新加坡等。若原本已经是美国但仍提示地区不可用，可尝试改为其他常用节点所在地区。
+   3. 将账号地区申请修改为 Antigravity 支持的地区，例如日本、新加坡、英国、加拿大等。**不建议一上来申请美国**，美国地区审核通常更严格；除非您确实长期使用美国节点并有明确美国地址，否则优先选择平时最稳定、最常用的代理节点所在地区。
 
    ![Antigravity 支持地区参考](/articles/antigravity/supported-regions.jpg)
 
    4. 理由选择“其他”，说明自己因工作需要使用 Gemini / Antigravity，需要更新账号地区。
    5. 提交后等待邮件通知，通常需要约 24 小时。地区生效后再重新打开 Antigravity 测试登录。
 
-   可参考英文理由：
+   可参考英文理由（请把 `US address` 和地址替换成您实际申请的目标地区信息）：
 
 ```text
 I'm using Gemini for work and I need to update my location to this US address: 2792 Bascom Corner Road, Rising Sun, IN 47040
@@ -345,6 +347,8 @@ I'm using Gemini for work and I need to update my location to this US address: 2
    ![OAuth token 接口连接失败，通常是网络未接管](/articles/antigravity/auth-oauth-network-timeout.jpeg)
 
    处理建议：回到第三章检查 Tun 是否真的开启、代理节点是否可用、ProxyBridge 是否把主程序和对应 `language_server` 都加入规则。这个问题的重点是“网络没走上代理”，不是账号没资格。
+
+   如果表现为点击登录后等待接近 1 分钟仍没有任何反应，也按网络问题处理：先不要继续重试，优先回查第三章网络配置、端口号、代理软件开关和分流规则。
 
 3. **提示认证错误：再考虑 Cockpit 本地授权辅助**
 
