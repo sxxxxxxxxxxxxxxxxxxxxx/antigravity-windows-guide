@@ -316,6 +316,21 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 
    处理建议：先检查 Google 账号地区、付款资料地区、订阅状态和当前代理节点地区是否一致。此类问题目前不能再简单理解为“Cockpit 强制注入即可解决”；必要时只能调整地区环境或更换符合资格的账号。
 
+   如果报错里明确提示 `not currently available in your location`，可以按下面方式尝试修改 Google 账号注册地：
+
+   1. 打开 Google 账号地区修改申请页：https://policies.google.com/country-association-form。
+   2. 将账号地区申请修改为 Antigravity 支持的地区，例如美国、日本、新加坡等。若原本已经是美国但仍提示地区不可用，可尝试改为其他常用节点所在地区。
+   3. 理由选择“其他”，说明自己因工作需要使用 Gemini / Antigravity，需要更新账号地区。
+   4. 提交后等待邮件通知，通常需要约 24 小时。地区生效后再重新打开 Antigravity 测试登录。
+
+   可参考英文理由：
+
+```text
+I'm using Gemini for work and I need to update my location to this US address: 2792 Bascom Corner Road, Rising Sun, IN 47040
+```
+
+   注意：Google 账号地区修改通常一年只能申请一次，提交前请确认目标地区和你长期使用的代理节点地区尽量一致，不要频繁乱改。
+
 2. **提示 `oauth2.googleapis.com/token` 连接失败：优先修网络**
 
    如果报错里出现 `Post "https://oauth2.googleapis.com/token"`、`connectex`、`failed to respond`、`connection attempt failed`，说明客户端请求 Google OAuth token 接口时没有走通网络。
