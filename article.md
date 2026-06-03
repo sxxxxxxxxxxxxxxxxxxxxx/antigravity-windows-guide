@@ -316,7 +316,7 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 
    处理建议：先检查 Google 账号地区、付款资料地区、订阅状态和当前代理节点地区是否一致。此类问题目前不能再简单理解为“Cockpit 强制注入即可解决”；必要时只能调整地区环境或更换符合资格的账号。
 
-   如果报错里明确提示 `not currently available in your location`，可以按下面方式尝试修改 Google 账号注册地：
+   如果页面提示 `Sorry, this account is ineligible to use Antigravity`，并且下方显示 `Authentication failed`，可以按下面方式尝试修改 Google 账号注册地：
 
    1. 打开 Google 账号地区修改申请页：https://policies.google.com/country-association-form。
    2. 将账号地区申请修改为 Antigravity 支持的地区，例如美国、日本、新加坡等。若原本已经是美国但仍提示地区不可用，可尝试改为其他常用节点所在地区。
