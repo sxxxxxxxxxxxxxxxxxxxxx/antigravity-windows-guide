@@ -74,67 +74,11 @@ Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整�
 
 请根据您的实际情况，在以下三种方案中选择一种。**强烈建议直接使用"首选方案"**，仅在遇到冲突时再尝试进阶方案。
 
-### 🌟 首选方案：Tun 模式虚拟网卡（最稳定、最快捷）
+### 🔧 进阶备选一：ProxyBridge 桥接（底层系统代理）
 
-**原理简介**：Tun 模式会在您的电脑上创建一张"虚拟网卡"，强制接管所有软件的底层网络流量，完美解决 Antigravity 不走代理的问题。
+**适用场景**：适用于 Antigravity IDE 和 Antigravity 2.0，可按应用和后台进程设置代理规则。需注意该方案可能会被"火绒"等安全杀毒软件误拦截。
 
-1. **开启 Tun 模式**（以主流的 小猫Verge 为例）：
-   * 打开代理软件，找到并开启"**虚拟网卡模式（Tun模式）**"。
-   * **关闭**常规的"系统代理"。
-   * 路由规则请选择"**规则 (Rule)**"。
-   * *补充说明：如果您使用的是其他版本（如 X Pro），请寻找对应的"增强模式"或"服务模式"并开启。*
-2. **安装网卡依赖**：如果开启失败，通常是因为缺少虚拟网卡驱动。点击 Tun 模式旁边的"扳手/齿轮"图标，按照提示一键安装依赖。
-   * *排错技巧：如果下载依赖卡住，请先用其他方式翻墙后再试。如果有多个代理软件在后台运行，请务必全部退出，只保留一个，避免网卡冲突。*
-3. **连通性验证**：配置完成后，打开浏览器访问 Google 首页。如果能秒开，说明底层网络已接管成功，可以进入下一步登录。
-
----
-
-### 🔧 进阶备选一：Antigravity-Proxy 插件（局部代理）
-
-**适用场景**：主要适用于 Antigravity IDE 或旧版 VS Code 风格 Antigravity。由于电脑环境复杂（如存在安全软件拦截、企业内网限制）导致 Tun 模式无法使用时，可采用此插件方案。
-
-> 💡 **提示：** Antigravity 2.0 的内部结构已经变化，不建议优先使用 `version.dll` 这类旧版补丁方案。2.0 用户请优先使用 Tun 模式；Tun 无法使用时，再尝试 ProxyBridge。若您曾安装过此插件，后续出现启动极慢、空白或模型异常，请进入软件根目录删除 `version.dll` 文件，并切回其他方案。
-
-1. **前置网络设置**：打开您的代理软件，**关闭** Tun 模式，**开启**"系统代理"，路由同样选择"**规则**"。
-2. **下载核心插件**：访问开源仓库 [Antigravity-Proxy Releases](https://github.com/yuaotian/antigravity-proxy/releases)。
-3. 在页面的 **Assets** 区域，下载最新的压缩包（如 `antigravity-proxy-v1.8-win-x64.zip`）。
-
-   ![GitHub Assets 下载区域](/articles/antigravity/image1.png)
-
-4. **放置补丁文件**：解压后，将 `config.json` 和 `version.dll` 两个文件移动到 Antigravity 的安装根目录。
-   * *定位根目录捷径：在开始菜单或桌面上找到 Antigravity IDE 快捷方式 -> 右键选择"打开文件所在位置"。如果您打开后看到的是 Antigravity 2.0 的新目录，请不要强行套用本插件方案。*
-
-   ![解压出的 config.json 和 version.dll](/articles/antigravity/image2.png)
-
-   ![右键"打开文件所在位置"](/articles/antigravity/image3.png)
-
-   ![根目录下 config.json 所在位置](/articles/antigravity/image4.png)
-
-5. **修改代理端口**：用记事本打开刚放进去的 `config.json` 文件，定位到最下方的端口号（默认可能是 `7890`）。
-
-   ![config.json 内部 type/host/port 字段](/articles/antigravity/image5.png)
-
-   * **获取端口号方法**：右键点击 Windows 任务栏空白处 -> `任务栏设置` -> 搜索并进入 `代理服务器设置` -> 找到 `手动设置代理`，点击右侧的 `编辑`。弹窗中显示的端口数字即为您当前软件的代理端口。
-
-   ![Windows 系统代理设置查看端口](/articles/antigravity/image6.png)
-
-   * 将获取到的端口号填入 `config.json` 并保存。**注意：不要改动系统自身的代理设置，只改 json 文件。**
-   * *（如遇协议不兼容，可尝试将 `type` 后的 `socks5` 更改为 `http` 或 `https`）。*
-
-   常见代理软件默认端口极速复制：
-```copy-dashboard
-Clash默认端口 (Port): 7890
-Clash Verge默认端口 (Port): 7897
-v2rayN默认端口 (Port): 10808
-```
-
----
-
-### 🔧 进阶备选二：ProxyBridge 桥接（底层系统代理）
-
-**适用场景**：作为最后防线的备用方案，适用于 Antigravity IDE 和 Antigravity 2.0。需注意该方案可能会被"火绒"等安全杀毒软件误拦截。
-
-1. **前置网络设置**：同样需**关闭** Tun 模式，**开启**"系统代理"及"**规则**"模式。
+1. **前置网络设置**：需**关闭** Tun 模式，**开启**"系统代理"及"**规则**"模式。
 2. **下载桥接软件**：前往 [ProxyBridge Releases](https://github.com/InterceptSuite/ProxyBridge/releases)，在 Assets 处下载 `.exe` 结尾的安装包并完成安装。
 
    ![ProxyBridge Assets 下载截图](/articles/antigravity/image7.png)
@@ -149,7 +93,7 @@ v2rayN默认端口 (Port): 10808
    ![代理菜单（汉化后）](/articles/antigravity/image9.png)
 
    * IP 地址固定填写：`127.0.0.1`。
-   * 端口号：填写您代理软件的实际端口（获取方法参考备选方案一的步骤5）。
+   * 端口号：填写您代理软件的实际端口。常见端口为 Clash `7890`、Clash Verge `7897`、v2rayN `10808`；也可参考下方进阶备选二的步骤 5 查看系统代理端口。
 
    ![填写 127.0.0.1 及对应端口](/articles/antigravity/image10.png)
 
@@ -189,6 +133,62 @@ v2rayN默认端口 (Port): 10808
    * 滑动到页面底部点击**保存**，配置即刻生效。
 
    ![点击"保存规则"](/articles/antigravity/image17.png)
+
+---
+
+### 🌟 首选方案：Tun 模式虚拟网卡（最稳定、最快捷）
+
+**原理简介**：Tun 模式会在您的电脑上创建一张"虚拟网卡"，强制接管所有软件的底层网络流量，完美解决 Antigravity 不走代理的问题。
+
+1. **开启 Tun 模式**（以主流的 小猫Verge 为例）：
+   * 打开代理软件，找到并开启"**虚拟网卡模式（Tun模式）**"。
+   * **关闭**常规的"系统代理"。
+   * 路由规则请选择"**规则 (Rule)**"。
+   * *补充说明：如果您使用的是其他版本（如 X Pro），请寻找对应的"增强模式"或"服务模式"并开启。*
+2. **安装网卡依赖**：如果开启失败，通常是因为缺少虚拟网卡驱动。点击 Tun 模式旁边的"扳手/齿轮"图标，按照提示一键安装依赖。
+   * *排错技巧：如果下载依赖卡住，请先用其他方式翻墙后再试。如果有多个代理软件在后台运行，请务必全部退出，只保留一个，避免网卡冲突。*
+3. **连通性验证**：配置完成后，打开浏览器访问 Google 首页。如果能秒开，说明底层网络已接管成功，可以进入下一步登录。
+
+---
+
+### 🔧 进阶备选二：Antigravity-Proxy 插件（局部代理）
+
+**适用场景**：主要适用于 Antigravity IDE 或旧版 VS Code 风格 Antigravity。由于电脑环境复杂（如存在安全软件拦截、企业内网限制）导致 Tun 模式无法使用时，可采用此插件方案。
+
+> 💡 **提示：** Antigravity 2.0 的内部结构已经变化，不建议优先使用 `version.dll` 这类旧版补丁方案。2.0 用户请优先使用 Tun 模式；Tun 无法使用时，再尝试 ProxyBridge。若您曾安装过此插件，后续出现启动极慢、空白或模型异常，请进入软件根目录删除 `version.dll` 文件，并切回其他方案。
+
+1. **前置网络设置**：打开您的代理软件，**关闭** Tun 模式，**开启**"系统代理"，路由同样选择"**规则**"。
+2. **下载核心插件**：访问开源仓库 [Antigravity-Proxy Releases](https://github.com/yuaotian/antigravity-proxy/releases)。
+3. 在页面的 **Assets** 区域，下载最新的压缩包（如 `antigravity-proxy-v1.8-win-x64.zip`）。
+
+   ![GitHub Assets 下载区域](/articles/antigravity/image1.png)
+
+4. **放置补丁文件**：解压后，将 `config.json` 和 `version.dll` 两个文件移动到 Antigravity 的安装根目录。
+   * *定位根目录捷径：在开始菜单或桌面上找到 Antigravity IDE 快捷方式 -> 右键选择"打开文件所在位置"。如果您打开后看到的是 Antigravity 2.0 的新目录，请不要强行套用本插件方案。*
+
+   ![解压出的 config.json 和 version.dll](/articles/antigravity/image2.png)
+
+   ![右键"打开文件所在位置"](/articles/antigravity/image3.png)
+
+   ![根目录下 config.json 所在位置](/articles/antigravity/image4.png)
+
+5. **修改代理端口**：用记事本打开刚放进去的 `config.json` 文件，定位到最下方的端口号（默认可能是 `7890`）。
+
+   ![config.json 内部 type/host/port 字段](/articles/antigravity/image5.png)
+
+   * **获取端口号方法**：右键点击 Windows 任务栏空白处 -> `任务栏设置` -> 搜索并进入 `代理服务器设置` -> 找到 `手动设置代理`，点击右侧的 `编辑`。弹窗中显示的端口数字即为您当前软件的代理端口。
+
+   ![Windows 系统代理设置查看端口](/articles/antigravity/image6.png)
+
+   * 将获取到的端口号填入 `config.json` 并保存。**注意：不要改动系统自身的代理设置，只改 json 文件。**
+   * *（如遇协议不兼容，可尝试将 `type` 后的 `socks5` 更改为 `http` 或 `https`）。*
+
+   常见代理软件默认端口极速复制：
+```copy-dashboard
+Clash默认端口 (Port): 7890
+Clash Verge默认端口 (Port): 7897
+v2rayN默认端口 (Port): 10808
+```
 
 ---
 
@@ -423,7 +423,7 @@ Thank you for your understanding and support.
 * **解决**：
   1. 先切换代理节点，确认不是当前节点质量差或被服务端拒绝。
   2. 如果节点没问题，再换一种网络方案，例如从 Tun 切到 ProxyBridge，或从旧 `version.dll` 插件方案切回 Tun。
-  3. 换方案前必须清除历史配置残留：比如您之前尝试过备选方案一，现在想换 Tun 模式，必须先进入根目录**删掉** `version.dll`。Antigravity 2.0 用户尤其不建议保留旧版补丁文件。
+  3. 换方案前必须清除历史配置残留：比如您之前尝试过进阶备选二，现在想换 Tun 模式，必须先进入根目录**删掉** `version.dll`。Antigravity 2.0 用户尤其不建议保留旧版补丁文件。
   4. 重启电脑：释放被占用的虚拟网卡或代理端口，然后认准一种方案重新配置。
 
 ### Q2.5：ProxyBridge 应该添加哪个 `language_server`？
