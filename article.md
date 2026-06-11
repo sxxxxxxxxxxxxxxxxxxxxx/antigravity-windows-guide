@@ -264,9 +264,15 @@ v2rayN默认端口 (Port): 10808
 3. 点击该蓝色按钮，在弹出的页面中选择**第二个选项**。
 4. 国家代码下拉选择 `+86`，输入您的国内手机号接收短信验证码。
 5. 填入验证码后即可解锁全部功能。
-6. 如果页面只有二维码扫码入口，没有短信验证选项，或短信验证一直过不去，请准备一台安卓手机并开启代理，用 Chrome 浏览器或 Google App 搜索框右侧的扫码功能扫描二维码。扫码后通常会跳转到 Play 商店完成验证，不需要再发送短信。
-7. 如果点击蓝色验证按钮后直接报 `400` 或 `500`，通常说明弹出的默认浏览器没有登录当前这个 Google 账号。请把系统默认浏览器临时改成已登录该账号的 Chrome/Edge，或在弹出的浏览器里重新登录对应账号后再试。
-8. **最终确认**：验证通过后，如果 AI 能够正常回复您的消息，恭喜您，所有配置已大功告成！Antigravity 2.0 的按钮位置和提示样式可能不同，但核心判断不变：能正常发送、能收到回复、模型或 Agent 状态不再报错。
+6. **如果页面只出现二维码，没有短信选项**，请按下面的方式操作：
+   * 准备一台**安卓手机**，手机和电脑都保持网络稳定；手机端先开启可正常访问 Google 服务的代理网络。
+   * 手机上安装并登录 **Google App**。建议使用 Google App 自带的 **Google 智能镜头（Google Lens）**，不要直接使用微信或普通相机扫码。
+   * 打开 Google App，点击搜索框右侧的智能镜头图标，对准电脑验证页面上的二维码进行扫描。
+   * 识别后点击二维码对应的链接。页面通常会跳转到 Google Play 商店或 Google 的验证页面，按照提示继续并确认验证。
+   * 首次扫码通常即可通过；完成后回到电脑上的 Antigravity，等待页面自动刷新，必要时重新发送一次测试消息。
+7. **扫码后没有反应或反复出现二维码**：先确认安卓手机的 Google App 已登录正确的 Google 账号、Google Play 商店可以正常打开，并检查手机代理是否确实生效。二维码可能会自动刷新或过期，请扫描电脑页面上当前最新的二维码，不要继续扫描旧截图。
+8. 如果点击蓝色验证按钮后直接报 `400` 或 `500`，通常说明弹出的默认浏览器没有登录当前这个 Google 账号。请把系统默认浏览器临时改成已登录该账号的 Chrome/Edge，或在弹出的浏览器里重新登录对应账号后再试。
+9. **最终确认**：验证通过后，如果 AI 能够正常回复您的消息，恭喜您，所有配置已大功告成！Antigravity 2.0 的按钮位置和提示样式可能不同，但核心判断不变：能正常发送、能收到回复、模型或 Agent 状态不再报错。
 
 > 如果提示“验证次数达上限”，说明该号码已被风控，请更换亲友手机号。该手机号只用于一次性风控验证，不等于绑定账号。
 
@@ -358,10 +364,14 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
    4. 理由选择“其他”，说明自己因工作需要使用 Gemini / Antigravity，需要更新账号地区。
    5. 提交后等待邮件通知，通常需要约 24 小时。地区生效后再重新打开 Antigravity 测试登录。
 
-   可参考英文理由（请把 `US address` 和地址替换成您实际申请的目标地区信息）：
+   如果您确实因长期在美国居住、工作，并使用美国本地设备和付款方式，可以参考下面的英文说明。请按真实情况填写，不要提交虚假的居住、付款或地址信息：
 
 ```text
-I'm using Gemini for work and I need to update my location to this US address: 2792 Bascom Corner Road, Rising Sun, IN 47040
+Due to work arrangements, I am currently residing and working in the United States for an extended period. In order to better access local services (including payment methods, app downloads, and region-specific content), I would like to change my account region to the United States.
+
+I have stable internet access and regularly use devices within the U.S., and I also use local payment methods for transactions. Therefore, I kindly request to update my account region to the United States to ensure a smooth user experience.
+
+Thank you for your understanding and support.
 ```
 
    注意：Google 账号地区修改通常一年只能申请一次，提交前请确认目标地区和你长期使用的代理节点地区尽量一致，不要频繁乱改。
