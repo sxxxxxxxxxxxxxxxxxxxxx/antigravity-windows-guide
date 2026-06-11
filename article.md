@@ -267,8 +267,18 @@ v2rayN默认端口 (Port): 10808
 6. **如果页面只出现二维码，没有短信选项**，请按下面的方式操作：
    * 准备一台**安卓手机**，手机和电脑都保持网络稳定；手机端先开启可正常访问 Google 服务的代理网络。
    * 手机上安装并登录 **Google App**。建议使用 Google App 自带的 **Google 智能镜头（Google Lens）**，不要直接使用微信或普通相机扫码。
+   * 部分国产安卓系统还需要在系统设置中搜索并开启“Google 基础服务”或“谷歌基础服务管理”，否则 Google App / Google Play 可能无法正常完成验证。
+
+   ![安卓手机开启 Google 基础服务](/articles/antigravity/fatmouse/android-google-services.jpg)
+
    * 打开 Google App，点击搜索框右侧的智能镜头图标，对准电脑验证页面上的二维码进行扫描。
+
+   ![Google App 搜索框右侧的 Google 智能镜头入口](/articles/antigravity/fatmouse/android-google-lens.jpg)
+
    * 识别后点击二维码对应的链接。页面通常会跳转到 Google Play 商店或 Google 的验证页面，按照提示继续并确认验证。
+
+   ![安卓手机确认由本人发起验证并继续](/articles/antigravity/fatmouse/android-google-confirm.jpg)
+
    * 首次扫码通常即可通过；完成后回到电脑上的 Antigravity，等待页面自动刷新，必要时重新发送一次测试消息。
 7. **扫码后没有反应或反复出现二维码**：先确认安卓手机的 Google App 已登录正确的 Google 账号、Google Play 商店可以正常打开，并检查手机代理是否确实生效。二维码可能会自动刷新或过期，请扫描电脑页面上当前最新的二维码，不要继续扫描旧截图。
 8. 如果点击蓝色验证按钮后直接报 `400` 或 `500`，通常说明弹出的默认浏览器没有登录当前这个 Google 账号。请把系统默认浏览器临时改成已登录该账号的 Chrome/Edge，或在弹出的浏览器里重新登录对应账号后再试。
@@ -334,6 +344,8 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 | 模型列表/模型名称刷不出来 | 节点异常或多套网络方案冲突 | Q2 |
 | ProxyBridge 不知道选哪个文件 | IDE 和 2.0 的 `language_server` 路径不同 | Q2.5 |
 | 蓝色 `Retry`，同时有 `400` | 节点/地区/登录状态被拒绝 | Q3 |
+| 验证成功后仍反复出现 `Verify / Sign in again` | 年龄验证或客户端登录状态未刷新 | Q4 |
+| `daily-cloudcode`、`EOF`、`invalid_grant`、`context deadline exceeded` | 节点质量、OAuth 过期或请求超时 | Q5 |
 | 扩展市场搜不到插件 | 默认 Open VSX 源不稳定 | 第六章扩展市场 |
 
 ### Q0：打开后不是 VS Code 界面，为什么和教程截图不一样？
@@ -434,7 +446,11 @@ Thank you for your understanding and support.
 
 1. **Google 账号年龄限制（常见于新号）**：
    * 观察 Cockpit Tools，如果该账号右上角显示红色的 `unknown`，说明需验证年龄。
-   * 解决：浏览器访问 Google 账号年龄验证页面 https://myaccount.google.com/age-verification?utm_source=p0 完成认证。等待 5 分钟后刷新 Cockpit，变为 `free/pro/ultra` 后重新注入即可。
+   * 解决：浏览器访问 Google 账号年龄验证页面 https://myaccount.google.com/age-verification?utm_source=p0。页面可能提供证件、自拍或信用卡等验证方式，请根据页面当前提供的选项及自己的真实情况完成验证。
+
+   ![Google 账号年龄验证方式选择页面](/articles/antigravity/fatmouse/google-age-verification-options.jpg)
+
+   * 验证完成后等待几分钟，再刷新 Cockpit 或重新登录 Antigravity。不要提交虚假身份信息，也不要反复高频尝试。
 2. **多开/历史账号冲突**：
    * 之前如果用过其他辅助脚本登录，容易残留死链。请一律规范使用 Cockpit Tools 重新覆盖登录。
 3. **Gmail 邮箱服务冲突**：
@@ -449,6 +465,27 @@ Thank you for your understanding and support.
    * 切换方案前请清理旧方案残留，尤其不要让 `version.dll`、Tun、ProxyBridge 多套方案同时叠加。
 6. **触发最严风控**：
    * 如果以上均排查无果，极大概率是该账号已被 Google AI 团队列入黑名单封禁。建议更换干净的新账号测试。
+
+### Q4：验证成功后仍反复出现 `Verify / Sign in again`
+
+如果浏览器已经显示身份验证成功，但返回 Antigravity 后仍提示 `Further action is required`，或者点击 `Sign in again` 后再次回到 Verify 页面，请按下面顺序处理：
+
+![验证完成后需要重新登录 Antigravity 的界面](/articles/antigravity/fatmouse/verify-sign-in-again.jpg)
+
+1. 先确认 Google 账号的年龄验证已经真正完成，而不是只完成了二维码设备确认。
+2. 完全退出 Antigravity，包括任务管理器中的后台进程，再重新打开。
+3. 点击 `Sign in again` 或 `Continue with Google`，使用刚刚完成验证的同一个 Google 账号重新授权。
+4. 如果仍然循环，清理浏览器中错误账号的登录状态，确认默认浏览器登录的是目标账号，并等待几分钟后再试。
+5. 仍无法通过时，再使用 Cockpit Tools 重新完成一次 OAuth；Cockpit 只能刷新本地授权状态，不能替代官方年龄和地区资格校验。
+
+### Q5：出现 `daily-cloudcode`、`EOF`、`invalid_grant` 或请求超时
+
+![daily-cloudcode 接口返回 EOF 的报错示例](/articles/antigravity/fatmouse/daily-cloudcode-eof.jpg)
+
+* **`EOF`**：通常是请求中途断开，优先更换稳定节点，并确认 Tun / ProxyBridge 已真正接管客户端流量。
+* **`invalid_grant`**：通常表示 OAuth 授权已过期、被撤销或登录状态不一致。选择 `Continue with different account`，再用目标账号重新完成 Google OAuth。
+* **`context deadline exceeded`**：表示请求超时。先检查节点延迟和网络接管；不要只连续点击重试。
+* **其他 `daily-cloudcode` Unexpected issue**：先按网络问题处理，依次尝试更换节点、彻底退出客户端、确认只启用一套网络方案，再重新登录。
 
 ---
 
