@@ -63,7 +63,10 @@ Google 更新后，Antigravity 已经不再只有一个客户端。请先确认�
 | Antigravity IDE | `E:\Antigravity` 或您自定义的安装目录 | `resources\app\extensions\antigravity\bin\language_server_windows_x64.exe` |
 | Antigravity 2.0 | `C:\Users\你的用户名\AppData\Local\Programs\antigravity` | `resources\bin\language_server.exe` |
 
-如果不确定自己是哪一版，请看界面：有 VS Code 风格编辑器和扩展面板的，按 **Antigravity IDE**；新式独立 Agent 项目界面的，按 **Antigravity 2.0**。
+**👀 最简单的辨别方法：看颜色和界面！**
+如果不确定自己安装了哪个版本，请直接看软件默认界面：
+* ⬜ **如果是白色的**：那是新出的 **Antigravity 2.0**（新式独立 Agent 项目界面）。
+* ⬛ **如果是黑色的**：并且有 VS Code 风格编辑器和扩展面板，那就是 **Antigravity IDE**。
 
 ---
 
@@ -208,10 +211,9 @@ v2rayN默认端口 (Port): 10808
 
 ### 4.2 Cockpit Tools 本地授权辅助（状态注入方案）
 
-> 🛡️ **【技术原理解析：安全吗？会封号吗？】**
-> Cockpit Tools 的核心作用是在您的本地环境中完成 Google OAuth 授权，并把合法 Token（身份令牌）写入 Antigravity IDE 的本地状态，适合处理浏览器跳转失败、客户端状态错乱、授权写入失败等问题。
-> 但它不是万能强登工具：如果官方已经判定账号地区/资格不符合，或服务端继续二次校验失败，单纯注入 Token 也可能无法通过。
-> 只要您是亲自在本地客户端正常使用，**这属于本地授权辅助操作**，风险远低于将额度交给第三方服务器反代使用。（真正高危的行为通常是恶意"反代"——即将额度通过脚本高频转移给第三方工具使用）。
+> 🛡️ **【技术原理解析：Cockpit Tools 现在的定位】**
+> 目前 Google 官方风控严格，Cockpit Tools **不再是用来绕过“账号没资格”的强登工具**。如果官方判定您的账号地区、年龄或资格不符，强行注入 Token 也无法绕过服务端校验。
+> 目前它的核心实用价值在于**极其方便的多账号切换与管理**，以及处理浏览器跳转无响应、客户端状态错乱、授权写入失败等本地问题。只要您是亲自在本地客户端正常使用，这就属于本地授权辅助操作，非常安全。
 
 > 🔄 **新版工具说明：** Cockpit Tools v0.24.0 起已明确对齐官方 **Antigravity IDE** 客户端，会按官方重命名后的路径、用户数据目录、进程识别和 Language Server 元数据处理 IDE，并改为读写官方 `antigravityUnifiedStateSync.oauthToken` 状态。请务必下载最新版再操作。想沿用本教程原截图和 VS Code 风格界面的用户，优先选择 **Antigravity IDE**；不要把它和新的 Antigravity 2.0 混在一起操作。
 
@@ -252,20 +254,18 @@ v2rayN默认端口 (Port): 10808
 
 ---
 
-## 五、 验证与开启对话
+## 五、 防机器人人机验证（必做）
 
-为防止机器人滥用，首次使用模型时系统可能会要求过一次手机验证。
+为对抗机器批量滥用，系统会进行二次核验。**现在的验证流程已经改变：您不需要等进入软件发消息才验证，而是在登录授权阶段就会直接弹出验证要求。**
 
-1. 在对话框中随意输入一条测试消息并发送。
-2. 观察界面右下角，直到弹出一个带有蓝色按钮的提示框（**Complete verification**）。
+1. 登录时，如果网页直接弹出提示 `Further action is required to use Antigravity`，请点击界面上的 `Verify` 或 `Sign in again` 按钮。
+   
+   ![验证完成后需要重新登录 Antigravity 的界面](https://antigravity-macos-guide.sumeetsxiang.com/assets/antigravity/fatmouse/verify-sign-in-again.jpg)
 
-   ![弹出 Complete verification 提示框](/articles/antigravity/image26.png)
-
-3. 点击该蓝色按钮，在弹出的页面中选择**第二个选项**。
-4. 国家代码下拉选择 `+86`，输入您的国内手机号接收短信验证码。
-5. 填入验证码后即可解锁全部功能。
-6. **如果页面只出现二维码，没有短信选项**，请按下面的方式操作：
-   * 准备一台**安卓手机**，手机和电脑都保持网络稳定；手机端先开启可正常访问 Google 服务的代理网络。
+2. 页面通常会直接出现一个**二维码扫码界面**。（注：由于政策收紧，以前那种输入 +86 手机号收短信的方式已基本失效，请直接准备扫码验证）。
+3. **扫码验证核心操作步骤**：
+   * 准备一台**安卓手机**，**强烈推荐使用 Google Pixel、三星、小米等自带原生 Google 框架的手机**进行扫码，直接验证成功的概率极高！
+   * **环境一致性（关键）**：手机和电脑必须保持网络环境一致。建议手机和电脑连接**同一个美国节点（同一个 US IP）**，确保底层网络环境干净一致。
    * 手机上安装并登录 **Google App**。建议使用 Google App 自带的 **Google 智能镜头（Google Lens）**，不要直接使用微信或普通相机扫码。
    * 部分国产安卓系统还需要在系统设置中搜索并开启“Google 基础服务”或“谷歌基础服务管理”，否则 Google App / Google Play 可能无法正常完成验证。
 
@@ -280,6 +280,7 @@ v2rayN默认端口 (Port): 10808
    ![安卓手机确认由本人发起验证并继续](/articles/antigravity/fatmouse/android-google-confirm.jpg)
 
    * 首次扫码通常即可通过；完成后回到电脑上的 Antigravity，等待页面自动刷新，必要时重新发送一次测试消息。
+   * ⚠️ **【严重风控警告】**：如果扫码后没有反应或失败，**千万不要连续扫码超过十几次**！频繁扫码极易触发 Google 的风控机制，导致账号被锁定大约**七天甚至一个月**。在这期间“绝对没救”，只能耐心等待风控解除。
 7. **扫码后没有反应或反复出现二维码**：先确认安卓手机的 Google App 已登录正确的 Google 账号、Google Play 商店可以正常打开，并检查手机代理是否确实生效。二维码可能会自动刷新或过期，请扫描电脑页面上当前最新的二维码，不要继续扫描旧截图。
 8. 如果点击蓝色验证按钮后直接报 `400` 或 `500`，通常说明弹出的默认浏览器没有登录当前这个 Google 账号。请把系统默认浏览器临时改成已登录该账号的 Chrome/Edge，或在弹出的浏览器里重新登录对应账号后再试。
 9. **最终确认**：验证通过后，如果 AI 能够正常回复您的消息，恭喜您，所有配置已大功告成！Antigravity 2.0 的按钮位置和提示样式可能不同，但核心判断不变：能正常发送、能收到回复、模型或 Agent 状态不再报错。
@@ -359,11 +360,18 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 
 1. **提示账号没资格：优先处理地区/账号资格**
 
-   如果看到 `Sorry, this account is ineligible to use Antigravity`，这通常不是普通 Token 写入问题，而是账号资格、地区或官方准入校验没有通过。
+   如果看到 `Sorry, this account is ineligible to use Antigravity`，这通常不是普通 Token 写入问题，而是账号资格、地区、年龄认证或官方准入校验没有通过。
 
    ![账号无资格使用 Antigravity 的提示](/articles/antigravity/auth-ineligible-account.png)
 
-   处理建议：先检查 Google 账号地区、付款资料地区、订阅状态和当前代理节点地区是否一致。此类问题目前不能再简单理解为“Cockpit 强制注入即可解决”；必要时只能调整地区环境或更换符合资格的账号。
+   **处理建议 1：检查年龄认证**
+   有时候即使账号看似正常，也可能因为未完成年龄认证而报错。请优先访问 [https://myaccount.google.com/age-verification](https://myaccount.google.com/age-verification) 检查并完成年龄验证。
+   * **验证方式推荐**：强烈建议优先使用**人脸验证**。您可以直接使用电脑摄像头完成；如果电脑没有摄像头，请选择手机扫码验证（页面会出现一个二维码），然后使用**已开启代理（梯子）的手机**扫码并按提示完成验证。
+   * **备选验证方式**：您也可以选择上传**身份证/护照照片**进行验证。
+   * **避坑指南**：**不建议**使用银行卡/信用卡进行验证，因为部分国内卡片可能无法通过预授权，容易导致验证失败。
+
+   **处理建议 2：检查地区与资格**
+   先检查 Google 账号地区、付款资料地区、订阅状态和当前代理节点地区是否一致。此类问题目前不能再简单理解为“Cockpit 强制注入即可解决”；必要时只能调整地区环境或更换符合资格的账号。
 
    如果页面提示 `Sorry, this account is ineligible to use Antigravity`，并且下方显示 `Authentication failed`，可以按下面方式尝试修改 Google 账号注册地：
 
