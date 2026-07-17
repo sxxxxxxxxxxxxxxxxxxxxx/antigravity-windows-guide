@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Antigravity IDE / 2.0 Windows 终极网络配置与登录排障指南。" />
+  <link rel="preload" as="image" href="./assets/antigravity/auth-ineligible-account.png" fetchpriority="high" />
+  <link rel="preload" as="image" href="./assets/antigravity/auth-oauth-network-timeout.jpeg" fetchpriority="high" />
+  <link rel="preload" as="image" href="./assets/antigravity/fatmouse/verify-sign-in-again.jpg" fetchpriority="high" />
   <title>Antigravity IDE / 2.0 Windows 终极网络配置与登录排障指南</title>
   <style>
     :root {
@@ -241,6 +244,39 @@
       text-align: center;
       vertical-align: middle;
     }
+    .quick-triage {
+      content-visibility: visible;
+      contain: layout style;
+    }
+    .quick-triage td img {
+      background: #0f172a;
+      aspect-ratio: 16 / 10;
+      object-fit: contain;
+    }
+    /* 长文性能：屏外插图延后绘制（标题不启用，避免影响目录滚动定位） */
+    #article figure {
+      content-visibility: auto;
+      contain-intrinsic-size: 360px;
+    }
+    .article-loading {
+      color: var(--text-muted);
+      padding: 48px 0;
+      text-align: center;
+      font-weight: 600;
+    }
+    .article-loading::after {
+      content: "";
+      display: inline-block;
+      width: 1.1em;
+      height: 1.1em;
+      margin-left: 8px;
+      border: 2px solid #cbd5e1;
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      vertical-align: -0.15em;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
     .shell {
       display: grid;
       grid-template-columns: 260px minmax(0, 1fr);
@@ -1082,13 +1118,55 @@
   </style>
 </head>
 <body>
-  <header class="top"><a class="brand" href="#"><span class="mark"><img src="./assets/icons/antigravity-color.svg" alt="Antigravity"></span><span>Antigravity Guide</span></a><nav><a href="#content">阅读全文</a><a href="https://antigravity-macos-guide.sumeetsxiang.com/" target="_blank" rel="noreferrer">MacOS 指南</a></nav></header>
+  <header class="top"><a class="brand" href="#"><span class="mark"><img src="./assets/icons/antigravity-color.svg" alt="Antigravity" width="20" height="20" decoding="async"></span><span>Antigravity Guide</span></a><nav><a href="#content">阅读全文</a><a href="https://antigravity-macos-guide.sumeetsxiang.com/" target="_blank" rel="noreferrer">MacOS 指南</a></nav></header>
   <main>
-    <section class="hero"><div class="hero-inner"><div class="eyebrow">✦ Windows Setup Guide</div><h1 id="title">Antigravity IDE / 2.0 (Windows) 终极网络配置与登录排障指南</h1><p>面向 Windows 用户的 Antigravity IDE 与 Antigravity 2.0 网络配置与登录排障指南，覆盖版本识别、Tun 模式、ProxyBridge 路径分流、账号注入与验证流程。</p><div class="meta" id="meta"></div><div class="tags" id="tags"></div></div><button class="hero-support" type="button" onclick="openQrModal()" aria-label="查看售后群二维码"><span class="hero-support-text"><span class="hero-support-title">遇到问题先加售后群</span><span class="hero-support-desc">扫码进群，安装、路径、登录和验证问题都在群里处理。</span></span><img src="https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.webp" alt="售后群二维码"></button></section>
-    <section class="quick-triage-section" id="quick-triage-section" hidden>
-      <div class="quick-triage article" id="quick-triage"></div>
+    <section class="hero"><div class="hero-inner"><div class="eyebrow">✦ Windows Setup Guide</div><h1 id="title">Antigravity IDE / 2.0 (Windows) 终极网络配置与登录排障指南</h1><p>面向 Windows 用户的 Antigravity IDE 与 Antigravity 2.0 网络配置与登录排障指南，覆盖版本识别、Tun 模式、ProxyBridge 路径分流、账号注入与验证流程。</p><div class="meta" id="meta"></div><div class="tags" id="tags"></div></div><button class="hero-support" type="button" onclick="openQrModal()" aria-label="查看售后群二维码"><span class="hero-support-text"><span class="hero-support-title">遇到问题先加售后群</span><span class="hero-support-desc">扫码进群，安装、路径、登录和验证问题都在群里处理。</span></span><img src="https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.webp" alt="售后群二维码" width="180" height="252" loading="lazy" decoding="async"></button></section>
+    <!-- 对号入座：静态首屏，不依赖 article.md，打开即可显示 -->
+    <section class="quick-triage-section" id="quick-triage-section">
+      <div class="quick-triage article" id="quick-triage">
+        <h2>🚑 先看这里：遇到问题先看图对号入座</h2>
+        <p>目前大家遇到的绝大多数问题，都是下面这三种情况。<strong>请直接看图，遇到一模一样的报错，点击下方对应链接直接跳转到解决办法：</strong></p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>🛑 <strong>账号地区/资格不符</strong></th>
+                <th>⚠️ <strong>网络超时/未接管</strong></th>
+                <th>🛂 <strong>人机/年龄验证</strong></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><a href="#faq-auth-ineligible" class="inpage-link"><img src="./assets/antigravity/auth-ineligible-account.png" alt="账号没资格" width="220" height="140" loading="eager" fetchpriority="high" decoding="async"></a></td>
+                <td><a href="#network-config" class="inpage-link"><img src="./assets/antigravity/auth-oauth-network-timeout.jpeg" alt="网络超时" width="220" height="140" loading="eager" fetchpriority="high" decoding="async"></a></td>
+                <td><a href="#human-verify" class="inpage-link"><img src="./assets/antigravity/fatmouse/verify-sign-in-again.jpg" alt="人机验证" width="220" height="140" loading="eager" fetchpriority="high" decoding="async"></a></td>
+              </tr>
+              <tr>
+                <td><strong>Sorry, this account is ineligible</strong></td>
+                <td><strong>oauth2.googleapis.com 连接失败</strong></td>
+                <td><strong>Further action is required</strong></td>
+              </tr>
+              <tr>
+                <td><a href="#faq-auth-ineligible" class="inpage-link">👉 点击查看解决方案</a></td>
+                <td><a href="#network-config" class="inpage-link">👉 点击查看解决方案</a></td>
+                <td><a href="#human-verify" class="inpage-link">👉 点击查看扫码验证流程</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="alert-card alert-note">
+          <div class="alert-header">
+            <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.19.33-.42.44-.67.34-.76.77-1.7.77-2.83A4.3 4.3 0 0 0 12 6.25a4.3 4.3 0 0 0-4.3 4.25c0 1.13.43 2.07.77 2.83.11.25.26.48.44.67"></path></svg>
+            <span class="alert-title">其他常见排雷提示</span>
+          </div>
+          <div class="alert-content">
+            <p>• <strong>如果您只想要原来 VS Code 那种界面</strong>：请下载 <strong>Antigravity IDE</strong>，不要只点官网页面最上面的 <strong>Antigravity 2.0</strong>。</p>
+            <p>• <strong>如果发消息一直转圈、模型刷不出来</strong>：优先判断为网络没有真正接管到 Antigravity，不要先反复注入账号。</p>
+          </div>
+        </div>
+      </div>
     </section>
-    <div class="shell" id="content"><aside class="toc"><button class="toc-toggle" id="toc-toggle" type="button">目录 ▾</button><div class="toc-title">目录</div><ol id="toc"></ol></aside><article class="article" id="article">正在加载文章...</article></div>
+    <div class="shell" id="content"><aside class="toc"><button class="toc-toggle" id="toc-toggle" type="button">目录 ▾</button><div class="toc-title">目录</div><ol id="toc"></ol></aside><article class="article" id="article"><p class="article-loading">正在加载正文教程</p></article></div>
     <a class="float" href="#" aria-label="返回顶部">
       <svg class="progress-ring" width="48" height="48">
         <circle class="progress-ring-bg" stroke="var(--border)" stroke-width="2" fill="transparent" r="22" cx="24" cy="24" />
@@ -1103,7 +1181,7 @@
         <span>微信扫码加入交流群</span>
         <button class="qr-modal-close" type="button" onclick="closeQrModal()">×</button>
       </div>
-      <img id="qrModalImg" src="https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.webp" alt="交流群二维码放大图">
+      <img id="qrModalImg" src="" data-src="https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.webp" alt="交流群二维码放大图" decoding="async">
       <p id="qrModalTip" class="qr-modal-tip">请使用微信扫一扫加入交流群</p>
     </div>
   </div>
@@ -1115,8 +1193,9 @@
       const modalImg = document.getElementById("qrModalImg");
       const modalTitle = modal.querySelector(".qr-modal-head span");
       const modalTip = document.getElementById("qrModalTip");
-      
-      modalImg.src = src;
+      const fallback = modalImg.getAttribute("data-src") || "";
+      // 弹层图片按需加载，避免首屏抢带宽
+      modalImg.src = src || fallback;
       
       if (isQr) {
         modalContent.classList.remove("wide-modal");
@@ -1142,28 +1221,38 @@
     document.addEventListener("keydown", event => {
       if (event.key === "Escape") closeQrModal();
     });
+    // 事件委托：避免给几十张截图逐个 bind，降低主线程开销
     function setupImagePreview() {
-      document.querySelectorAll('.article img').forEach(img => {
-        // 表格里「对号入座」的图本身就是页内跳转链接，不要抢点击去放大
-        if (img.closest("a.inpage-link, a[href^='#']")) {
-          img.style.cursor = "pointer";
-          img.title = "点击查看对应解决方案";
-          return;
-        }
-        img.style.cursor = "zoom-in";
-        img.title = "点击查看大图";
-        
-        const decodedSrc = decodeURIComponent(img.src);
-        const isQr = decodedSrc.includes("售后群二维码") || img.alt.includes("二维码");
-        if (isQr) {
-          img.closest("figure")?.classList.add("qr-figure");
-          img.classList.add("qr-preview-card");
-        }
-        
-        img.addEventListener("click", () => {
-          openImageModal(img.src, img.alt, isQr);
-        });
+      const root = document.getElementById("content") || document;
+      if (root.dataset.imgPreviewBound === "1") return;
+      root.dataset.imgPreviewBound = "1";
+      root.addEventListener("click", e => {
+        const img = e.target.closest(".article img");
+        if (!img || img.closest("#quick-triage")) return;
+        if (img.closest("a.inpage-link, a[href^='#']")) return;
+        e.preventDefault();
+        const decodedSrc = decodeURIComponent(img.currentSrc || img.src || "");
+        const isQr = decodedSrc.includes("售后群二维码") || (img.alt || "").includes("二维码");
+        openImageModal(img.currentSrc || img.src, img.alt, isQr);
       });
+      // 懒增强：仅处理已进入视口附近的 figure 图
+      if ("IntersectionObserver" in window) {
+        const io = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const img = entry.target;
+            img.style.cursor = "zoom-in";
+            if (!img.title) img.title = "点击查看大图";
+            const decodedSrc = decodeURIComponent(img.currentSrc || img.src || "");
+            if (decodedSrc.includes("售后群二维码") || (img.alt || "").includes("二维码")) {
+              img.closest("figure")?.classList.add("qr-figure");
+              img.classList.add("qr-preview-card");
+            }
+            io.unobserve(img);
+          });
+        }, { rootMargin: "200px 0px" });
+        document.querySelectorAll("#article figure img").forEach(img => io.observe(img));
+      }
     }
     const escapeHtml = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
     const fixAsset = src => String(src || "").replace(/^\/articles\/antigravity/, "./assets/antigravity");
@@ -1180,7 +1269,7 @@
       // Markdown 图片
       t = t.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, src) => {
         const path = fixAsset(src.trim());
-        return keep(`<img src="${escapeHtml(path)}" alt="${escapeHtml(alt)}" loading="eager">`);
+        return keep(`<img src="${escapeHtml(path)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async">`);
       });
       // Markdown 链接：外链 + 页内锚点（支持 [![图](src)](#锚点) 这种嵌套）
       t = t.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, text, href) => {
@@ -1325,7 +1414,7 @@
         if(img){
           closeP();closeQ();closeL();
           const src=img[2].replace(/^\/articles\/antigravity/,"./assets/antigravity");
-          html+=`<figure><img src="${escapeHtml(src)}" alt="${escapeHtml(img[1])}" loading="eager"><figcaption>${escapeHtml(img[1])}</figcaption></figure>`;
+          html+=`<figure><img src="${escapeHtml(src)}" alt="${escapeHtml(img[1])}" loading="lazy" decoding="async"><figcaption>${escapeHtml(img[1])}</figcaption></figure>`;
           continue
         }
         const ul=/^\s*[-*]\s+(.+)$/.exec(line),ol=/^\s*\d+\.\s+(.+)$/.exec(line);
@@ -1367,179 +1456,173 @@
       }
       return {triage:triageLines.join("\n"),rest:restLines.join("\n")};
     }
-    fetch("./article.md").then(r=>r.text()).then(raw=>{
-      const {meta,body}=parseFrontmatter(raw);
-      const {triage,rest}=splitTriageSection(body);
-      const triageOut=triage?render(triage):{html:"",toc:[]};
-      const out=render(rest);
-      document.title=meta.title||document.title;
-      document.getElementById("title").textContent=meta.title;
-      document.getElementById("meta").innerHTML=`<span>${escapeHtml(meta.date)}</span><span>${platform}</span><span>${out.toc.filter(x=>x.level===2).length} 个章节</span>`;
-      document.getElementById("tags").innerHTML=meta.tags.map(t=>`<span>${escapeHtml(t)}</span>`).join("");
-      // 目录只收录正文教程章节，不收录页首对号入座
-      document.getElementById("toc").innerHTML=out.toc.map(x=>`<li class="${x.level===3?"sub":""}"><a href="#${x.id}">${escapeHtml(x.text)}</a></li>`).join("");
-      const triageSection=document.getElementById("quick-triage-section");
-      const triageBox=document.getElementById("quick-triage");
-      if(triageOut.html){
-        triageBox.innerHTML=triageOut.html;
-        triageSection.hidden=false;
-      }else{
-        triageBox.innerHTML="";
-        triageSection.hidden=true;
+    // —— 交互：尽早绑定页内跳转（静态首屏表格可立刻点）——
+    let pendingTarget=null,pendingTimers=[],pendingClearTimer=null;
+    const offsetTop=()=>(document.querySelector(".top")?.offsetHeight||0)+18;
+    const alignTo=el=>{const top=el.getBoundingClientRect().top+window.scrollY-offsetTop();window.scrollTo({top,behavior:"smooth"})};
+    const clearPending=()=>{pendingTarget=null;pendingTimers.forEach(clearTimeout);pendingTimers=[];if(pendingClearTimer){clearTimeout(pendingClearTimer);pendingClearTimer=null}};
+    const setPending=el=>{clearPending();pendingTarget=el;[120,400,1000,2200].forEach(ms=>pendingTimers.push(setTimeout(()=>{if(pendingTarget===el)alignTo(el)},ms)));pendingClearTimer=setTimeout(clearPending,3000)};
+    ["wheel","touchmove","keydown"].forEach(ev=>window.addEventListener(ev,clearPending,{passive:true}));
+
+    const tocAside=document.querySelector(".toc");
+    const tocBtn=document.getElementById("toc-toggle");
+    tocBtn.addEventListener("click",()=>{tocAside.classList.toggle("open");tocBtn.textContent=tocAside.classList.contains("open")?"目录 ▴":"目录 ▾"});
+
+    const scrollToHash = (href, fromToc=false) => {
+      if(!href || href.charAt(0)!=="#" || href.length<2) return false;
+      const raw=href.slice(1);
+      let el=document.getElementById(raw);
+      if(!el){ try{ el=document.getElementById(decodeURIComponent(raw)); }catch(_){} }
+      if(!el){ try{ el=document.getElementById(encodeURIComponent(raw)); }catch(_){} }
+      if(!el) return false;
+      history.replaceState(null,"",href);
+      if(fromToc && tocAside.classList.contains("open")){
+        tocAside.classList.remove("open");
+        tocBtn.textContent="目录 ▾";
       }
-      document.getElementById("article").innerHTML=out.html;
-      setupImagePreview();
-      let pendingTarget=null,pendingTimers=[],pendingClearTimer=null;
-      const offsetTop=()=>(document.querySelector(".top")?.offsetHeight||0)+18;
-      const alignTo=el=>{const top=el.getBoundingClientRect().top+window.scrollY-offsetTop();window.scrollTo({top,behavior:"smooth"})};
-      const clearPending=()=>{pendingTarget=null;pendingTimers.forEach(clearTimeout);pendingTimers=[];if(pendingClearTimer){clearTimeout(pendingClearTimer);pendingClearTimer=null}};
-      const setPending=el=>{clearPending();pendingTarget=el;[60,200,500,1000,2000,3500].forEach(ms=>pendingTimers.push(setTimeout(()=>{if(pendingTarget===el)alignTo(el)},ms)));pendingClearTimer=setTimeout(clearPending,5000)};
-      document.querySelectorAll(".article img").forEach(img=>{if(!img.complete)img.addEventListener("load",()=>{if(pendingTarget)alignTo(pendingTarget)},{once:true})});
-      ["wheel","touchmove","keydown"].forEach(ev=>window.addEventListener(ev,clearPending,{passive:true}));
-      
-      const tocAside=document.querySelector(".toc");
-      const tocBtn=document.getElementById("toc-toggle");
-      tocBtn.addEventListener("click",()=>{tocAside.classList.toggle("open");tocBtn.textContent=tocAside.classList.contains("open")?"目录 ▴":"目录 ▾"});
-      const scrollToHash = (href, fromToc=false) => {
-        if(!href || href.charAt(0)!=="#" || href.length<2) return false;
-        const raw=href.slice(1);
-        let el=document.getElementById(raw);
-        if(!el){
-          try{ el=document.getElementById(decodeURIComponent(raw)); }catch(_){}
+      alignTo(el);
+      setPending(el);
+      return true;
+    };
+
+    document.addEventListener("click", e => {
+      const link = e.target.closest('a[href^="#"]');
+      if (!link) return;
+      const href = link.getAttribute("href") || "";
+      if (href === "#" || href.length < 2) return;
+      const fromToc = !!link.closest(".toc");
+      if (scrollToHash(href, fromToc)) e.preventDefault();
+    });
+
+    window.showToast = function(text, type = 'success') {
+      let container = document.getElementById("toast-container");
+      if (!container) {
+        container = document.createElement("div");
+        container.id = "toast-container";
+        document.body.appendChild(container);
+      }
+      const toast = document.createElement("div");
+      toast.className = "toast " + type;
+      const icon = type === 'success'
+        ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>'
+        : '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>';
+      toast.innerHTML = icon + "<span>" + text + "</span>";
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.classList.add("exit");
+        toast.addEventListener("animationend", () => toast.remove());
+      }, 2000);
+    };
+
+    document.addEventListener("click", async e => {
+      const copyEl = e.target.closest(".clickable-copy");
+      if (copyEl) {
+        e.stopPropagation();
+        const text = copyEl.getAttribute("data-copy");
+        if (!text) return;
+        try {
+          await navigator.clipboard.writeText(text);
+          showToast("已成功复制到剪贴板！");
+        } catch (_) {
+          showToast("复制失败，请手动选择复制", "error");
         }
-        if(!el){
-          try{ el=document.getElementById(encodeURIComponent(raw)); }catch(_){}
+        return;
+      }
+      const btn = e.target.closest("button.copy");
+      if (!btn || !btn.closest("#article")) return;
+      e.preventDefault();
+      await navigator.clipboard.writeText(btn.nextElementSibling?.textContent || "");
+      btn.classList.add("copied");
+      const span = btn.querySelector("span");
+      const svg = btn.querySelector("svg");
+      if (span) span.textContent = "已复制";
+      if (svg) svg.innerHTML = '<polyline points="20 6 9 17 4 12"></polyline>';
+      setTimeout(() => {
+        btn.classList.remove("copied");
+        if (span) span.textContent = "复制";
+        if (svg) svg.innerHTML = '<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>';
+      }, 1200);
+    });
+
+    const circle = document.querySelector(".progress-ring-circle");
+    let circumference = 0;
+    if (circle) {
+      const radius = circle.r.baseVal.value;
+      circumference = 2 * Math.PI * radius;
+      circle.style.strokeDasharray = String(circumference);
+      circle.style.strokeDashoffset = String(circumference);
+    }
+    let headingElements = [];
+    let scrollTick = false;
+    const onScroll = () => {
+      if (scrollTick) return;
+      scrollTick = true;
+      requestAnimationFrame(() => {
+        scrollTick = false;
+        const scrollPosition = window.scrollY + 140;
+        let currentId = "";
+        for (let i = 0; i < headingElements.length; i++) {
+          const el = headingElements[i];
+          if (el.offsetTop <= scrollPosition) currentId = el.id;
+          else break;
         }
-        if(!el) return false;
-        history.replaceState(null,"",href);
-        if(fromToc && tocAside.classList.contains("open")){
-          tocAside.classList.remove("open");
-          tocBtn.textContent="目录 ▾";
+        document.querySelectorAll(".toc a").forEach(link => {
+          const active = currentId && link.getAttribute("href") === "#" + currentId;
+          link.classList.toggle("active", !!active);
+        });
+        const activeLink = document.querySelector(".toc a.active");
+        if (tocAside && activeLink) {
+          const linkTop = activeLink.offsetTop;
+          const linkBottom = linkTop + activeLink.offsetHeight;
+          const containerTop = tocAside.scrollTop;
+          const containerBottom = containerTop + tocAside.offsetHeight;
+          if (linkTop < containerTop) tocAside.scrollTop = linkTop - 20;
+          else if (linkBottom > containerBottom) tocAside.scrollTop = linkBottom - tocAside.offsetHeight + 20;
         }
-        alignTo(el);
-        setPending(el);
-        return true;
-      };
-      document.querySelectorAll(".toc a").forEach(link=>link.addEventListener("click",e=>{
-        e.preventDefault();
-        scrollToHash(link.getAttribute("href")||"", true);
-      }));
-      document.querySelectorAll('.article a[href^="#"]').forEach(link=>link.addEventListener("click",e=>{
-        if(scrollToHash(link.getAttribute("href")||"", false)) e.preventDefault();
-      }));
-      
-      // 全局 Toast 提示函数
-      window.showToast = function(text, type = 'success') {
-        let container = document.getElementById("toast-container");
-        if (!container) {
-          container = document.createElement("div");
-          container.id = "toast-container";
-          document.body.appendChild(container);
+        if (circle && circumference) {
+          const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+          if (totalHeight > 0) {
+            const progress = window.scrollY / totalHeight;
+            circle.style.strokeDashoffset = String(circumference - progress * circumference);
+          }
         }
-        const toast = document.createElement("div");
-        toast.className = `toast ${type}`;
-        const icon = type === 'success' 
-          ? `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`
-          : `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
-        toast.innerHTML = `${icon}<span>${text}</span>`;
-        container.appendChild(toast);
-        setTimeout(() => {
-          toast.classList.add("exit");
-          toast.addEventListener("animationend", () => toast.remove());
-        }, 2000);
-      };
- 
-      // 绑定行内及看板一键复制
-      document.querySelectorAll(".clickable-copy").forEach(el => {
-        el.addEventListener("click", async (e) => {
-          e.stopPropagation();
-          const text = el.getAttribute("data-copy");
-          if (!text) return;
+      });
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    const schedule = (fn) => {
+      if ("requestIdleCallback" in window) requestIdleCallback(fn, { timeout: 400 });
+      else setTimeout(fn, 0);
+    };
+
+    fetch("./article.md", { cache: "force-cache" }).then(r => {
+      if (!r.ok) throw new Error("article.md " + r.status);
+      return r.text();
+    }).then(raw => {
+      requestAnimationFrame(() => {
+        schedule(() => {
           try {
-            await navigator.clipboard.writeText(text);
-            showToast("已成功复制到剪贴板！");
-            
-            // 增加春意盎然的高亮微交互反馈
-            const originalBg = el.style.background;
-            const originalColor = el.style.color;
-            const originalBorderColor = el.style.borderColor;
-            
-            el.style.background = "#d1fae5";
-            el.style.color = "#065f46";
-            el.style.borderColor = "#6ee7b7";
-            
-            setTimeout(() => {
-              el.style.background = originalBg;
-              el.style.color = originalColor;
-              el.style.borderColor = originalBorderColor;
-            }, 800);
+            const { meta, body } = parseFrontmatter(raw);
+            const { rest } = splitTriageSection(body);
+            const out = render(rest);
+            document.title = meta.title || document.title;
+            if (meta.title) document.getElementById("title").textContent = meta.title;
+            document.getElementById("meta").innerHTML = "<span>" + escapeHtml(meta.date) + "</span><span>" + platform + "</span><span>" + out.toc.filter(x => x.level === 2).length + " 个章节</span>";
+            document.getElementById("tags").innerHTML = (meta.tags || []).map(t => "<span>" + escapeHtml(t) + "</span>").join("");
+            document.getElementById("toc").innerHTML = out.toc.map(x => '<li class="' + (x.level === 3 ? "sub" : "") + '"><a href="#' + x.id + '">' + escapeHtml(x.text) + "</a></li>").join("");
+            document.getElementById("article").innerHTML = out.html;
+            headingElements = Array.from(document.querySelectorAll("#article h2[id], #article h3[id]"));
+            setupImagePreview();
+            if (location.hash && location.hash.length > 1) scrollToHash(location.hash, false);
           } catch (err) {
-            showToast("复制失败，请手动复制", "error");
+            console.error(err);
+            document.getElementById("article").innerHTML = '<p class="article-loading" style="animation:none">正文加载失败，请刷新重试</p>';
           }
         });
       });
- 
-      document.querySelectorAll(".copy").forEach(btn=>btn.addEventListener("click",async()=>{
-        await navigator.clipboard.writeText(btn.nextElementSibling?.textContent||"");
-        btn.classList.add("copied");
-        btn.querySelector("span").textContent="已复制";
-        btn.querySelector("svg").innerHTML=`<polyline points="20 6 9 17 4 12"></polyline>`;
-        setTimeout(()=>{
-          btn.classList.remove("copied");
-          btn.querySelector("span").textContent="复制";
-          btn.querySelector("svg").innerHTML=`<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>`;
-        },1200);
-      }));
-      
-      // Add TOC scroll highlight listener
-      const headingElements = Array.from(document.querySelectorAll('.article h2, .article h3'));
-      const tocLinks = document.querySelectorAll('.toc a');
-      window.addEventListener('scroll', () => {
-        let currentId = '';
-        const scrollPosition = window.scrollY + 140; // offset for sticky header
-        headingElements.forEach(el => {
-          if (el.offsetTop <= scrollPosition) {
-            currentId = el.id;
-          }
-        });
-        tocLinks.forEach(link => {
-          link.classList.remove('active');
-          if (currentId && link.getAttribute('href') === '#' + currentId) {
-            link.classList.add('active');
-            
-            // Auto scroll TOC container
-            const tocContainer = document.querySelector('.toc');
-            const activeLink = document.querySelector('.toc a.active');
-            if(tocContainer && activeLink) {
-              const linkTop = activeLink.offsetTop;
-              const linkBottom = linkTop + activeLink.offsetHeight;
-              const containerTop = tocContainer.scrollTop;
-              const containerBottom = containerTop + tocContainer.offsetHeight;
-              
-              if (linkTop < containerTop) {
-                tocContainer.scrollTop = linkTop - 20;
-              } else if (linkBottom > containerBottom) {
-                tocContainer.scrollTop = linkBottom - tocContainer.offsetHeight + 20;
-              }
-            }
-          }
-        });
-      }, { passive: true });
-      
-      const circle = document.querySelector('.progress-ring-circle');
-      if (circle) {
-        const radius = circle.r.baseVal.value;
-        const circumference = 2 * Math.PI * radius;
-        circle.style.strokeDasharray = circumference;
-        circle.style.strokeDashoffset = circumference;
-        window.addEventListener('scroll', () => {
-          const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-          if (totalHeight <= 0) return;
-          const progress = window.scrollY / totalHeight;
-          const offset = circumference - (progress * circumference);
-          circle.style.strokeDashoffset = offset;
-        }, { passive: true });
-      }
+    }).catch(err => {
+      console.error(err);
+      document.getElementById("article").innerHTML = "<p>正文加载失败，请检查网络后刷新。</p>";
     });
   </script>
 </body>
