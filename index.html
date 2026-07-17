@@ -221,218 +221,37 @@
     }
     .quick-triage-section[hidden] { display: none !important; }
     .quick-triage {
-      position: relative;
-      overflow: hidden;
-      background:
-        radial-gradient(900px 280px at 0% 0%, rgba(37, 99, 235, 0.08), transparent 55%),
-        radial-gradient(700px 240px at 100% 0%, rgba(16, 185, 129, 0.08), transparent 50%),
-        var(--surface);
+      background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 24px;
+      border-radius: 20px;
       padding: clamp(22px, 3vw, 36px);
-      box-shadow: 0 16px 40px -18px rgba(15, 23, 42, 0.14);
+      box-shadow: 0 10px 30px -12px rgba(15, 23, 42, 0.08);
+    }
+    .quick-triage h2 {
+      margin-top: 0 !important;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: clamp(22px, 3vw, 28px);
+    }
+    .quick-triage .table-wrap {
+      margin: 20px 0 8px;
+    }
+    .quick-triage table th {
+      text-align: center;
+      background: #f1f5f9;
+    }
+    .quick-triage table td {
+      text-align: center;
+      vertical-align: middle;
+    }
+    .quick-triage {
       content-visibility: visible;
       contain: layout style;
     }
-    .quick-triage-head {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 14px 20px;
-      margin-bottom: 18px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid rgba(226, 232, 240, 0.9);
-    }
-    .quick-triage-kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin: 0 0 8px;
-      padding: 5px 12px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #eff6ff, #ecfdf5);
-      border: 1px solid #dbeafe;
-      color: #1d4ed8;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-    }
-    .quick-triage h2 {
-      margin: 0 !important;
-      padding: 0 !important;
-      border: 0 !important;
-      font-size: clamp(22px, 3vw, 28px);
-      line-height: 1.25;
-    }
-    .quick-triage-lead {
-      margin: 8px 0 0 !important;
-      max-width: 52rem;
-      color: var(--text-muted);
-      font-size: 15px;
-    }
-    .quick-triage-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: flex-end;
-    }
-    .qt-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: #fff;
-      border: 1px solid var(--border);
-      color: #334155;
-      font-size: 12px;
-      font-weight: 700;
-      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
-      white-space: nowrap;
-    }
-    .triage-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin: 8px 0 18px;
-    }
-    @media (max-width: 960px) {
-      .triage-grid { grid-template-columns: 1fr; }
-      .quick-triage-chips { justify-content: flex-start; }
-    }
-    .triage-card {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding: 14px;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.92);
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 8px 20px -12px rgba(15, 23, 42, 0.12);
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-      min-width: 0;
-    }
-    .triage-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 18px 34px -16px rgba(37, 99, 235, 0.22);
-    }
-    .triage-card.is-danger { border-top: 3px solid #ef4444; }
-    .triage-card.is-warn { border-top: 3px solid #f59e0b; }
-    .triage-card.is-info { border-top: 3px solid #3b82f6; }
-    .triage-card-top {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .triage-emoji {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      font-size: 20px;
-      flex-shrink: 0;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-    }
-    .triage-card.is-danger .triage-emoji { background: #fef2f2; border-color: #fecaca; }
-    .triage-card.is-warn .triage-emoji { background: #fffbeb; border-color: #fde68a; }
-    .triage-card.is-info .triage-emoji { background: #eff6ff; border-color: #bfdbfe; }
-    .triage-card-title {
-      margin: 0;
-      font-size: 15px;
-      font-weight: 800;
-      color: #0f172a;
-      line-height: 1.35;
-    }
-    .triage-card-sub {
-      margin: 2px 0 0;
-      font-size: 12px;
-      color: #64748b;
-      font-weight: 600;
-    }
-    .triage-card-error {
-      margin: 0;
-      padding: 10px 12px;
-      border-radius: 12px;
+    .quick-triage td img {
       background: #0f172a;
-      color: #e2e8f0;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 12px;
-      line-height: 1.45;
-      word-break: break-word;
-      min-height: 3.2em;
-    }
-    .triage-cta {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      margin-top: auto;
-      padding: 10px 12px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
-      color: #fff !important;
-      font-size: 13px;
-      font-weight: 800;
-      text-decoration: none !important;
-      border: 0 !important;
-      box-shadow: 0 8px 18px -10px rgba(37, 99, 235, 0.7);
-      transition: transform 0.15s ease, filter 0.15s ease;
-    }
-    .triage-cta:hover {
-      filter: brightness(1.05);
-      transform: translateY(-1px);
-      color: #fff !important;
-    }
-    .triage-card .triage-shot {
-      width: 100%;
-      max-width: none;
-    }
-    /* 正文标题小装饰 */
-    #article h2 {
-      position: relative;
-      padding-left: 14px;
-    }
-    #article h2::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 0.28em;
-      bottom: 0.28em;
-      width: 4px;
-      border-radius: 999px;
-      background: linear-gradient(180deg, #2563eb, #10b981);
-    }
-    .toc-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .toc-title::before {
-      content: "📑";
-      font-size: 15px;
-    }
-    .article table {
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 4px 14px -8px rgba(15, 23, 42, 0.12);
-    }
-    .article th {
-      background: linear-gradient(180deg, #f8fafc, #f1f5f9) !important;
-    }
-    .shell .toc a {
-      border-radius: 10px;
-      padding: 6px 10px;
-      margin: 0 -6px;
-    }
-    .shell .toc a:hover {
-      background: #eff6ff;
-    }
-    .shell .toc a.active {
-      background: #eff6ff;
-      box-shadow: inset 3px 0 0 #2563eb;
+      aspect-ratio: 16 / 10;
+      object-fit: contain;
     }
     /* 对号入座截图：悬浮提示 + 点击放大 */
     .triage-shot {
@@ -504,19 +323,9 @@
     }
     .article-loading {
       color: var(--text-muted);
-      padding: 56px 20px;
+      padding: 48px 0;
       text-align: center;
-      font-weight: 700;
-      border: 1px dashed #cbd5e1;
-      border-radius: 16px;
-      background: linear-gradient(180deg, #f8fafc, #fff);
-    }
-    .inpage-link:not(.triage-cta) {
-      border-bottom: 1px dashed rgba(37, 99, 235, 0.35);
-    }
-    .inpage-link:not(.triage-cta):hover {
-      background: #eff6ff;
-      border-radius: 4px;
+      font-weight: 600;
     }
     .article-loading::after {
       content: "";
@@ -1374,84 +1183,66 @@
 <body>
   <header class="top"><a class="brand" href="#"><span class="mark"><img src="./assets/icons/antigravity-color.svg" alt="Antigravity" width="20" height="20" decoding="async"></span><span>Antigravity Guide</span></a><nav><a href="#content">阅读全文</a><a href="https://antigravity-macos-guide.sumeetsxiang.com/" target="_blank" rel="noreferrer">MacOS 指南</a></nav></header>
   <main>
-    <section class="hero"><div class="hero-inner"><div class="eyebrow">✦ Windows Setup Guide · 网络 · 登录 · 排障</div><h1 id="title">Antigravity IDE / 2.0 (Windows) 终极网络配置与登录排障指南</h1><p>面向 Windows 用户的 Antigravity IDE 与 Antigravity 2.0 网络配置与登录排障指南，覆盖版本识别、Tun 模式、ProxyBridge 路径分流、账号注入与验证流程。</p><div class="meta" id="meta"></div><div class="tags" id="tags"></div></div><button class="hero-support" type="button" onclick="openQrModal()" aria-label="查看售后群二维码"><span class="hero-support-text"><span class="hero-support-title">💬 遇到问题先加售后群</span><span class="hero-support-desc">扫码进群，安装、路径、登录和验证问题都在群里处理。</span></span><img src="https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.webp" alt="售后群二维码" width="180" height="252" loading="lazy" decoding="async"></button></section>
+    <section class="hero"><div class="hero-inner"><div class="eyebrow">✦ Windows Setup Guide</div><h1 id="title">Antigravity IDE / 2.0 (Windows) 终极网络配置与登录排障指南</h1><p>面向 Windows 用户的 Antigravity IDE 与 Antigravity 2.0 网络配置与登录排障指南，覆盖版本识别、Tun 模式、ProxyBridge 路径分流、账号注入与验证流程。</p><div class="meta" id="meta"></div><div class="tags" id="tags"></div></div><button class="hero-support" type="button" onclick="openQrModal()" aria-label="查看售后群二维码"><span class="hero-support-text"><span class="hero-support-title">遇到问题先加售后群</span><span class="hero-support-desc">扫码进群，安装、路径、登录和验证问题都在群里处理。</span></span><img src="https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.webp" alt="售后群二维码" width="180" height="252" loading="lazy" decoding="async"></button></section>
     <!-- 对号入座：静态首屏，不依赖 article.md，打开即可显示 -->
     <section class="quick-triage-section" id="quick-triage-section">
       <div class="quick-triage article" id="quick-triage">
-        <div class="quick-triage-head">
-          <div>
-            <div class="quick-triage-kicker">🚑 急救入口 · 三图对号</div>
-            <h2>先看这里：遇到问题先看图对号入座</h2>
-            <p class="quick-triage-lead">目前绝大多数问题就这三类。<strong>点截图放大对照</strong>，<strong>点底部按钮直达解法</strong>。</p>
-          </div>
-          <div class="quick-triage-chips" aria-hidden="true">
-            <span class="qt-chip">🖼️ 点图放大</span>
-            <span class="qt-chip">🔗 点按钮跳转</span>
-            <span class="qt-chip">⚡ 3 秒定位</span>
-          </div>
+        <h2>🚑 先看这里：遇到问题先看图对号入座</h2>
+        <p>目前大家遇到的绝大多数问题，都是下面这三种报错。<strong>点图可放大对照；点下方蓝色链接跳到对应解决办法。</strong></p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>🛑 <strong>账号地区/资格不符</strong></th>
+                <th>⚠️ <strong>网络超时/未接管</strong></th>
+                <th>🛂 <strong>人机扫码验证</strong></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <button type="button" class="triage-shot" title="点击放大查看报错截图" aria-label="点击放大：账号没资格报错截图">
+                    <img src="./assets/antigravity/auth-ineligible-account.png" alt="账号没资格" width="220" height="140" loading="eager" fetchpriority="high" decoding="async">
+                    <span class="triage-shot-tip">🔍 点击放大</span>
+                  </button>
+                </td>
+                <td>
+                  <button type="button" class="triage-shot" title="点击放大查看报错截图" aria-label="点击放大：网络超时报错截图">
+                    <img src="./assets/antigravity/auth-oauth-network-timeout.jpeg" alt="网络超时" width="220" height="140" loading="eager" fetchpriority="high" decoding="async">
+                    <span class="triage-shot-tip">🔍 点击放大</span>
+                  </button>
+                </td>
+                <td>
+                  <button type="button" class="triage-shot" title="点击放大查看报错截图" aria-label="点击放大：人机验证报错截图">
+                    <img src="./assets/antigravity/fatmouse/verify-sign-in-again.jpg" alt="人机验证" width="220" height="140" loading="eager" fetchpriority="high" decoding="async">
+                    <span class="triage-shot-tip">🔍 点击放大</span>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>Sorry, this account is ineligible</strong></td>
+                <td><strong>oauth2.googleapis.com 连接失败</strong></td>
+                <td><strong>Further action is required</strong></td>
+              </tr>
+              <tr>
+                <td><a href="#faq-auth-ineligible" class="inpage-link">👉 点此处理资格/年龄/地区</a></td>
+                <td><a href="#network-config" class="inpage-link">👉 点此按第三章配置网络</a></td>
+                <td><a href="#human-verify" class="inpage-link">👉 点此查看扫码验证流程</a></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-
-        <div class="triage-grid">
-          <article class="triage-card is-danger">
-            <div class="triage-card-top">
-              <div class="triage-emoji">🛑</div>
-              <div>
-                <h3 class="triage-card-title">账号地区 / 资格不符</h3>
-                <p class="triage-card-sub">年龄 · 地区 · 订阅资格</p>
-              </div>
-            </div>
-            <button type="button" class="triage-shot" title="点击放大查看报错截图" aria-label="点击放大：账号没资格报错截图">
-              <img src="./assets/antigravity/auth-ineligible-account.png" alt="账号没资格" width="220" height="140" loading="eager" fetchpriority="high" decoding="async">
-              <span class="triage-shot-tip">🔍 点击放大</span>
-            </button>
-            <p class="triage-card-error">Sorry, this account is ineligible</p>
-            <a href="#faq-auth-ineligible" class="triage-cta inpage-link">👉 处理资格 / 年龄 / 地区</a>
-          </article>
-
-          <article class="triage-card is-warn">
-            <div class="triage-card-top">
-              <div class="triage-emoji">⚠️</div>
-              <div>
-                <h3 class="triage-card-title">网络超时 / 未接管</h3>
-                <p class="triage-card-sub">按第三章配置网络</p>
-              </div>
-            </div>
-            <button type="button" class="triage-shot" title="点击放大查看报错截图" aria-label="点击放大：网络超时报错截图">
-              <img src="./assets/antigravity/auth-oauth-network-timeout.jpeg" alt="网络超时" width="220" height="140" loading="eager" fetchpriority="high" decoding="async">
-              <span class="triage-shot-tip">🔍 点击放大</span>
-            </button>
-            <p class="triage-card-error">oauth2.googleapis.com 连接失败</p>
-            <a href="#network-config" class="triage-cta inpage-link">👉 去配置 Tun / 代理</a>
-          </article>
-
-          <article class="triage-card is-info">
-            <div class="triage-card-top">
-              <div class="triage-emoji">🛂</div>
-              <div>
-                <h3 class="triage-card-title">人机扫码验证</h3>
-                <p class="triage-card-sub">登录阶段就会弹出</p>
-              </div>
-            </div>
-            <button type="button" class="triage-shot" title="点击放大查看报错截图" aria-label="点击放大：人机验证报错截图">
-              <img src="./assets/antigravity/fatmouse/verify-sign-in-again.jpg" alt="人机验证" width="220" height="140" loading="eager" fetchpriority="high" decoding="async">
-              <span class="triage-shot-tip">🔍 点击放大</span>
-            </button>
-            <p class="triage-card-error">Further action is required</p>
-            <a href="#human-verify" class="triage-cta inpage-link">👉 查看扫码验证流程</a>
-          </article>
-        </div>
-
         <div class="alert-card alert-note">
           <div class="alert-header">
             <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.19.33-.42.44-.67.34-.76.77-1.7.77-2.83A4.3 4.3 0 0 0 12 6.25a4.3 4.3 0 0 0-4.3 4.25c0 1.13.43 2.07.77 2.83.11.25.26.48.44.67"></path></svg>
-            <span class="alert-title">💡 怎么对号（先看这几句）</span>
+            <span class="alert-title">怎么对号（先看这三句）</span>
           </div>
           <div class="alert-content">
-            <p>🛑 <strong>账号没资格</strong>：先查年龄认证、地区与订阅资格，不要先反复注入。</p>
-            <p>⚠️ <strong>oauth2 连接失败 / 网络超时</strong>：客户端没真正走通代理——请按 <a href="#network-config" class="inpage-link"><strong>第三章网络配置</strong></a> 处理（Tun / ProxyBridge 等）。</p>
-            <p>🛂 <strong>Further action / 扫码</strong>：登录阶段人机验证；年龄认证在「账号没资格」那条处理。</p>
-            <p>🚫 <strong>对话时报 <code>400</code> + <code>User location is not supported</code></strong>：出口地区不被支持，先换日/新等干净节点再重开客户端（详见 FAQ Q3）。</p>
-            <p>⬛⬜ 只要 VS Code 界面：下 <strong>Antigravity IDE</strong>；发消息一直转圈：优先当网络未接管。</p>
+            <p>• <strong>账号没资格</strong>：先查年龄认证、地区与订阅资格，不要先反复注入。</p>
+            <p>• <strong>oauth2 连接失败 / 网络超时</strong>：就是客户端没真正走通代理——请按 <a href="#network-config" class="inpage-link"><strong>第三章网络配置</strong></a> 处理（Tun / ProxyBridge 等）。</p>
+            <p>• <strong>Further action / 扫码</strong>：登录阶段人机验证，走扫码流程；年龄认证在「账号没资格」那条处理。</p>
+            <p>• <strong>对话时报 <code>400</code> 且含 <code>User location is not supported</code></strong>：出口地区不被支持，先换日/新等干净节点再重开客户端（详见 FAQ Q3）。</p>
+            <p>• 只要 VS Code 界面：下 <strong>Antigravity IDE</strong>；发消息一直转圈：优先当网络未接管。</p>
           </div>
         </div>
       </div>

@@ -33,7 +33,7 @@ image: /articles/antigravity/cover.png
 
 
 
-## 🛠️ 一、 环境配置与准备工作
+## 一、 环境配置与准备工作
 
 在正式使用 Antigravity IDE 或 Antigravity 2.0 前，请务必完成以下自检，这是保证软件正常运行的基石：
 
@@ -47,7 +47,7 @@ image: /articles/antigravity/cover.png
 
 ---
 
-## 👀 二、必看：先分清 Antigravity IDE 与 Antigravity 2.0
+## 二、必看：先分清 Antigravity IDE 与 Antigravity 2.0
 
 Google 更新后，Antigravity 已经不再只有一个客户端。请先确认您正在使用的是哪一个版本，否则后面的路径和界面对不上，会直接影响排障判断。
 
@@ -82,7 +82,7 @@ Google 更新后，Antigravity 已经不再只有一个客户端。请先确认�
 
 ---
 
-## 🌐 三、必做：核心网络配置（三选一） {#network-config}
+## 三、必做：核心网络配置（三选一） {#network-config}
 
 **📌 为什么必须要单独配置网络？**
 Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整遵循 Windows 的系统代理规则（常规代理软件无法稳定接管它们的流量）。如果不进行额外配置，软件会出现"无网络"、模型无法加载、消息一直转圈等问题。
@@ -207,7 +207,7 @@ v2rayN默认端口 (Port): 10808
 
 ---
 
-## 🔑 四、 账号登录与授权流程
+## 四、 账号登录与授权流程
 
 网络打通后，即可启动 Antigravity IDE 或 Antigravity 2.0 进行授权。两个版本的入口界面不同，但底层逻辑一致：先尝试标准浏览器授权，失败后再考虑 Cockpit Tools 本地授权辅助。
 
@@ -266,7 +266,7 @@ v2rayN默认端口 (Port): 10808
 
 ---
 
-## 🛂 五、 防机器人人机验证（必做） {#human-verify}
+## 五、 防机器人人机验证（必做） {#human-verify}
 
 为对抗机器批量滥用，系统会进行二次核验。**现在不会等您登录进去再发消息才验证：多数情况下，登录授权阶段就会直接弹出验证要求。**
 
@@ -309,7 +309,7 @@ v2rayN默认端口 (Port): 10808
 
 ---
 
-## 🧩 六、 附加功能：SSH 远程连接配置
+## 六、 附加功能：SSH 远程连接配置
 
 > ⚠️ **排雷提示**：本节主要面向 Antigravity IDE。Antigravity 2.0 已经是新的独立 Agent 桌面应用，不再是传统 VS Code 风格 IDE；如果您使用的是 2.0，请优先使用其项目/权限/终端相关新功能，不要强行套用旧版扩展面板截图。如果不是刚需，建议直接忽略此步骤。
 
@@ -352,7 +352,7 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 
 ---
 
-## 🧭 七、遇到问题先看这里：常见故障排查 (FAQ)
+## 七、遇到问题先看这里：常见故障排查 (FAQ)
 
 | 您看到的情况 | 优先判断 | 先看哪一段 |
 | --- | --- | --- |
@@ -555,7 +555,7 @@ Thank you for your understanding and support.
 
 ---
 
-## 💬 加入交流群
+## 加入交流群
 
 遇到问题欢迎扫码加入 AI IDE 交流群，与更多用户一起探讨：
 
