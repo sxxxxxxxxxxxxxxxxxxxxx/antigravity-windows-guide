@@ -253,6 +253,69 @@
       aspect-ratio: 16 / 10;
       object-fit: contain;
     }
+    /* 对号入座截图：悬浮提示 + 点击放大 */
+    .triage-shot {
+      position: relative;
+      display: inline-block;
+      max-width: 220px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0;
+      border: none;
+      background: transparent;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: zoom-in;
+      vertical-align: middle;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .triage-shot:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px -10px rgba(37, 99, 235, 0.35);
+    }
+    .triage-shot img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      transition: filter 0.2s ease;
+    }
+    .triage-shot:hover img {
+      filter: brightness(0.88);
+    }
+    .triage-shot-tip {
+      position: absolute;
+      left: 50%;
+      bottom: 12px;
+      transform: translateX(-50%) translateY(8px);
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.88);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      z-index: 2;
+    }
+    .triage-shot:hover .triage-shot-tip,
+    .triage-shot:focus-visible .triage-shot-tip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+    .triage-shot:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 3px;
+    }
     /* 长文性能：屏外插图延后绘制（标题不启用，避免影响目录滚动定位） */
     #article figure {
       content-visibility: auto;
@@ -1137,9 +1200,24 @@
             </thead>
             <tbody>
               <tr>
-                <td><a href="#faq-auth-ineligible" class="inpage-link"><img src="./assets/antigravity/auth-ineligible-account.png" alt="账号没资格" width="220" height="140" loading="eager" fetchpriority="high" decoding="async"></a></td>
-                <td><a href="#network-config" class="inpage-link"><img src="./assets/antigravity/auth-oauth-network-timeout.jpeg" alt="网络超时" width="220" height="140" loading="eager" fetchpriority="high" decoding="async"></a></td>
-                <td><a href="#human-verify" class="inpage-link"><img src="./assets/antigravity/fatmouse/verify-sign-in-again.jpg" alt="人机验证" width="220" height="140" loading="eager" fetchpriority="high" decoding="async"></a></td>
+                <td>
+                  <button type="button" class="triage-shot" title="点击放大查看报错截图" aria-label="点击放大：账号没资格报错截图">
+                    <img src="./assets/antigravity/auth-ineligible-account.png" alt="账号没资格" width="220" height="140" loading="eager" fetchpriority="high" decoding="async">
+                    <span class="triage-shot-tip">🔍 点击放大</span>
+                  </button>
+                </td>
+                <td>
+                  <button type="button" class="triage-shot" title="点击放大查看报错截图" aria-label="点击放大：网络超时报错截图">
+                    <img src="./assets/antigravity/auth-oauth-network-timeout.jpeg" alt="网络超时" width="220" height="140" loading="eager" fetchpriority="high" decoding="async">
+                    <span class="triage-shot-tip">🔍 点击放大</span>
+                  </button>
+                </td>
+                <td>
+                  <button type="button" class="triage-shot" title="点击放大查看报错截图" aria-label="点击放大：人机验证报错截图">
+                    <img src="./assets/antigravity/fatmouse/verify-sign-in-again.jpg" alt="人机验证" width="220" height="140" loading="eager" fetchpriority="high" decoding="async">
+                    <span class="triage-shot-tip">🔍 点击放大</span>
+                  </button>
+                </td>
               </tr>
               <tr>
                 <td><strong>Sorry, this account is ineligible</strong></td>
@@ -1221,28 +1299,48 @@
     document.addEventListener("keydown", event => {
       if (event.key === "Escape") closeQrModal();
     });
-    // 事件委托：避免给几十张截图逐个 bind，降低主线程开销
+    // 事件委托：首屏对号入座点击放大 + 正文截图预览
     function setupImagePreview() {
-      const root = document.getElementById("content") || document;
-      if (root.dataset.imgPreviewBound === "1") return;
-      root.dataset.imgPreviewBound = "1";
-      root.addEventListener("click", e => {
-        const img = e.target.closest(".article img");
-        if (!img || img.closest("#quick-triage")) return;
-        if (img.closest("a.inpage-link, a[href^='#']")) return;
+      if (document.documentElement.dataset.imgPreviewBound === "1") return;
+      document.documentElement.dataset.imgPreviewBound = "1";
+
+      document.addEventListener("click", e => {
+        // 1) 对号入座：点击放大
+        const shot = e.target.closest(".triage-shot");
+        if (shot) {
+          e.preventDefault();
+          const img = shot.querySelector("img");
+          if (!img) return;
+          openImageModal(img.currentSrc || img.src, img.alt || "报错截图", false);
+          return;
+        }
+        // 2) 正文教程图：点击放大（跳转链接内的图除外）
+        const img = e.target.closest("#article img, .article figure img");
+        if (!img) return;
+        if (img.closest("#quick-triage, a.inpage-link, a[href^='#']")) return;
         e.preventDefault();
         const decodedSrc = decodeURIComponent(img.currentSrc || img.src || "");
         const isQr = decodedSrc.includes("售后群二维码") || (img.alt || "").includes("二维码");
         openImageModal(img.currentSrc || img.src, img.alt, isQr);
       });
-      // 懒增强：仅处理已进入视口附近的 figure 图
+
+      document.addEventListener("keydown", e => {
+        if (e.key !== "Enter" && e.key !== " ") return;
+        const shot = e.target.closest(".triage-shot");
+        if (!shot) return;
+        e.preventDefault();
+        const img = shot.querySelector("img");
+        if (img) openImageModal(img.currentSrc || img.src, img.alt || "报错截图", false);
+      });
+
+      // 懒增强：正文 figure 图进入视口后再加手型提示
       if ("IntersectionObserver" in window) {
         const io = new IntersectionObserver(entries => {
           entries.forEach(entry => {
             if (!entry.isIntersecting) return;
             const img = entry.target;
             img.style.cursor = "zoom-in";
-            if (!img.title) img.title = "点击查看大图";
+            if (!img.title) img.title = "点击放大查看";
             const decodedSrc = decodeURIComponent(img.currentSrc || img.src || "");
             if (decodedSrc.includes("售后群二维码") || (img.alt || "").includes("二维码")) {
               img.closest("figure")?.classList.add("qr-figure");
@@ -1251,9 +1349,16 @@
             io.unobserve(img);
           });
         }, { rootMargin: "200px 0px" });
-        document.querySelectorAll("#article figure img").forEach(img => io.observe(img));
+        const observeArticleImgs = () => {
+          document.querySelectorAll("#article figure img").forEach(img => io.observe(img));
+        };
+        observeArticleImgs();
+        // 正文异步渲染后可再次调用
+        window.__observeArticleImgs = observeArticleImgs;
       }
     }
+    // 首屏静态表格立刻可放大，不必等正文加载
+    setupImagePreview();
     const escapeHtml = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
     const fixAsset = src => String(src || "").replace(/^\/articles\/antigravity/, "./assets/antigravity");
     const inline = s => {
@@ -1613,6 +1718,7 @@
             document.getElementById("article").innerHTML = out.html;
             headingElements = Array.from(document.querySelectorAll("#article h2[id], #article h3[id]"));
             setupImagePreview();
+            if (typeof window.__observeArticleImgs === "function") window.__observeArticleImgs();
             if (location.hash && location.hash.length > 1) scrollToHash(location.hash, false);
           } catch (err) {
             console.error(err);
