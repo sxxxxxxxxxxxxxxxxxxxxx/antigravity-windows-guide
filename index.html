@@ -854,6 +854,33 @@
     }
     .alert-important .alert-header { color: #6d28d9; }
 
+    /* 严重警告：红底红边，方便用户一眼抓住 */
+    .alert-danger {
+      background-color: #fef2f2;
+      border-left-color: #dc2626;
+      border: 1px solid #fecaca;
+      border-left-width: 4px;
+      box-shadow: 0 6px 18px -10px rgba(220, 38, 38, 0.35);
+    }
+    .alert-danger .alert-header { color: #b91c1c; }
+    .alert-danger .alert-content p { color: #7f1d1d !important; }
+
+    /* 行内标红着重（Markdown 用 ==文字==） */
+    mark.hl-danger,
+    .hl-danger {
+      color: #b91c1c;
+      background: linear-gradient(180deg, #fee2e2, #fecaca);
+      padding: 0.08em 0.35em;
+      border-radius: 5px;
+      font-weight: 800;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+    .alert-danger mark.hl-danger {
+      background: #fff;
+      border: 1px solid #fca5a5;
+    }
+
     /* 2. 极客终端代码块三色圆点 */
     .article pre {
       padding-top: 40px !important; /* 顶部留出控制栏空间 */
@@ -1238,11 +1265,11 @@
             <span class="alert-title">怎么对号（先看这三句）</span>
           </div>
           <div class="alert-content">
-            <p>• <strong>账号没资格</strong>：先查年龄认证、地区与订阅资格，不要先反复注入。</p>
+            <p>• <strong>账号没资格</strong>：先查年龄认证、地区与订阅资格，<mark class="hl-danger">不要先反复注入</mark>。</p>
             <p>• <strong>oauth2 连接失败 / 网络超时</strong>：就是客户端没真正走通代理——请按 <a href="#network-config" class="inpage-link"><strong>第三章网络配置</strong></a> 处理（Tun / ProxyBridge 等）。</p>
-            <p>• <strong>Further action / 扫码</strong>：登录阶段人机验证，走扫码流程；年龄认证在「账号没资格」那条处理。</p>
-            <p>• <strong>对话时报 <code>400</code> 且含 <code>User location is not supported</code></strong>：出口地区不被支持，先换日/新等干净节点再重开客户端（详见 FAQ Q3）。</p>
-            <p>• 只要 VS Code 界面：下 <strong>Antigravity IDE</strong>；发消息一直转圈：优先当网络未接管。</p>
+            <p>• <strong>Further action / 扫码</strong>：登录阶段人机验证；年龄认证在「账号没资格」那条处理。<mark class="hl-danger">不要狂扫十几次</mark>。</p>
+            <p>• <strong>对话时报 <code>400</code> 且含 <code>User location is not supported</code></strong>：<mark class="hl-danger">出口地区不被支持</mark>，先换日/新等干净节点再重开客户端（详见 FAQ Q3）。</p>
+            <p>• 只要 VS Code 界面：下 <strong>Antigravity IDE</strong>；发消息一直转圈：优先当网络未接管，<mark class="hl-danger">不要先反复注入账号</mark>。</p>
           </div>
         </div>
       </div>
@@ -1379,6 +1406,8 @@
         const path = fixAsset(src.trim());
         return keep(`<img src="${escapeHtml(path)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async">`);
       });
+      // ==标红着重==（先于加粗，便于强调关键句）
+      t = t.replace(/==([^=\n]+)==/g, (_, text) => keep(`<mark class="hl-danger">${escapeHtml(text)}</mark>`));
       // Markdown 链接：外链 + 页内锚点（支持 [![图](src)](#锚点) 这种嵌套）
       t = t.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, text, href) => {
         const h = href.trim();
@@ -1410,7 +1439,11 @@
           let alertTitle = "";
           let iconSvg = "";
           
-          if (first.includes("⚠️")) {
+          if (first.includes("🚨") || first.includes("严重风控") || first.includes("严重警告")) {
+            alertType = "danger";
+            alertTitle = "严重警告";
+            iconSvg = `<svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
+          } else if (first.includes("⚠️")) {
             alertType = "warning";
             alertTitle = "警告 / 注意";
             iconSvg = `<svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>`;
@@ -1433,7 +1466,7 @@
           if (alertType) {
             let cleanFirst = first
               .replace(/\*\*/g, "")
-              .replace(/^[⚠️💡🛡️🔄📌\s\-:：]+/g, "")
+              .replace(/^[🚨⚠️💡🛡️🔄📌\s\-:：]+/g, "")
               .replace(/[:：]\s*$/g, "")
               .trim();
             if (cleanFirst.startsWith("【") && cleanFirst.endsWith("】")) {
@@ -1444,7 +1477,9 @@
             }
             let contentLines = quote.slice(1);
             if (contentLines.length === 0) {
-              alertTitle = first.includes("⚠️") ? "警告 / 注意" : (first.includes("💡") ? "提示 / 建议" : "重要说明");
+              alertTitle = first.includes("🚨") || first.includes("严重")
+                ? "严重警告"
+                : (first.includes("⚠️") ? "警告 / 注意" : (first.includes("💡") ? "提示 / 建议" : "重要说明"));
               contentLines = [cleanFirst || first];
             }
             html += `<div class="alert-card alert-${alertType}"><div class="alert-header">${iconSvg}<span class="alert-title">${alertTitle}</span></div><div class="alert-content">${contentLines.map(x=>`<p>${inline(x)}</p>`).join("")}</div></div>`;
