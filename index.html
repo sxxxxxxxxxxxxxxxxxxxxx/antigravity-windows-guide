@@ -210,6 +210,37 @@
       padding: 4px;
       box-sizing: border-box;
     }
+    /* 页首独立模块：对号入座（不进侧边目录，不跟正文目录章节混排） */
+    .quick-triage-section {
+      max-width: 1200px;
+      margin: 0 auto 28px;
+      padding: 0 clamp(20px, 5vw, 40px);
+    }
+    .quick-triage-section[hidden] { display: none !important; }
+    .quick-triage {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: clamp(22px, 3vw, 36px);
+      box-shadow: 0 10px 30px -12px rgba(15, 23, 42, 0.08);
+    }
+    .quick-triage h2 {
+      margin-top: 0 !important;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+      font-size: clamp(22px, 3vw, 28px);
+    }
+    .quick-triage .table-wrap {
+      margin: 20px 0 8px;
+    }
+    .quick-triage table th {
+      text-align: center;
+      background: #f1f5f9;
+    }
+    .quick-triage table td {
+      text-align: center;
+      vertical-align: middle;
+    }
     .shell {
       display: grid;
       grid-template-columns: 260px minmax(0, 1fr);
@@ -412,11 +443,33 @@
       border: 1px solid var(--border);
       text-align: left;
       font-size: 15px;
+      vertical-align: top;
     }
     .article th {
       background: #f8fafc;
       font-weight: 600;
       color: var(--text-main);
+    }
+    .article td img {
+      max-width: 220px;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      display: block;
+      margin: 4px auto;
+      cursor: zoom-in;
+    }
+    .article a.inpage-link {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .article a.inpage-link:hover {
+      text-decoration: underline;
+    }
+    .article h2[id], .article h3[id], .article a[id] {
+      scroll-margin-top: 88px;
     }
     .article hr {
       border: 0;
@@ -1032,6 +1085,9 @@
   <header class="top"><a class="brand" href="#"><span class="mark"><img src="./assets/icons/antigravity-color.svg" alt="Antigravity"></span><span>Antigravity Guide</span></a><nav><a href="#content">阅读全文</a><a href="https://antigravity-macos-guide.sumeetsxiang.com/" target="_blank" rel="noreferrer">MacOS 指南</a></nav></header>
   <main>
     <section class="hero"><div class="hero-inner"><div class="eyebrow">✦ Windows Setup Guide</div><h1 id="title">Antigravity IDE / 2.0 (Windows) 终极网络配置与登录排障指南</h1><p>面向 Windows 用户的 Antigravity IDE 与 Antigravity 2.0 网络配置与登录排障指南，覆盖版本识别、Tun 模式、ProxyBridge 路径分流、账号注入与验证流程。</p><div class="meta" id="meta"></div><div class="tags" id="tags"></div></div><button class="hero-support" type="button" onclick="openQrModal()" aria-label="查看售后群二维码"><span class="hero-support-text"><span class="hero-support-title">遇到问题先加售后群</span><span class="hero-support-desc">扫码进群，安装、路径、登录和验证问题都在群里处理。</span></span><img src="https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.webp" alt="售后群二维码"></button></section>
+    <section class="quick-triage-section" id="quick-triage-section" hidden>
+      <div class="quick-triage article" id="quick-triage"></div>
+    </section>
     <div class="shell" id="content"><aside class="toc"><button class="toc-toggle" id="toc-toggle" type="button">目录 ▾</button><div class="toc-title">目录</div><ol id="toc"></ol></aside><article class="article" id="article">正在加载文章...</article></div>
     <a class="float" href="#" aria-label="返回顶部">
       <svg class="progress-ring" width="48" height="48">
@@ -1088,6 +1144,12 @@
     });
     function setupImagePreview() {
       document.querySelectorAll('.article img').forEach(img => {
+        // 表格里「对号入座」的图本身就是页内跳转链接，不要抢点击去放大
+        if (img.closest("a.inpage-link, a[href^='#']")) {
+          img.style.cursor = "pointer";
+          img.title = "点击查看对应解决方案";
+          return;
+        }
         img.style.cursor = "zoom-in";
         img.title = "点击查看大图";
         
@@ -1104,7 +1166,40 @@
       });
     }
     const escapeHtml = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
-    const inline = s => escapeHtml(s).replace(/`([^`]+)`/g,'<code class="clickable-copy" data-copy="$1" title="点击复制">$1</code>').replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>").replace(/\*([^*]+)\*/g,"<em>$1</em>").replace(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g,'<a href="$2" target="_blank" rel="noreferrer">$1 ↗</a>').replace(/(?<!["'])(https?:\/\/[A-Za-z0-9_.\-~%/?&=+#]+)/g,'<a href="$1" target="_blank" rel="noreferrer">$1 ↗</a>');
+    const fixAsset = src => String(src || "").replace(/^\/articles\/antigravity/, "./assets/antigravity");
+    const inline = s => {
+      const tokens = [];
+      const keep = html => {
+        const i = tokens.length;
+        tokens.push(html);
+        return `\uE000${i}\uE001`;
+      };
+      let t = String(s ?? "");
+      // 允许表格/正文中的原生 <img> 直接渲染，并修正资源路径
+      t = t.replace(/<img\b[^>]*>/gi, m => keep(m.replace(/src=(["'])([^"']+)\1/i, (_, q, src) => `src=${q}${fixAsset(src)}${q}`)));
+      // Markdown 图片
+      t = t.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, src) => {
+        const path = fixAsset(src.trim());
+        return keep(`<img src="${escapeHtml(path)}" alt="${escapeHtml(alt)}" loading="eager">`);
+      });
+      // Markdown 链接：外链 + 页内锚点（支持 [![图](src)](#锚点) 这种嵌套）
+      t = t.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, text, href) => {
+        const h = href.trim();
+        const expanded = text.replace(/\uE000(\d+)\uE001/g, (__, i) => tokens[+i] || "");
+        const hasHtml = /</.test(expanded);
+        const body = hasHtml ? expanded : escapeHtml(expanded);
+        if (/^https?:\/\//i.test(h)) {
+          return keep(`<a href="${escapeHtml(h)}" target="_blank" rel="noreferrer">${body}${hasHtml ? "" : " ↗"}</a>`);
+        }
+        return keep(`<a href="${escapeHtml(h)}" class="inpage-link">${body}</a>`);
+      });
+      t = escapeHtml(t)
+        .replace(/`([^`]+)`/g,'<code class="clickable-copy" data-copy="$1" title="点击复制">$1</code>')
+        .replace(/\*\*([^*]+)\*\*/g,"<strong>$1</strong>")
+        .replace(/\*([^*]+)\*/g,"<em>$1</em>")
+        .replace(/(?<!["'])(https?:\/\/[A-Za-z0-9_.\-~%/?&=+#]+)/g,'<a href="$1" target="_blank" rel="noreferrer">$1 ↗</a>');
+      return t.replace(/\uE000(\d+)\uE001/g, (_, i) => tokens[+i] || "");
+    };
     const slug = text => encodeURIComponent(text.replace(/[\*`#]/g,"").trim().replace(/\s+/g,"-"));
     function parseFrontmatter(raw){const m=raw.match(/^---[\r\n]+([\s\S]*?)[\r\n]+---[\r\n]+([\s\S]*)$/);const meta={title:"",date:"",tags:[]};if(!m)return{meta,body:raw};const lines=m[1].split(/\r?\n/);for(let i=0;i<lines.length;i++){const idx=lines[i].indexOf(":");if(idx<0)continue;const k=lines[i].slice(0,idx).trim();const v=lines[i].slice(idx+1).trim().replace(/^['"]|['"]$/g,"");if(k==="title")meta.title=v;if(k==="date")meta.date=v;if(k==="tags"){for(let j=i+1;j<lines.length;j++){const t=lines[j].trim();if(t.startsWith("- "))meta.tags.push(t.slice(2).trim());else if(t)break;}}}return{meta,body:m[2].trim()};}
     function render(md){
@@ -1206,13 +1301,23 @@
         if(/^\|.*\|$/.test(line)){closeP();closeQ();closeL();table.push(line);continue}else closeT();
         if(!line.trim()){closeP();closeQ();closeL();continue}
         if(line==="---"){closeP();closeQ();closeL();html+="<hr>";continue}
+        // 允许正文里的空锚点 <a id="xxx"></a>，用于对号入座精确跳转
+        const bareAnchor=/^<a\s+id=["']([A-Za-z0-9\-_]+)["']\s*><\/a>\s*$/i.exec(line.trim());
+        if(bareAnchor){
+          closeP();closeQ();closeL();
+          html+=`<a id="${escapeHtml(bareAnchor[1])}"></a>`;
+          continue
+        }
         const h=/^(#{2,3})\s+(.+)$/.exec(line);
         if(h){
           closeP();closeQ();closeL();
-          const text=h[2].trim();
-          const id=idFor(text);
+          let text=h[2].trim();
+          let customId="";
+          const cm=text.match(/^(.*?)\s*\{#([A-Za-z0-9\-_]+)\}\s*$/);
+          if(cm){text=cm[1].trim();customId=cm[2];}
+          const id=customId||idFor(text);
           toc.push({level:h[1].length,text:text.replace(/[\*`]/g,""),id});
-          html+=`<h${h[1].length} id="${id}">${inline(text)}</h${h[1].length}>`;
+          html+=`<h${h[1].length} id="${escapeHtml(id)}">${inline(text)}</h${h[1].length}>`;
           continue
         }
         if(line.startsWith(">")){closeP();closeL();quote.push(line.replace(/^>\s?/,"").trim());continue}
@@ -1236,14 +1341,52 @@
       closeP();closeQ();closeL();closeT();
       return{html,toc}
     }
+    // 把「对号入座」从正文拆出，单独放在页首，不进侧边目录
+    function splitTriageSection(body){
+      const lines=String(body||"").split(/\r?\n/);
+      let start=-1;
+      for(let i=0;i<lines.length;i++){
+        if(/^##\s+/.test(lines[i]) && /对号入座|先看这里/.test(lines[i])){start=i;break}
+      }
+      if(start<0) return {triage:"",rest:body};
+      let end=lines.length;
+      for(let i=start+1;i<lines.length;i++){
+        if(/^##\s+/.test(lines[i])){end=i;break}
+      }
+      const triageLines=lines.slice(start,end);
+      while(triageLines.length){
+        const t=triageLines[triageLines.length-1].trim();
+        if(t===""||t==="---") triageLines.pop();
+        else break;
+      }
+      const restLines=lines.slice(0,start).concat(lines.slice(end));
+      while(restLines.length){
+        const t=restLines[0].trim();
+        if(t===""||t==="---") restLines.shift();
+        else break;
+      }
+      return {triage:triageLines.join("\n"),rest:restLines.join("\n")};
+    }
     fetch("./article.md").then(r=>r.text()).then(raw=>{
       const {meta,body}=parseFrontmatter(raw);
-      const out=render(body);
+      const {triage,rest}=splitTriageSection(body);
+      const triageOut=triage?render(triage):{html:"",toc:[]};
+      const out=render(rest);
       document.title=meta.title||document.title;
       document.getElementById("title").textContent=meta.title;
       document.getElementById("meta").innerHTML=`<span>${escapeHtml(meta.date)}</span><span>${platform}</span><span>${out.toc.filter(x=>x.level===2).length} 个章节</span>`;
       document.getElementById("tags").innerHTML=meta.tags.map(t=>`<span>${escapeHtml(t)}</span>`).join("");
+      // 目录只收录正文教程章节，不收录页首对号入座
       document.getElementById("toc").innerHTML=out.toc.map(x=>`<li class="${x.level===3?"sub":""}"><a href="#${x.id}">${escapeHtml(x.text)}</a></li>`).join("");
+      const triageSection=document.getElementById("quick-triage-section");
+      const triageBox=document.getElementById("quick-triage");
+      if(triageOut.html){
+        triageBox.innerHTML=triageOut.html;
+        triageSection.hidden=false;
+      }else{
+        triageBox.innerHTML="";
+        triageSection.hidden=true;
+      }
       document.getElementById("article").innerHTML=out.html;
       setupImagePreview();
       let pendingTarget=null,pendingTimers=[],pendingClearTimer=null;
@@ -1257,19 +1400,32 @@
       const tocAside=document.querySelector(".toc");
       const tocBtn=document.getElementById("toc-toggle");
       tocBtn.addEventListener("click",()=>{tocAside.classList.toggle("open");tocBtn.textContent=tocAside.classList.contains("open")?"目录 ▴":"目录 ▾"});
-      document.querySelectorAll(".toc a").forEach(link=>link.addEventListener("click",e=>{
-        e.preventDefault();
-        const href=link.getAttribute("href")||"";
-        const id=href.slice(1);
-        const el=document.getElementById(id);
-        if(!el)return;
+      const scrollToHash = (href, fromToc=false) => {
+        if(!href || href.charAt(0)!=="#" || href.length<2) return false;
+        const raw=href.slice(1);
+        let el=document.getElementById(raw);
+        if(!el){
+          try{ el=document.getElementById(decodeURIComponent(raw)); }catch(_){}
+        }
+        if(!el){
+          try{ el=document.getElementById(encodeURIComponent(raw)); }catch(_){}
+        }
+        if(!el) return false;
         history.replaceState(null,"",href);
-        if(tocAside.classList.contains("open")){
+        if(fromToc && tocAside.classList.contains("open")){
           tocAside.classList.remove("open");
           tocBtn.textContent="目录 ▾";
         }
         alignTo(el);
         setPending(el);
+        return true;
+      };
+      document.querySelectorAll(".toc a").forEach(link=>link.addEventListener("click",e=>{
+        e.preventDefault();
+        scrollToHash(link.getAttribute("href")||"", true);
+      }));
+      document.querySelectorAll('.article a[href^="#"]').forEach(link=>link.addEventListener("click",e=>{
+        if(scrollToHash(link.getAttribute("href")||"", false)) e.preventDefault();
       }));
       
       // 全局 Toast 提示函数

@@ -17,9 +17,9 @@ image: /articles/antigravity/cover.png
 
 | 🛑 **账号地区/资格不符** | ⚠️ **网络超时/未接管** | 🛂 **人机/年龄验证** |
 | :---: | :---: | :---: |
-| <img src="/articles/antigravity/auth-ineligible-account.png" width="220" style="border-radius:8px; border:1px solid #eee;"> | <img src="/articles/antigravity/auth-oauth-network-timeout.jpeg" width="220" style="border-radius:8px; border:1px solid #eee;"> | <img src="/articles/antigravity/fatmouse/verify-sign-in-again.jpg" width="220" style="border-radius:8px; border:1px solid #eee;"> |
+| [![账号没资格](/articles/antigravity/auth-ineligible-account.png)](#faq-auth-ineligible) | [![网络超时](/articles/antigravity/auth-oauth-network-timeout.jpeg)](#network-config) | [![人机验证](/articles/antigravity/fatmouse/verify-sign-in-again.jpg)](#human-verify) |
 | **Sorry, this account is ineligible** | **oauth2.googleapis.com 连接失败** | **Further action is required** |
-| [👉 点击查看解决方案](#q05登录报错先按这三类判断) | [👉 点击查看解决方案](#q05登录报错先按这三类判断) | [👉 点击查看扫码验证流程](#五-防机器人人机验证必做) |
+| [👉 点击查看解决方案](#faq-auth-ineligible) | [👉 点击查看解决方案](#network-config) | [👉 点击查看扫码验证流程](#human-verify) |
 
 > 💡 **其他常见排雷提示：**
 > * **如果您只想要原来 VS Code 那种界面**：请下载 **Antigravity IDE**，不要只点官网页面最上面的 **Antigravity 2.0**。
@@ -78,7 +78,7 @@ Google 更新后，Antigravity 已经不再只有一个客户端。请先确认�
 
 ---
 
-## 三、必做：核心网络配置（三选一）
+## 三、必做：核心网络配置（三选一） {#network-config}
 
 **📌 为什么必须要单独配置网络？**
 Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整遵循 Windows 的系统代理规则（常规代理软件无法稳定接管它们的流量）。如果不进行额外配置，软件会出现"无网络"、模型无法加载、消息一直转圈等问题。
@@ -262,7 +262,7 @@ v2rayN默认端口 (Port): 10808
 
 ---
 
-## 五、 防机器人人机验证（必做）
+## 五、 防机器人人机验证（必做） {#human-verify}
 
 为对抗机器批量滥用，系统会进行二次核验。**现在的验证流程已经改变：您不需要等进入软件发消息才验证，而是在登录授权阶段就会直接弹出验证要求。**
 
@@ -362,9 +362,11 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 * **原因**：Google 已经把产品拆分为 Antigravity 2.0、Antigravity IDE、CLI、SDK 等不同形态。2.0 是新的独立桌面应用，官方定位是 Agent 编排平台；原教程截图更接近 Antigravity IDE。
 * **解决**：网络和登录思路仍可参考本教程，但涉及扩展面板、SSH、VS Code 风格界面、旧版语言服务路径时，请确认自己是否需要改用 Antigravity IDE。若只使用 2.0，请重点参考 Tun 模式、ProxyBridge 的新版路径、账号登录与手机验证部分。
 
-### Q0.5：登录报错先按这三类判断
+### Q0.5：登录报错先按这三类判断 {#faq-auth-triage}
 
 现在 Antigravity 的登录校验比旧版更严格，不建议一看到失败就反复用 Cockpit Tools 注入。请先按截图判断类型：
+
+<a id="faq-auth-ineligible"></a>
 
 1. **提示账号没资格：优先处理地区/账号资格**
 
@@ -403,6 +405,8 @@ Thank you for your understanding and support.
 ```
 
    注意：Google 账号地区修改通常一年只能申请一次，提交前请确认目标地区和你长期使用的代理节点地区尽量一致，不要频繁乱改。
+
+<a id="faq-oauth-network"></a>
 
 2. **提示 `oauth2.googleapis.com/token` 连接失败：优先修网络**
 
