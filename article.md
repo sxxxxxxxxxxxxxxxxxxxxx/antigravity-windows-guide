@@ -11,15 +11,23 @@ tags:
 image: /articles/antigravity/cover.png
 ---
 
-## 先看这里：三句话定位问题
+## 🚑 先看这里：遇到问题先看图对号入座
 
-> 💡 **如果您只想要原来 VS Code 那种界面**：请下载 **Antigravity IDE**，不要只点官网页面最上面的 **Antigravity 2.0**。2.0 是新的独立桌面应用，界面和旧教程截图不是一回事。
->
-> ⚠️ **如果登录没反应、模型刷不出来、发消息一直转圈**：优先判断为网络没有真正接管到 Antigravity，不要先反复注入账号。
->
-> 🛑 **如果提示 `Sorry, this account is ineligible to use Antigravity`**：优先处理 Google 账号地区、年龄、订阅和资格问题，Cockpit Tools 不能保证绕过官方服务端校验。
+目前大家遇到的绝大多数问题，都是下面这三种情况。**请直接看图，遇到一模一样的报错，点击下方对应链接直接跳转到解决办法：**
+
+| 🛑 **账号地区/资格不符** | ⚠️ **网络超时/未接管** | 🛂 **人机/年龄验证** |
+| :---: | :---: | :---: |
+| <img src="/articles/antigravity/auth-ineligible-account.png" width="220" style="border-radius:8px; border:1px solid #eee;"> | <img src="/articles/antigravity/auth-oauth-network-timeout.jpeg" width="220" style="border-radius:8px; border:1px solid #eee;"> | <img src="/articles/antigravity/fatmouse/verify-sign-in-again.jpg" width="220" style="border-radius:8px; border:1px solid #eee;"> |
+| **Sorry, this account is ineligible** | **oauth2.googleapis.com 连接失败** | **Further action is required** |
+| [👉 点击查看解决方案](#q05登录报错先按这三类判断) | [👉 点击查看解决方案](#q05登录报错先按这三类判断) | [👉 点击查看扫码验证流程](#五-防机器人人机验证必做) |
+
+> 💡 **其他常见排雷提示：**
+> * **如果您只想要原来 VS Code 那种界面**：请下载 **Antigravity IDE**，不要只点官网页面最上面的 **Antigravity 2.0**。
+> * **如果发消息一直转圈、模型刷不出来**：优先判断为网络没有真正接管到 Antigravity，不要先反复注入账号。
 
 ---
+
+
 
 ## 一、 环境配置与准备工作
 
@@ -346,7 +354,7 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 | ProxyBridge 不知道选哪个文件 | IDE 和 2.0 的 `language_server` 路径不同 | Q2.5 |
 | 蓝色 `Retry`，同时有 `400` | 节点/地区/登录状态被拒绝 | Q3 |
 | 验证成功后仍反复出现 `Verify / Sign in again` | 年龄验证或客户端登录状态未刷新 | Q4 |
-| `daily-cloudcode`、`EOF`、`invalid_grant`、`context deadline exceeded` | 节点质量、OAuth 过期或请求超时 | Q5 |
+| 出现 There was an unexpected issue setting up your account. | 节点质量、OAuth 过期或请求超时 | Q5 |
 | 扩展市场搜不到插件 | 默认 Open VSX 源不稳定 | 第六章扩展市场 |
 
 ### Q0：打开后不是 VS Code 界面，为什么和教程截图不一样？
@@ -486,7 +494,7 @@ Thank you for your understanding and support.
 4. 如果仍然循环，清理浏览器中错误账号的登录状态，确认默认浏览器登录的是目标账号，并等待几分钟后再试。
 5. 仍无法通过时，再使用 Cockpit Tools 重新完成一次 OAuth；Cockpit 只能刷新本地授权状态，不能替代官方年龄和地区资格校验。
 
-### Q5：出现 `daily-cloudcode`、`EOF`、`invalid_grant` 或请求超时
+### Q5：出现 There was an unexpected issue setting up your account.
 
 ![daily-cloudcode 接口返回 EOF 的报错示例](/articles/antigravity/fatmouse/daily-cloudcode-eof.jpg)
 
