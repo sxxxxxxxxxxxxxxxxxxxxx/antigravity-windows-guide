@@ -20,7 +20,8 @@
       --radius: 16px;
     }
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    /* 长文+多图时 CSS smooth 会与 JS 跳转叠卡，目录跳转改用瞬时定位 */
+    html { scroll-behavior: auto; }
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -1924,22 +1925,26 @@
       }
       return {triage:triageLines.join("\n"),rest:restLines.join("\n")};
     }
-    // —— 交互：页内跳转（避免多次 smooth 重滚导致卡顿）——
+    // —— 交互：页内跳转（Win 长文多图：一律瞬时定位）——
     let pendingTarget = null, pendingTimers = [], pendingClearTimer = null;
     let isProgrammaticScroll = false;
     let programmaticTimer = null;
     let tocLinksCache = [];
     const offsetTop = () => (document.querySelector(".top")?.offsetHeight || 0) + 12;
-    const markProgrammatic = (ms = 500) => {
+    const markProgrammatic = (ms = 120) => {
       isProgrammaticScroll = true;
       clearTimeout(programmaticTimer);
       programmaticTimer = setTimeout(() => { isProgrammaticScroll = false; }, ms);
     };
-    const alignTo = (el, behavior = "smooth") => {
+    const alignTo = (el) => {
       if (!el) return;
+      const root = document.documentElement;
+      const prev = root.style.scrollBehavior;
+      root.style.scrollBehavior = "auto";
       const top = Math.max(0, el.getBoundingClientRect().top + window.scrollY - offsetTop());
-      markProgrammatic(behavior === "smooth" ? 700 : 80);
-      window.scrollTo({ top, behavior });
+      markProgrammatic(150);
+      window.scrollTo(0, top);
+      root.style.scrollBehavior = prev;
     };
     const clearPending = () => {
       pendingTarget = null;
@@ -1947,16 +1952,21 @@
       pendingTimers = [];
       if (pendingClearTimer) { clearTimeout(pendingClearTimer); pendingClearTimer = null; }
     };
-    // 仅在布局可能因懒加载图变化时，做一次瞬时校正（不再 4 次 smooth 连滚）
     const setPending = (el) => {
       clearPending();
+      const scope = document.getElementById("article") || document;
+      let hasPendingImg = false;
+      scope.querySelectorAll("img").forEach(img => {
+        if (!img.complete) hasPendingImg = true;
+      });
+      if (!hasPendingImg) return;
       pendingTarget = el;
       pendingTimers.push(setTimeout(() => {
         if (pendingTarget !== el) return;
         const drift = Math.abs(el.getBoundingClientRect().top - offsetTop());
-        if (drift > 16) alignTo(el, "auto");
-      }, 320));
-      pendingClearTimer = setTimeout(clearPending, 600);
+        if (drift > 24) alignTo(el);
+      }, 200));
+      pendingClearTimer = setTimeout(clearPending, 400);
     };
     ["wheel", "touchmove", "keydown"].forEach(ev => window.addEventListener(ev, () => {
       clearPending();
@@ -1982,16 +1992,19 @@
         tocAside.classList.remove("open");
         tocBtn.textContent = "目录 ▾";
       }
-      // 距离较远时 smooth 一次即可；过近用 auto 更干脆
-      const dist = Math.abs(el.getBoundingClientRect().top - offsetTop());
-      alignTo(el, dist > 80 ? "smooth" : "auto");
-      setPending(el);
+      const jump = () => {
+        alignTo(el);
+        setPending(el);
+      };
+      if (fromToc) requestAnimationFrame(() => requestAnimationFrame(jump));
+      else jump();
       return true;
     };
 
     document.addEventListener("click", e => {
       const link = e.target.closest('a[href^="#"]');
       if (!link) return;
+      if (link.classList.contains("float")) return;
       const href = link.getAttribute("href") || "";
       if (href === "#" || href.length < 2) return;
       const fromToc = !!link.closest(".toc");
@@ -2088,7 +2101,7 @@
             else if (linkBottom > containerBottom) tocAside.scrollTop = linkBottom - tocAside.offsetHeight + 20;
           }
         }
-        if (circle && circumference) {
+        if (!isProgrammaticScroll && circle && circumference) {
           const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
           if (totalHeight > 0) {
             const progress = window.scrollY / totalHeight;
@@ -2120,19 +2133,20 @@
             document.getElementById("tags").innerHTML = (meta.tags || []).map(t => "<span>" + escapeHtml(t) + "</span>").join("");
             document.getElementById("toc").innerHTML = out.toc.map(x => '<li class="' + (x.level === 3 ? "sub" : "") + '"><a href="#' + x.id + '">' + escapeHtml(x.text) + "</a></li>").join("");
             document.getElementById("article").innerHTML = out.html;
+            void document.getElementById("article").offsetHeight;
             headingElements = Array.from(document.querySelectorAll("#article h2[id], #article h3[id]"));
             tocLinksCache = Array.from(document.querySelectorAll(".toc a"));
             setupImagePreview();
-            // 延后挂图片观察，避免与首屏目录点击抢主线程
+            // Win 图更多：更晚挂观察器，避免首次点目录时抢主线程
             setTimeout(() => {
               if (typeof window.__observeArticleImgs === "function") window.__observeArticleImgs();
-            }, 800);
+            }, 1500);
             if (location.hash && location.hash.length > 1) {
               // 首屏带 hash：用瞬时定位，避免开场 smooth 卡顿
               requestAnimationFrame(() => {
                 const el = document.getElementById(location.hash.slice(1))
                   || (() => { try { return document.getElementById(decodeURIComponent(location.hash.slice(1))); } catch (_) { return null; } })();
-                if (el) alignTo(el, "auto");
+                if (el) alignTo(el);
               });
             }
           } catch (err) {
