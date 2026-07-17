@@ -25,6 +25,7 @@ image: /articles/antigravity/cover.png
 > * **账号没资格**：优先查年龄认证、地区与订阅资格（不是先反复注入）。
 > * **oauth2 连接失败 / 网络超时**：就是客户端没真正走通代理——请按 **第三章网络配置** 处理（Tun / ProxyBridge 等）。
 > * **Further action / 扫码验证**：登录阶段的人机验证，见扫码流程；**年龄认证**在「账号没资格」那一条处理。
+> * **对话时报 `400` 且提示 `User location is not supported for the API use.`**：出口地区不被支持，先换日/新等干净节点并重开客户端（见 FAQ **Q3**）。
 > * 只想要原来 VS Code 界面：下载 **Antigravity IDE**，不要只点官网最上面的 **Antigravity 2.0**。
 > * 发消息一直转圈、模型刷不出来：优先当网络未接管，不要先反复注入账号。
 
@@ -363,7 +364,8 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 | 发消息一直转圈、按钮一直灰 | 网络未接管或节点不可用 | Q1 |
 | 模型列表/模型名称刷不出来 | 节点异常或多套网络方案冲突 | Q2 |
 | ProxyBridge 不知道选哪个文件 | IDE 和 2.0 的 `language_server` 路径不同 | Q2.5 |
-| 蓝色 `Retry`，同时有 `400` | 节点/地区/登录状态被拒绝 | Q3 |
+| 蓝色 `Retry`，同时有 `400` | 先看报错正文再分流 | Q3 |
+| 报错里出现 `code: 400` 且含 `User location is not supported` | 当前出口地区/节点不被 API 支持 | **Q3（地区 400）** |
 | 验证成功后仍反复出现 `Verify / Sign in again` | 年龄验证或客户端登录状态未刷新 | Q4 |
 | 大字报错 `There was an unexpected issue setting up your account.` | 节点/登录状态/超时等综合问题 | Q5 |
 | 扩展市场搜不到插件 | 默认 Open VSX 源不稳定 | 第六章扩展市场 |
@@ -471,31 +473,59 @@ Thank you for your understanding and support.
 * **排错重点**：需要 VS Code 风格界面时，请确认路径指向 **Antigravity IDE**。如果路径是 `C:\Users\您的用户名\AppData\Local\Programs\antigravity`，这通常是 Antigravity 2.0，不要按旧 IDE 截图硬套。
 * **提醒**：部分版本附带 Codex 相关能力，与 Antigravity 登录不是一回事；Antigravity 仍以 Google OAuth + 本地授权辅助为准。
 
-### Q3：蓝色 `Retry` / 一发消息就报错
+### Q3：蓝色 `Retry` / 对话报错 / HTTP 400 {#faq-chat-400}
 
-此报错较为综合，请按以下六大方向逐一排查：
+对话时如果右下角或详情里出现报错，**先看两样东西就够定位大半：**
 
-1. **Google 账号年龄限制（常见于新号）**：
-   * 观察 Cockpit Tools，如果该账号右上角显示红色的 `unknown`，说明需验证年龄。
-   * 解决：浏览器访问 Google 账号年龄验证页面 https://myaccount.google.com/age-verification?utm_source=p0。页面可能提供证件、自拍或信用卡等验证方式，请根据页面当前提供的选项及自己的真实情况完成验证。
+1. **`code` 是多少**（常见是 `400`）
+2. **`message` / 英文说明写了什么**（不要只看 Trajectory ID、TraceID、Headers 这些一长串）
+
+<a id="faq-user-location-400"></a>
+
+#### 先认这种高频 400（地区不被支持）
+
+如果详情里类似下面这样（字段可能略有出入，认关键词即可）：
+
+* `HTTP 400 Bad Request` 或 `"code": 400`
+* `"message": "User location is not supported for the API use."`
+* `"status": "FAILED_PRECONDITION"`
+
+**含义：** 官方按您当前请求出口判断「所在地区不支持该 API」。多数是 **代理节点出口地区不对 / 节点被识别为不支持地区 / 出口不干净**，不一定是账号密码错了。
+
+**处理顺序（按这个做）：**
+1. **立刻换节点**：优先日本、新加坡、台湾、香港等常用且稳定的节点；避免大陆直连、避免来历不明的脏节点。
+2. 换节点后 **彻底退出 Antigravity（含后台进程）再打开**，重新发一条测试消息。
+3. 保持 **长期固定同一地区节点**，不要对话中途频繁跨国跳 IP（既容易 400，也容易触发账号风控）。
+4. 若换多个干净节点仍是同一句 `User location is not supported`：再回头查 **Google 账号地区/订阅资格**（见 Q0.5「账号没资格」），以及是否账号本身处于异常状态。
+5. **不要用 Cockpit 反复硬注入来“绕地区”**——Cockpit 解决不了服务端对 location 的校验。
+
+> 💡 一眼口诀：**看见 `400` + `User location is not supported` → 先换支持地区的干净节点，再重开客户端。**
+
+#### 其他导致 Retry / 发消息失败的常见原因
+
+若不是上面的 location 文案，再按下面排查：
+
+1. **Google 账号年龄限制（常见于新号）**
+   * Cockpit 里账号角标若出现红色 `unknown`，优先做年龄验证：https://myaccount.google.com/age-verification
+   * 建议人脸验证（电脑摄像头或手机扫码；手机需开代理）。证件照片可作备选；**不建议**用银行卡硬验。
 
    ![Google 账号年龄验证方式选择页面](/articles/antigravity/fatmouse/google-age-verification-options.jpg)
 
-   * 验证完成后等待几分钟，再刷新 Cockpit 或重新登录 Antigravity。不要提交虚假身份信息，也不要反复高频尝试。
-2. **多开/历史账号冲突**：
-   * 之前如果用过其他辅助脚本登录，容易残留死链。请一律规范使用 Cockpit Tools 重新覆盖登录。
-3. **Gmail 邮箱服务冲突**：
-   * 现象：您之前的主账号可能不带 Gmail，后来误点一键开通了 Gmail 邮箱，导致关联错乱。
-   * 解决：进入"管理您的 Google 账号" -> "数据和隐私设置" -> 下滑找到"移除不再使用的服务" -> 删掉关联的 Gmail。
-4. **Retry 同时伴随 400 报错（节点或登录状态异常）**：
-   * 这通常代表当前代理节点被拒绝，或登录状态与网络状态不稳定。
-   * 先切换到其他可用地区节点（如日本、新加坡等），彻底退出 Antigravity 后重新登录，多试几次。
-   * 如果一直不行，通常说明订阅节点或代理软件质量不佳，建议更换订阅源或代理工具。
-5. **Tun 模式底层冲突**：
-   * 如果您当前使用 Tun，且模型加载、Retry、对话卡死反复出现，可以临时关闭 Tun，改用 ProxyBridge 或系统代理相关方案重新测试。
-   * 切换方案前请清理旧方案残留，尤其不要让 `version.dll`、Tun、ProxyBridge 多套方案同时叠加。
-6. **触发最严风控**：
-   * 如果以上均排查无果，极大概率是该账号已被 Google AI 团队列入黑名单封禁。建议更换干净的新账号测试。
+2. **多开/历史登录残留**  
+   以前用过杂七杂八脚本时，请统一改回 Cockpit Tools 规范切号/重登。
+
+3. **Gmail 附属服务冲突（少见）**  
+   非 Gmail 主号后来又开通附属 Gmail，偶发身份错乱：可在 Google 账号「数据和隐私」里检查并移除不再使用的 Gmail 服务。
+
+4. **普通 400 / 节点不稳（没有 location 那句时）**
+   * 换日本、新加坡等节点，退出客户端重登再试。
+   * 长期不行多半是订阅线路或代理工具质量问题，考虑换订阅/换客户端。
+
+5. **多套网络方案叠在一起**  
+   Tun、ProxyBridge、`version.dll` 不要同时开。只留一套，清理残留后再测。
+
+6. **账号已被严控/封禁**  
+   以上都试过仍各种 Retry，再考虑换干净账号测试。
 
 ### Q4：验证成功后仍反复出现 `Verify / Sign in again`
 
