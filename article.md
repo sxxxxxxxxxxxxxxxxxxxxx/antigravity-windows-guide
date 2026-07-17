@@ -260,7 +260,7 @@ v2rayN默认端口 (Port): 10808
 
 1. 登录时，如果网页直接弹出提示 `Further action is required to use Antigravity`，请点击界面上的 `Verify` 或 `Sign in again` 按钮。
    
-   ![验证完成后需要重新登录 Antigravity 的界面](https://antigravity-macos-guide.sumeetsxiang.com/assets/antigravity/fatmouse/verify-sign-in-again.jpg)
+   ![验证完成后需要重新登录 Antigravity 的界面](/articles/antigravity/fatmouse/verify-sign-in-again.jpg)
 
 2. 页面通常会直接出现一个**二维码扫码界面**。（注：由于政策收紧，以前那种输入 +86 手机号收短信的方式已基本失效，请直接准备扫码验证）。
 3. **扫码验证核心操作步骤**：
