@@ -13,17 +13,20 @@ image: /articles/antigravity/cover.png
 
 ## 🚑 先看这里：遇到问题先看图对号入座
 
-目前大家遇到的绝大多数问题，都是下面这三种情况。**请直接看图，遇到一模一样的报错，点击下方对应链接直接跳转到解决办法：**
+目前大家遇到的绝大多数问题，都是下面这三种报错。**请先对照截图；网页里点图可放大查看，点下方蓝色链接会跳到对应解决办法。**
 
-| 🛑 **账号地区/资格不符** | ⚠️ **网络超时/未接管** | 🛂 **人机/年龄验证** |
+| 🛑 **账号地区/资格不符** | ⚠️ **网络超时/未接管** | 🛂 **人机扫码验证** |
 | :---: | :---: | :---: |
 | [![账号没资格](/articles/antigravity/auth-ineligible-account.png)](#faq-auth-ineligible) | [![网络超时](/articles/antigravity/auth-oauth-network-timeout.jpeg)](#network-config) | [![人机验证](/articles/antigravity/fatmouse/verify-sign-in-again.jpg)](#human-verify) |
 | **Sorry, this account is ineligible** | **oauth2.googleapis.com 连接失败** | **Further action is required** |
-| [👉 点击查看解决方案](#faq-auth-ineligible) | [👉 点击查看解决方案](#network-config) | [👉 点击查看扫码验证流程](#human-verify) |
+| [👉 点此处理资格/年龄/地区](#faq-auth-ineligible) | [👉 点此按第三章配置网络](#network-config) | [👉 点此查看扫码验证流程](#human-verify) |
 
-> 💡 **其他常见排雷提示：**
-> * **如果您只想要原来 VS Code 那种界面**：请下载 **Antigravity IDE**，不要只点官网页面最上面的 **Antigravity 2.0**。
-> * **如果发消息一直转圈、模型刷不出来**：优先判断为网络没有真正接管到 Antigravity，不要先反复注入账号。
+> 💡 **怎么对号：**
+> * **账号没资格**：优先查年龄认证、地区与订阅资格（不是先反复注入）。
+> * **oauth2 连接失败 / 网络超时**：就是客户端没真正走通代理——请按 **第三章网络配置** 处理（Tun / ProxyBridge 等）。
+> * **Further action / 扫码验证**：登录阶段的人机验证，见扫码流程；**年龄认证**在「账号没资格」那一条处理。
+> * 只想要原来 VS Code 界面：下载 **Antigravity IDE**，不要只点官网最上面的 **Antigravity 2.0**。
+> * 发消息一直转圈、模型刷不出来：优先当网络未接管，不要先反复注入账号。
 
 ---
 
@@ -71,10 +74,10 @@ Google 更新后，Antigravity 已经不再只有一个客户端。请先确认�
 | Antigravity IDE | `E:\Antigravity` 或您自定义的安装目录 | `resources\app\extensions\antigravity\bin\language_server_windows_x64.exe` |
 | Antigravity 2.0 | `C:\Users\你的用户名\AppData\Local\Programs\antigravity` | `resources\bin\language_server.exe` |
 
-**👀 最简单的辨别方法：看颜色和界面！**
-如果不确定自己安装了哪个版本，请直接看软件默认界面：
-* ⬜ **如果是白色的**：那是新出的 **Antigravity 2.0**（新式独立 Agent 项目界面）。
-* ⬛ **如果是黑色的**：并且有 VS Code 风格编辑器和扩展面板，那就是 **Antigravity IDE**。
+**👀 最简单的辨别方法（辅助参考）：**
+多数默认主题下可以先看颜色，再看界面结构（最终以界面结构为准，因为主题深浅可能被手动改过）：
+* ⬜ **默认偏白 / 新式项目工作台**：更像 **Antigravity 2.0**（Agent / 项目编排界面）。
+* ⬛ **默认偏黑，且有 VS Code 风格侧边栏、扩展面板**：更像 **Antigravity IDE**。
 
 ---
 
@@ -89,11 +92,11 @@ Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整�
 
 **原理简介**：Tun 模式会在您的电脑上创建一张"虚拟网卡"，强制接管所有软件的底层网络流量，完美解决 Antigravity 不走代理的问题。
 
-1. **开启 Tun 模式**（以主流的 小猫Verge 为例）：
-   * 打开代理软件，找到并开启"**虚拟网卡模式（Tun模式）**"。
+1. **开启 Tun 模式**（以主流的 **Clash Verge / Clash Verge Rev** 为例）：
+   * 打开代理软件，找到并开启"**虚拟网卡模式（Tun 模式）**"。
    * **关闭**常规的"系统代理"。
    * 路由规则请选择"**规则 (Rule)**"。
-   * *补充说明：如果您使用的是其他版本（如 X Pro），请寻找对应的"增强模式"或"服务模式"并开启。*
+   * *补充说明：如果您使用的是其他客户端（如 Clash Meta 系、部分带“增强模式/服务模式”的工具），请开启与 Tun 等价的全局接管能力。*
 2. **安装网卡依赖**：如果开启失败，通常是因为缺少虚拟网卡驱动。点击 Tun 模式旁边的"扳手/齿轮"图标，按照提示一键安装依赖。
    * *排错技巧：如果下载依赖卡住，请先用其他方式翻墙后再试。如果有多个代理软件在后台运行，请务必全部退出，只保留一个，避免网卡冲突。*
 3. **连通性验证**：配置完成后，打开浏览器访问 Google 首页。如果能秒开，说明底层网络已接管成功，可以进入下一步登录。
@@ -219,13 +222,13 @@ v2rayN默认端口 (Port): 10808
 
 ### 4.2 Cockpit Tools 本地授权辅助（状态注入方案）
 
-> 🛡️ **【技术原理解析：Cockpit Tools 现在的定位】**
-> 目前 Google 官方风控严格，Cockpit Tools **不再是用来绕过“账号没资格”的强登工具**。如果官方判定您的账号地区、年龄或资格不符，强行注入 Token 也无法绕过服务端校验。
-> 目前它的核心实用价值在于**极其方便的多账号切换与管理**，以及处理浏览器跳转无响应、客户端状态错乱、授权写入失败等本地问题。只要您是亲自在本地客户端正常使用，这就属于本地授权辅助操作，非常安全。
+> 🛡️ **【Cockpit Tools 现在的定位】**
+> 目前官方风控严格，Cockpit Tools **不再是用来绕过“账号没资格”的强登工具**。如果官方判定地区、年龄或资格不符，强行注入 Token 也无法绕过服务端校验。
+> 它现在的主要价值是：**多账号切换 / 管理更方便**，以及处理浏览器跳转无响应、客户端状态错乱、本地授权写入失败等问题。请把它当作**本地授权辅助**，不要指望它绕过官方资格校验。
 
-> 🔄 **新版工具说明：** Cockpit Tools v0.24.0 起已明确对齐官方 **Antigravity IDE** 客户端，会按官方重命名后的路径、用户数据目录、进程识别和 Language Server 元数据处理 IDE，并改为读写官方 `antigravityUnifiedStateSync.oauthToken` 状态。请务必下载最新版再操作。想沿用本教程原截图和 VS Code 风格界面的用户，优先选择 **Antigravity IDE**；不要把它和新的 Antigravity 2.0 混在一起操作。
+> 🔄 **新版工具说明：** 请从 GitHub Releases 下载**最新版**再操作（旧文截图可能仍标注 v0.24.0 一类版本号，以页面最新包为准）。新版已对齐官方 **Antigravity IDE** 路径与 `antigravityUnifiedStateSync.oauthToken` 等状态读写。想沿用 VS Code 风格界面的用户，请优先使用 **Antigravity IDE**，不要和 2.0 混路径操作。
 
-1. **下载工具**：前往 [Cockpit Tools 开源页面](https://github.com/jlcodes99/cockpit-tools/releases)，点击 **Show all assets**，下载 `Cockpit.Tools_0.24.0_x64-setup.exe` 这类 Windows x64 安装包；如果后续版本号变化，请选择最新版对应的 `x64-setup.exe`。
+1. **下载工具**：前往 [Cockpit Tools Releases](https://github.com/jlcodes99/cockpit-tools/releases)，点击 **Show all assets**，下载最新的 Windows x64 安装包（文件名通常类似 `Cockpit.Tools_*_x64-setup.exe`）。
 
    ![Cockpit Tools Windows x64 setup 下载位置](/articles/antigravity/cockpit-tools-windows-x64-setup.png)
 
@@ -264,36 +267,44 @@ v2rayN默认端口 (Port): 10808
 
 ## 五、 防机器人人机验证（必做） {#human-verify}
 
-为对抗机器批量滥用，系统会进行二次核验。**现在的验证流程已经改变：您不需要等进入软件发消息才验证，而是在登录授权阶段就会直接弹出验证要求。**
+为对抗机器批量滥用，系统会进行二次核验。**现在不会等您登录进去再发消息才验证：多数情况下，登录授权阶段就会直接弹出验证要求。**
 
-1. 登录时，如果网页直接弹出提示 `Further action is required to use Antigravity`，请点击界面上的 `Verify` 或 `Sign in again` 按钮。
-   
-   ![验证完成后需要重新登录 Antigravity 的界面](/articles/antigravity/fatmouse/verify-sign-in-again.jpg)
+1. 登录时如果看到类似下图提示 `Further action is required to use Antigravity`，请点击 `Verify` 或 `Sign in again` 继续。
 
-2. 页面通常会直接出现一个**二维码扫码界面**。（注：由于政策收紧，以前那种输入 +86 手机号收短信的方式已基本失效，请直接准备扫码验证）。
-3. **扫码验证核心操作步骤**：
-   * 准备一台**安卓手机**，**强烈推荐使用 Google Pixel、三星、小米等自带原生 Google 框架的手机**进行扫码，直接验证成功的概率极高！
-   * **环境一致性（关键）**：手机和电脑必须保持网络环境一致。建议手机和电脑连接**同一个美国节点（同一个 US IP）**，确保底层网络环境干净一致。
-   * 手机上安装并登录 **Google App**。建议使用 Google App 自带的 **Google 智能镜头（Google Lens）**，不要直接使用微信或普通相机扫码。
-   * 部分国产安卓系统还需要在系统设置中搜索并开启“Google 基础服务”或“谷歌基础服务管理”，否则 Google App / Google Play 可能无法正常完成验证。
+   ![登录阶段出现的 Further action / Verify 验证界面](/articles/antigravity/fatmouse/verify-sign-in-again.jpg)
+
+2. 页面通常会进入**扫码验证**流程。  
+   > 📌 **过时说明：** 以前常见的「输入 +86 手机号收短信」路径目前**基本不可用/成功率极低**，请不要再把希望寄托在国内号短信接码上。当前主流就是 **扫码 + Google 官方验证页**。
+
+3. **扫码前先对齐环境（很关键）**
+   * 手机与电脑尽量使用**同一干净节点、同一出口 IP**（验证场景下很多人使用同一 US 节点以保持一致；这和「改 Google 账号地区时不建议一上来硬申美国」是两件事：后者管的是账号地区资料，前者管的是当次验证链路一致性）。
+   * 准备 **Android 手机**。**强烈推荐 Google Pixel、三星，以及带完整 Google 框架的机型（部分小米等开启谷歌基础服务后也可）**；原生 Google 服务越完整，一次通过的概率越高。
+   * 手机安装并登录 **Google App / Google 服务**，与电脑上正在验证的 Google 账号保持一致。
+   * 部分国产系统需在设置里开启「Google 基础服务 / 谷歌基础服务管理」，否则可能扫了也走不通。
 
    ![安卓手机开启 Google 基础服务](/articles/antigravity/fatmouse/android-google-services.jpg)
 
-   * 打开 Google App，点击搜索框右侧的智能镜头图标，对准电脑验证页面上的二维码进行扫描。
+4. **推荐扫码方式**
+   * 使用 Google App 自带的 **Google 智能镜头（Google Lens）** 扫电脑上的二维码，**不要用微信或普通相机**凑合扫。
+   * 识别后打开对应链接，按 Google 页面提示完成确认（可能跳转 Play 或验证页）。
 
    ![Google App 搜索框右侧的 Google 智能镜头入口](/articles/antigravity/fatmouse/android-google-lens.jpg)
 
-   * 识别后点击二维码对应的链接。页面通常会跳转到 Google Play 商店或 Google 的验证页面，按照提示继续并确认验证。
-
    ![安卓手机确认由本人发起验证并继续](/articles/antigravity/fatmouse/android-google-confirm.jpg)
 
-   * 首次扫码通常即可通过；完成后回到电脑上的 Antigravity，等待页面自动刷新，必要时重新发送一次测试消息。
-   * ⚠️ **【严重风控警告】**：如果扫码后没有反应或失败，**千万不要连续扫码超过十几次**！频繁扫码极易触发 Google 的风控机制，导致账号被锁定大约**七天甚至一个月**。在这期间“绝对没救”，只能耐心等待风控解除。
-7. **扫码后没有反应或反复出现二维码**：先确认安卓手机的 Google App 已登录正确的 Google 账号、Google Play 商店可以正常打开，并检查手机代理是否确实生效。二维码可能会自动刷新或过期，请扫描电脑页面上当前最新的二维码，不要继续扫描旧截图。
-8. 如果点击蓝色验证按钮后直接报 `400` 或 `500`，通常说明弹出的默认浏览器没有登录当前这个 Google 账号。请把系统默认浏览器临时改成已登录该账号的 Chrome/Edge，或在弹出的浏览器里重新登录对应账号后再试。
-9. **最终确认**：验证通过后，如果 AI 能够正常回复您的消息，恭喜您，所有配置已大功告成！Antigravity 2.0 的按钮位置和提示样式可能不同，但核心判断不变：能正常发送、能收到回复、模型或 Agent 状态不再报错。
+5. **通过后怎么确认**
+   * 回到电脑上的 Antigravity，等待页面刷新；必要时重新登录或再发一条测试消息。
+   * 能正常发送并收到回复，即表示验证与网络都已打通（2.0 与 IDE 按钮位置可能不同，判断标准相同）。
 
-> 如果提示“验证次数达上限”，说明该号码已被风控，请更换亲友手机号。该手机号只用于一次性风控验证，不等于绑定账号。
+6. **扫码失败或反复出现二维码时**
+   * 确认手机 Google 账号正确、Play/Google 服务能打开、手机代理确实生效。
+   * 只扫电脑页面上**当前最新**二维码，不要扫旧截图。
+   * 若点验证后直接 `400` / `500`，多半是默认浏览器没登录目标 Google 账号：请换已登录该账号的 Chrome/Edge，或在弹出浏览器中重新登录。
+
+7. ⚠️ **【严重风控警告：不要狂扫】**  
+   扫码多次失败时，**不要连续扫十几次硬刚**。高频失败很容易触发 Google 风控，账号可能被限制大约 **7 天甚至更长（常见还有约一个月档）**。限制期间往往只能等待解除，再狂点也没有用。失败后先停手，检查设备、IP、账号一致性，隔一段时间再试。
+
+> 💡 **仅供了解（非推荐主路径）：** 个别用户仍可能遇到短信类选项；国内号成功率很低，国外实体卡偶有案例，但**不是当前主流解法**。本教程以扫码 + 原生 Google 框架手机为准。
 
 ---
 
@@ -342,25 +353,25 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 
 ## 七、遇到问题先看这里：常见故障排查 (FAQ)
 
-| 你看到的情况 | 优先判断 | 先看哪一段 |
+| 您看到的情况 | 优先判断 | 先看哪一段 |
 | --- | --- | --- |
 | 打开后不是 VS Code 那种界面 | 装成了 Antigravity 2.0，或旧版更新到了 2.0 | Q0 |
 | `Sorry, this account is ineligible to use Antigravity` | 账号地区/资格/年龄/订阅问题 | Q0.5 的账号没资格 |
-| `oauth2.googleapis.com/token`、`connectex`、连接超时 | 网络没真正走代理 | Q0.5 的 OAuth 网络失败 |
+| `oauth2.googleapis.com` 连接失败、登录一直转圈 | 网络没真正走代理 | **第三章网络配置**（亦可看 Q0.5 的 OAuth 说明） |
 | `There was an error with your authentication` | 本地授权状态或 Token 状态异常 | Q0.5 的认证错误 |
-| 点击登录后接近 1 分钟没反应 | 客户端请求超时，网络没接管 | Q1 |
+| 点击登录后接近 1 分钟没反应 | 客户端请求超时，网络没接管 | Q1 / 第三章 |
 | 发消息一直转圈、按钮一直灰 | 网络未接管或节点不可用 | Q1 |
 | 模型列表/模型名称刷不出来 | 节点异常或多套网络方案冲突 | Q2 |
 | ProxyBridge 不知道选哪个文件 | IDE 和 2.0 的 `language_server` 路径不同 | Q2.5 |
 | 蓝色 `Retry`，同时有 `400` | 节点/地区/登录状态被拒绝 | Q3 |
 | 验证成功后仍反复出现 `Verify / Sign in again` | 年龄验证或客户端登录状态未刷新 | Q4 |
-| 出现 There was an unexpected issue setting up your account. | 节点质量、OAuth 过期或请求超时 | Q5 |
+| 大字报错 `There was an unexpected issue setting up your account.` | 节点/登录状态/超时等综合问题 | Q5 |
 | 扩展市场搜不到插件 | 默认 Open VSX 源不稳定 | 第六章扩展市场 |
 
 ### Q0：打开后不是 VS Code 界面，为什么和教程截图不一样？
 
 * **原因**：Google 已经把产品拆分为 Antigravity 2.0、Antigravity IDE、CLI、SDK 等不同形态。2.0 是新的独立桌面应用，官方定位是 Agent 编排平台；原教程截图更接近 Antigravity IDE。
-* **解决**：网络和登录思路仍可参考本教程，但涉及扩展面板、SSH、VS Code 风格界面、旧版语言服务路径时，请确认自己是否需要改用 Antigravity IDE。若只使用 2.0，请重点参考 Tun 模式、ProxyBridge 的新版路径、账号登录与手机验证部分。
+* **解决**：网络和登录思路仍可参考本教程，但涉及扩展面板、SSH、VS Code 风格界面、旧版语言服务路径时，请确认自己是否需要改用 Antigravity IDE。若只使用 2.0，请重点参考 Tun 模式、ProxyBridge 新版路径、账号登录与扫码验证部分。
 
 ### Q0.5：登录报错先按这三类判断 {#faq-auth-triage}
 
@@ -404,7 +415,7 @@ I have stable internet access and regularly use devices within the U.S., and I a
 Thank you for your understanding and support.
 ```
 
-   注意：Google 账号地区修改通常一年只能申请一次，提交前请确认目标地区和你长期使用的代理节点地区尽量一致，不要频繁乱改。
+   注意：Google 账号地区修改通常一年只能申请一次，提交前请确认目标地区和您长期使用的代理节点地区尽量一致，不要频繁乱改。
 
 <a id="faq-oauth-network"></a>
 
@@ -455,10 +466,10 @@ Thank you for your understanding and support.
 
 ### Q2.6：Cockpit Tools 更新后，路径应该怎么选？
 
-* **先下载最新版**：请从 [Cockpit Tools Releases](https://github.com/jlcodes99/cockpit-tools/releases) 下载最新安装包。v0.24.0 起，Cockpit Tools 已将 Antigravity 集成对齐到官方 **Antigravity IDE**。
-* **新版改善**：新版会识别 Windows `Antigravity IDE.exe`，并读写官方 `antigravityUnifiedStateSync.oauthToken` 状态，切号/导入比旧版更贴近官方客户端。
-* **排错重点**：需要旧版 VS Code 风格界面的用户，请确认路径指向 **Antigravity IDE**。如果路径是 `C:\Users\你的用户名\AppData\Local\Programs\antigravity`，这通常是 Antigravity 2.0，不适合按旧 IDE 教程截图操作。
-* **2FA 提示**：v0.24.0 也给 Codex OAuth 授权加入了 2FA 快速取码入口，但这是 Codex 相关能力；Antigravity 登录仍以本节的 Google OAuth 和客户端注入流程为准。
+* **先下载最新版**：请从 [Cockpit Tools Releases](https://github.com/jlcodes99/cockpit-tools/releases) 下载最新安装包（以页面显示版本为准）。
+* **新版改善**：新版会识别 Windows `Antigravity IDE.exe`，并读写官方 `antigravityUnifiedStateSync.oauthToken` 状态，**多账号切换/导入**比旧版更贴近官方客户端。
+* **排错重点**：需要 VS Code 风格界面时，请确认路径指向 **Antigravity IDE**。如果路径是 `C:\Users\您的用户名\AppData\Local\Programs\antigravity`，这通常是 Antigravity 2.0，不要按旧 IDE 截图硬套。
+* **提醒**：部分版本附带 Codex 相关能力，与 Antigravity 登录不是一回事；Antigravity 仍以 Google OAuth + 本地授权辅助为准。
 
 ### Q3：蓝色 `Retry` / 一发消息就报错
 
@@ -498,14 +509,19 @@ Thank you for your understanding and support.
 4. 如果仍然循环，清理浏览器中错误账号的登录状态，确认默认浏览器登录的是目标账号，并等待几分钟后再试。
 5. 仍无法通过时，再使用 Cockpit Tools 重新完成一次 OAuth；Cockpit 只能刷新本地授权状态，不能替代官方年龄和地区资格校验。
 
-### Q5：出现 There was an unexpected issue setting up your account.
+### Q5：出现 `There was an unexpected issue setting up your account.`
 
-![daily-cloudcode 接口返回 EOF 的报错示例](/articles/antigravity/fatmouse/daily-cloudcode-eof.jpg)
+只要界面大字是这句，就可以按本条处理（底下技术细节用户不必先死磕）。
 
-* **`EOF`**：通常是请求中途断开，优先更换稳定节点，并确认 Tun / ProxyBridge 已真正接管客户端流量。
-* **`invalid_grant`**：通常表示 OAuth 授权已过期、被撤销或登录状态不一致。选择 `Continue with different account`，再用目标账号重新完成 Google OAuth。
-* **`context deadline exceeded`**：表示请求超时。先检查节点延迟和网络接管；不要只连续点击重试。
-* **其他 `daily-cloudcode` Unexpected issue**：先按网络问题处理，依次尝试更换节点、彻底退出客户端、确认只启用一套网络方案，再重新登录。
+![There was an unexpected issue setting up your account 类报错示例](/articles/antigravity/fatmouse/daily-cloudcode-eof.jpg)
+
+**优先按这个顺序排查：**
+1. **换干净稳定的节点**，并确认第三章网络方案真正接管了客户端（Tun 或 ProxyBridge 等只保留一套）。
+2. **彻底退出 Antigravity**（含后台进程）后重新打开再登录。
+3. 若提示可换账号，选 `Continue with different account`，用目标 Google 账号重新走一遍 OAuth。
+4. 仍不行时，再用 Cockpit Tools 做一次本地授权刷新（不能绕过资格问题）。
+
+> 补充：少数日志里会出现连接中断、授权过期、请求超时等字样，本质仍多半是**网络不稳 / 登录状态失效 / 超时**，按上面四步处理即可，不必先研究底层接口名。
 
 ---
 

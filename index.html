@@ -1188,14 +1188,14 @@
     <section class="quick-triage-section" id="quick-triage-section">
       <div class="quick-triage article" id="quick-triage">
         <h2>🚑 先看这里：遇到问题先看图对号入座</h2>
-        <p>目前大家遇到的绝大多数问题，都是下面这三种情况。<strong>请直接看图，遇到一模一样的报错，点击下方对应链接直接跳转到解决办法：</strong></p>
+        <p>目前大家遇到的绝大多数问题，都是下面这三种报错。<strong>点图可放大对照；点下方蓝色链接跳到对应解决办法。</strong></p>
         <div class="table-wrap">
           <table>
             <thead>
               <tr>
                 <th>🛑 <strong>账号地区/资格不符</strong></th>
                 <th>⚠️ <strong>网络超时/未接管</strong></th>
-                <th>🛂 <strong>人机/年龄验证</strong></th>
+                <th>🛂 <strong>人机扫码验证</strong></th>
               </tr>
             </thead>
             <tbody>
@@ -1225,9 +1225,9 @@
                 <td><strong>Further action is required</strong></td>
               </tr>
               <tr>
-                <td><a href="#faq-auth-ineligible" class="inpage-link">👉 点击查看解决方案</a></td>
-                <td><a href="#network-config" class="inpage-link">👉 点击查看解决方案</a></td>
-                <td><a href="#human-verify" class="inpage-link">👉 点击查看扫码验证流程</a></td>
+                <td><a href="#faq-auth-ineligible" class="inpage-link">👉 点此处理资格/年龄/地区</a></td>
+                <td><a href="#network-config" class="inpage-link">👉 点此按第三章配置网络</a></td>
+                <td><a href="#human-verify" class="inpage-link">👉 点此查看扫码验证流程</a></td>
               </tr>
             </tbody>
           </table>
@@ -1235,11 +1235,13 @@
         <div class="alert-card alert-note">
           <div class="alert-header">
             <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.19.33-.42.44-.67.34-.76.77-1.7.77-2.83A4.3 4.3 0 0 0 12 6.25a4.3 4.3 0 0 0-4.3 4.25c0 1.13.43 2.07.77 2.83.11.25.26.48.44.67"></path></svg>
-            <span class="alert-title">其他常见排雷提示</span>
+            <span class="alert-title">怎么对号（先看这三句）</span>
           </div>
           <div class="alert-content">
-            <p>• <strong>如果您只想要原来 VS Code 那种界面</strong>：请下载 <strong>Antigravity IDE</strong>，不要只点官网页面最上面的 <strong>Antigravity 2.0</strong>。</p>
-            <p>• <strong>如果发消息一直转圈、模型刷不出来</strong>：优先判断为网络没有真正接管到 Antigravity，不要先反复注入账号。</p>
+            <p>• <strong>账号没资格</strong>：先查年龄认证、地区与订阅资格，不要先反复注入。</p>
+            <p>• <strong>oauth2 连接失败 / 网络超时</strong>：就是客户端没真正走通代理——请按 <a href="#network-config" class="inpage-link"><strong>第三章网络配置</strong></a> 处理（Tun / ProxyBridge 等）。</p>
+            <p>• <strong>Further action / 扫码</strong>：登录阶段人机验证，走扫码流程；年龄认证在「账号没资格」那条处理。</p>
+            <p>• 只要 VS Code 界面：下 <strong>Antigravity IDE</strong>；发消息一直转圈：优先当网络未接管。</p>
           </div>
         </div>
       </div>
