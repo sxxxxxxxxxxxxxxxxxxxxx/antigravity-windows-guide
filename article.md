@@ -25,7 +25,7 @@ image: /articles/antigravity/cover.png
 > * **账号没资格**：优先查年龄认证、地区与订阅资格（==不要先反复注入==）。
 > * **oauth2 连接失败 / 网络超时**：就是客户端没真正走通代理——请按 **第三章网络配置** 处理（Tun / ProxyBridge 等）。
 > * **Further action / 扫码验证**：登录阶段的人机验证，见扫码流程；**年龄认证**在「账号没资格」那一条处理。
-> * **对话时报 `400` 且提示 `User location is not supported for the API use.`**：==出口地区不被支持==，先换日/新等干净节点并重开客户端（见 FAQ **Q3**）。
+> * **对话时报 `400` 且提示 `User location is not supported for the API use.`**：==出口地区不被支持==，先换日/新等干净节点并重开客户端 → [点此直达排障 Q3](#faq-chat-400)。
 > * 只想要原来 VS Code 界面：下载 **Antigravity IDE**，==不要只点官网最上面的 Antigravity 2.0==。
 > * 发消息一直转圈、模型刷不出来：优先当网络未接管，==不要先反复注入账号==。
 
@@ -75,10 +75,12 @@ Google 更新后，Antigravity 已经不再只有一个客户端。请先确认�
 | Antigravity IDE | `E:\Antigravity` 或您自定义的安装目录 | `resources\app\extensions\antigravity\bin\language_server_windows_x64.exe` |
 | Antigravity 2.0 | `C:\Users\你的用户名\AppData\Local\Programs\antigravity` | `resources\bin\language_server.exe` |
 
-**👀 最简单的辨别方法（辅助参考）：**
-多数默认主题下可以先看颜色，再看界面结构（最终以界面结构为准，因为主题深浅可能被手动改过）：
-* ⬜ **默认偏白 / 新式项目工作台**：更像 **Antigravity 2.0**（Agent / 项目编排界面）。
-* ⬛ **默认偏黑，且有 VS Code 风格侧边栏、扩展面板**：更像 **Antigravity IDE**。
+**👀 最简单的辨别方法：看电脑「桌面」上的图标显示**
+这里说的黑/白，是指 **桌面快捷方式图标** 的观感（Windows 桌面 / 开始菜单磁贴上看到的那个图标底色），**不是**软件内部自己切换的深色/浅色主题。
+* ⬜ **桌面图标整体偏白、浅色底**：一般是 **Antigravity 2.0**。
+* ⬛ **桌面图标整体偏黑、深色底**：一般是 **Antigravity IDE**。
+
+打开软件后还可再确认：IDE 接近 VS Code（侧边栏、扩展面板）；2.0 更像新的项目 / Agent 工作台。
 
 ---
 
@@ -366,7 +368,7 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 | 模型列表/模型名称刷不出来 | 节点异常或多套网络方案冲突 | Q2 |
 | ProxyBridge 不知道选哪个文件 | IDE 和 2.0 的 `language_server` 路径不同 | Q2.5 |
 | 蓝色 `Retry`，同时有 `400` | 先看报错正文再分流 | Q3 |
-| 报错里出现 `code: 400` 且含 `User location is not supported` | 当前出口地区/节点不被 API 支持 | **Q3（地区 400）** |
+| 报错里出现 `code: 400` 且含 `User location is not supported` | 当前出口地区/节点不被 API 支持 | [**Q3 地区 400**](#faq-chat-400) |
 | 验证成功后仍反复出现 `Verify / Sign in again` | 年龄验证或客户端登录状态未刷新 | Q4 |
 | 大字报错 `There was an unexpected issue setting up your account.` | 节点/登录状态/超时等综合问题 | Q5 |
 | 扩展市场搜不到插件 | 默认 Open VSX 源不稳定 | 第六章扩展市场 |
