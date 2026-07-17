@@ -34,14 +34,22 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      /* 实色顶栏：滚动时 blur 在 Windows/Edge 上开销大，易与目录跳转抢帧 */
+      background: rgba(255, 255, 255, 0.97);
       border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 16px clamp(20px, 5vw, 40px);
+    }
+    @supports ((-webkit-backdrop-filter: blur(12px)) or (backdrop-filter: blur(12px))) {
+      @media (min-width: 901px) and (hover: hover) {
+        .top {
+          background: rgba(255, 255, 255, 0.88);
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+        }
+      }
     }
     .brand {
       display: flex;
@@ -1708,12 +1716,11 @@
         const observeArticleImgs = () => {
           document.querySelectorAll("#article figure img").forEach(img => io.observe(img));
         };
-        observeArticleImgs();
-        // 正文异步渲染后可再次调用
+        // 不在首次 setup 时立刻 observe 空列表/抢主线程；等正文注入后再调
         window.__observeArticleImgs = observeArticleImgs;
       }
     }
-    // 首屏静态表格立刻可放大，不必等正文加载
+    // 只绑点击委托；图片观察延后到正文就绪
     setupImagePreview();
     const escapeHtml = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
     const fixAsset = src => String(src || "").replace(/^\/articles\/antigravity/, "./assets/antigravity");
@@ -1925,53 +1932,35 @@
       }
       return {triage:triageLines.join("\n"),rest:restLines.join("\n")};
     }
-    // —— 交互：页内跳转（Win 长文多图：一律瞬时定位）——
-    let pendingTarget = null, pendingTimers = [], pendingClearTimer = null;
+    // —— 交互：页内跳转（Win 长文多图：瞬时定位；禁止二次重滚）——
     let isProgrammaticScroll = false;
     let programmaticTimer = null;
     let tocLinksCache = [];
     const offsetTop = () => (document.querySelector(".top")?.offsetHeight || 0) + 12;
-    const markProgrammatic = (ms = 120) => {
+    const markProgrammatic = (ms = 200) => {
       isProgrammaticScroll = true;
       clearTimeout(programmaticTimer);
       programmaticTimer = setTimeout(() => { isProgrammaticScroll = false; }, ms);
     };
+    // 只做一次瞬时定位。不再 setPending 二次校正：
+    // Win 正文大量 lazy 图未加载完时，旧逻辑几乎每次都会在 200ms 后再滚一次 → 明显卡顿。
     const alignTo = (el) => {
       if (!el) return;
       const root = document.documentElement;
-      const prev = root.style.scrollBehavior;
+      const body = document.body;
+      const prevRoot = root.style.scrollBehavior;
+      const prevBody = body.style.scrollBehavior;
       root.style.scrollBehavior = "auto";
-      const top = Math.max(0, el.getBoundingClientRect().top + window.scrollY - offsetTop());
-      markProgrammatic(150);
+      body.style.scrollBehavior = "auto";
+      const top = Math.max(0, el.getBoundingClientRect().top + window.pageYOffset - offsetTop());
+      markProgrammatic(220);
+      // 双写兼容不同浏览器滚动容器
+      root.scrollTop = top;
+      body.scrollTop = top;
       window.scrollTo(0, top);
-      root.style.scrollBehavior = prev;
+      root.style.scrollBehavior = prevRoot;
+      body.style.scrollBehavior = prevBody;
     };
-    const clearPending = () => {
-      pendingTarget = null;
-      pendingTimers.forEach(clearTimeout);
-      pendingTimers = [];
-      if (pendingClearTimer) { clearTimeout(pendingClearTimer); pendingClearTimer = null; }
-    };
-    const setPending = (el) => {
-      clearPending();
-      const scope = document.getElementById("article") || document;
-      let hasPendingImg = false;
-      scope.querySelectorAll("img").forEach(img => {
-        if (!img.complete) hasPendingImg = true;
-      });
-      if (!hasPendingImg) return;
-      pendingTarget = el;
-      pendingTimers.push(setTimeout(() => {
-        if (pendingTarget !== el) return;
-        const drift = Math.abs(el.getBoundingClientRect().top - offsetTop());
-        if (drift > 24) alignTo(el);
-      }, 200));
-      pendingClearTimer = setTimeout(clearPending, 400);
-    };
-    ["wheel", "touchmove", "keydown"].forEach(ev => window.addEventListener(ev, () => {
-      clearPending();
-      isProgrammaticScroll = false;
-    }, { passive: true }));
 
     const tocAside = document.querySelector(".toc");
     const tocBtn = document.getElementById("toc-toggle");
@@ -1988,16 +1977,18 @@
       if (!el) { try { el = document.getElementById(encodeURIComponent(raw)); } catch (_) {} }
       if (!el) return false;
       history.replaceState(null, "", href);
-      if (fromToc && tocAside.classList.contains("open")) {
+      // 仅移动端折叠目录关闭时等 1 帧；桌面侧栏目录立即跳（避免 Win 上双 rAF 体感延迟）
+      let closedMobileToc = false;
+      if (fromToc && tocAside && tocAside.classList.contains("open")) {
         tocAside.classList.remove("open");
         tocBtn.textContent = "目录 ▾";
+        closedMobileToc = true;
       }
-      const jump = () => {
+      if (closedMobileToc) {
+        requestAnimationFrame(() => alignTo(el));
+      } else {
         alignTo(el);
-        setPending(el);
-      };
-      if (fromToc) requestAnimationFrame(() => requestAnimationFrame(jump));
-      else jump();
+      }
       return true;
     };
 
@@ -2136,11 +2127,10 @@
             void document.getElementById("article").offsetHeight;
             headingElements = Array.from(document.querySelectorAll("#article h2[id], #article h3[id]"));
             tocLinksCache = Array.from(document.querySelectorAll(".toc a"));
-            setupImagePreview();
-            // Win 图更多：更晚挂观察器，避免首次点目录时抢主线程
+            // 图片观察再延后，保证用户打开后第一下点目录不被 IO/解码干扰
             setTimeout(() => {
               if (typeof window.__observeArticleImgs === "function") window.__observeArticleImgs();
-            }, 1500);
+            }, 2000);
             if (location.hash && location.hash.length > 1) {
               // 首屏带 hash：用瞬时定位，避免开场 smooth 卡顿
               requestAnimationFrame(() => {
