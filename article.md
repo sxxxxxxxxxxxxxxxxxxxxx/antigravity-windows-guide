@@ -392,19 +392,22 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 
    ![账号无资格使用 Antigravity 的提示](/articles/antigravity/auth-ineligible-account.png)
 
-   **处理建议 1：检查地区与资格**
+   ==处理顺序（请按此先后）：先「地区与资格」，再「年龄认证」。不要先反复注入。==
+
+   **处理建议 1（优先）：检查地区与资格**
+
    先检查 Google 账号地区、付款资料地区、订阅状态和当前代理节点地区是否一致。此类问题目前不能再简单理解为“Cockpit 强制注入即可解决”；必要时只能调整地区环境或更换符合资格的账号。
 
    如果页面提示 `Sorry, this account is ineligible to use Antigravity`，并且下方显示 `Authentication failed`，可以按下面方式尝试修改 Google 账号注册地：
 
-   1. 先打开 Google 条款页查看当前账号关联地区：https://policies.google.com/terms。页面底部通常会显示当前账号对应的国家/地区；如果显示的是中国大陆、中国香港、中国澳门等受限地区，就需要继续处理。
-   2. 打开 Google 账号地区修改申请页：https://policies.google.com/country-association-form。
-   3. 将账号地区申请修改为 Antigravity 支持的地区，例如日本、新加坡、英国、加拿大等。**不建议一上来申请美国**，美国地区审核通常更严格；除非您确实长期使用美国节点并有明确美国地址，否则优先选择平时最稳定、最常用的代理节点所在地区。
+   - **第 1 步**：先打开 Google 条款页查看当前账号关联地区：https://policies.google.com/terms。页面底部通常会显示当前账号对应的国家/地区；如果显示的是中国大陆、中国香港、中国澳门等受限地区，就需要继续处理。
+   - **第 2 步**：打开 Google 账号地区修改申请页：https://policies.google.com/country-association-form。
+   - **第 3 步**：将账号地区申请修改为 Antigravity 支持的地区，例如日本、新加坡、英国、加拿大等。**不建议一上来申请美国**，美国地区审核通常更严格；除非您确实长期使用美国节点并有明确美国地址，否则优先选择平时最稳定、最常用的代理节点所在地区。
 
    ![Antigravity 支持地区参考](/articles/antigravity/supported-regions.jpg)
 
-   4. 理由选择“其他”，说明自己因工作需要使用 Gemini / Antigravity，需要更新账号地区。
-   5. 提交后等待邮件通知，通常需要约 24 小时。地区生效后再重新打开 Antigravity 测试登录。
+   - **第 4 步**：理由选择“其他”，说明自己因工作需要使用 Gemini / Antigravity，需要更新账号地区。
+   - **第 5 步**：提交后等待邮件通知，通常需要约 24 小时。地区生效后再重新打开 Antigravity 测试登录。
 
    如果您确实因长期在美国居住、工作，并使用美国本地设备和付款方式，可以参考下面的英文说明。请按真实情况填写，不要提交虚假的居住、付款或地址信息：
 
@@ -418,7 +421,8 @@ Thank you for your understanding and support.
 
    注意：Google 账号地区修改通常一年只能申请一次，提交前请确认目标地区和您长期使用的代理节点地区尽量一致，不要频繁乱改。
 
-   **处理建议 2：检查年龄认证**
+   **处理建议 2（其次）：检查年龄认证**
+
    有时候即使账号看似正常，也可能因为未完成年龄认证而报错。请访问 [https://myaccount.google.com/age-verification](https://myaccount.google.com/age-verification) 检查并完成年龄验证。
    * **验证方式推荐**：强烈建议优先使用**人脸验证**。您可以直接使用电脑摄像头完成；如果电脑没有摄像头，请选择手机扫码验证（页面会出现一个二维码），然后使用**已开启代理（梯子）的手机**扫码并按提示完成验证。
    * **备选验证方式**：您也可以选择上传**身份证/护照照片**进行验证。

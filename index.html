@@ -2108,7 +2108,8 @@
       else setTimeout(fn, 0);
     };
 
-    fetch("./article.md", { cache: "force-cache" }).then(r => {
+    // no-cache：正文常改，避免 force-cache 一直吃到旧 article.md（例如处理建议顺序更新后页面不刷新）
+    fetch("./article.md?v=20260718-region-first", { cache: "no-cache" }).then(r => {
       if (!r.ok) throw new Error("article.md " + r.status);
       return r.text();
     }).then(raw => {
