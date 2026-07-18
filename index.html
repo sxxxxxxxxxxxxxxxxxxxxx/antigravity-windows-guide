@@ -1586,7 +1586,7 @@
                 <td><strong>Further action is required</strong></td>
               </tr>
               <tr>
-                <td><a href="#faq-auth-ineligible" class="inpage-link">👉 点此处理资格/年龄/地区</a></td>
+                <td><a href="#faq-auth-ineligible" class="inpage-link">👉 点此处理地区/资格/年龄</a></td>
                 <td><a href="#network-config" class="inpage-link">👉 点此按第三章配置网络</a></td>
                 <td><a href="#human-verify" class="inpage-link">👉 点此查看扫码验证流程</a></td>
               </tr>
@@ -1599,7 +1599,7 @@
             <span class="alert-title">怎么对号（先看这三句）</span>
           </div>
           <div class="alert-content">
-            <p>• <strong>账号没资格</strong>：先查年龄认证、地区与订阅资格，<mark class="hl-danger">不要先反复注入</mark>。</p>
+            <p>• <strong>账号没资格</strong>：先查地区与资格，再查年龄认证，<mark class="hl-danger">不要先反复注入</mark>。</p>
             <p>• <strong>oauth2 连接失败 / 网络超时</strong>：就是客户端没真正走通代理——请按 <a href="#network-config" class="inpage-link"><strong>第三章网络配置</strong></a> 处理（Tun / ProxyBridge 等）。</p>
             <p>• <strong>Further action / 扫码</strong>：登录阶段人机验证；年龄认证在「账号没资格」那条处理。<mark class="hl-danger">不要狂扫十几次</mark>。</p>
             <p>• <strong>对话时报 <code>400</code> 且含 <code>User location is not supported</code></strong>：<mark class="hl-danger">出口地区不被支持</mark>，先换日/新等干净节点再重开客户端 → <a href="#faq-chat-400" class="inpage-link"><strong>点此直达排障 Q3</strong></a>。</p>

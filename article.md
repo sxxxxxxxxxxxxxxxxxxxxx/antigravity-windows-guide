@@ -19,10 +19,10 @@ image: /articles/antigravity/cover.png
 | :---: | :---: | :---: |
 | [![账号没资格](/articles/antigravity/auth-ineligible-account.png)](#faq-auth-ineligible) | [![网络超时](/articles/antigravity/auth-oauth-network-timeout.jpeg)](#network-config) | [![人机验证](/articles/antigravity/fatmouse/verify-sign-in-again.jpg)](#human-verify) |
 | **Sorry, this account is ineligible** | **oauth2.googleapis.com 连接失败** | **Further action is required** |
-| [👉 点此处理资格/年龄/地区](#faq-auth-ineligible) | [👉 点此按第三章配置网络](#network-config) | [👉 点此查看扫码验证流程](#human-verify) |
+| [👉 点此处理地区/资格/年龄](#faq-auth-ineligible) | [👉 点此按第三章配置网络](#network-config) | [👉 点此查看扫码验证流程](#human-verify) |
 
 > 💡 **怎么对号：**
-> * **账号没资格**：优先查年龄认证、地区与订阅资格（==不要先反复注入==）。
+> * **账号没资格**：优先查地区与资格，再查年龄认证（==不要先反复注入==）。
 > * **oauth2 连接失败 / 网络超时**：就是客户端没真正走通代理——请按 **第三章网络配置** 处理（Tun / ProxyBridge 等）。
 > * **Further action / 扫码验证**：登录阶段的人机验证，见扫码流程；**年龄认证**在「账号没资格」那一条处理。
 > * **对话时报 `400` 且提示 `User location is not supported for the API use.`**：==出口地区不被支持==，先换日/新等干净节点并重开客户端 → [点此直达排障 Q3](#faq-chat-400)。
@@ -392,13 +392,7 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 
    ![账号无资格使用 Antigravity 的提示](/articles/antigravity/auth-ineligible-account.png)
 
-   **处理建议 1：检查年龄认证**
-   有时候即使账号看似正常，也可能因为未完成年龄认证而报错。请优先访问 [https://myaccount.google.com/age-verification](https://myaccount.google.com/age-verification) 检查并完成年龄验证。
-   * **验证方式推荐**：强烈建议优先使用**人脸验证**。您可以直接使用电脑摄像头完成；如果电脑没有摄像头，请选择手机扫码验证（页面会出现一个二维码），然后使用**已开启代理（梯子）的手机**扫码并按提示完成验证。
-   * **备选验证方式**：您也可以选择上传**身份证/护照照片**进行验证。
-   * **避坑指南**：**不建议**使用银行卡/信用卡进行验证，因为部分国内卡片可能无法通过预授权，容易导致验证失败。
-
-   **处理建议 2：检查地区与资格**
+   **处理建议 1：检查地区与资格**
    先检查 Google 账号地区、付款资料地区、订阅状态和当前代理节点地区是否一致。此类问题目前不能再简单理解为“Cockpit 强制注入即可解决”；必要时只能调整地区环境或更换符合资格的账号。
 
    如果页面提示 `Sorry, this account is ineligible to use Antigravity`，并且下方显示 `Authentication failed`，可以按下面方式尝试修改 Google 账号注册地：
@@ -423,6 +417,12 @@ Thank you for your understanding and support.
 ```
 
    注意：Google 账号地区修改通常一年只能申请一次，提交前请确认目标地区和您长期使用的代理节点地区尽量一致，不要频繁乱改。
+
+   **处理建议 2：检查年龄认证**
+   有时候即使账号看似正常，也可能因为未完成年龄认证而报错。请访问 [https://myaccount.google.com/age-verification](https://myaccount.google.com/age-verification) 检查并完成年龄验证。
+   * **验证方式推荐**：强烈建议优先使用**人脸验证**。您可以直接使用电脑摄像头完成；如果电脑没有摄像头，请选择手机扫码验证（页面会出现一个二维码），然后使用**已开启代理（梯子）的手机**扫码并按提示完成验证。
+   * **备选验证方式**：您也可以选择上传**身份证/护照照片**进行验证。
+   * **避坑指南**：**不建议**使用银行卡/信用卡进行验证，因为部分国内卡片可能无法通过预授权，容易导致验证失败。
 
 <a id="faq-oauth-network"></a>
 
