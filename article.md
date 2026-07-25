@@ -125,7 +125,10 @@ Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整�
    ![代理菜单（汉化后）](/articles/antigravity/image9.png)
 
    * IP 地址固定填写：`127.0.0.1`。
-   * 端口号：填写您代理软件的实际端口。常见端口为 Clash `7890`、Clash Verge `7897`、v2rayN `10808`；也可参考下方进阶备选二的步骤 5 查看系统代理端口。
+   * 端口号：填写您代理软件的实际端口。常见端口为 Clash `7890`、Clash Verge `7897`、v2rayN `10808`。
+   * **端口号获取方法**：若不清楚端口，可右键点击 Windows 任务栏空白处 -> `任务栏设置` -> 搜索并进入 `代理服务器设置` -> 找到 `手动设置代理`，点击右侧的 `编辑`。弹窗中显示的端口数字即为您当前软件的代理端口。
+
+   ![Windows 系统代理设置查看端口](/articles/antigravity/image6.png)
 
    ![填写 127.0.0.1 及对应端口](/articles/antigravity/image10.png)
 
@@ -193,10 +196,7 @@ Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整�
 
    ![config.json 内部 type/host/port 字段](/articles/antigravity/image5.png)
 
-   * **获取端口号方法**：右键点击 Windows 任务栏空白处 -> `任务栏设置` -> 搜索并进入 `代理服务器设置` -> 找到 `手动设置代理`，点击右侧的 `编辑`。弹窗中显示的端口数字即为您当前软件的代理端口。
-
-   ![Windows 系统代理设置查看端口](/articles/antigravity/image6.png)
-
+   * **获取端口号方法**：如不清楚端口号，可按上文提示进入 Windows `代理服务器设置` 查看，或直接参考下方的极速复制默认端口。
    * 将获取到的端口号填入 `config.json` 并保存。**注意：不要改动系统自身的代理设置，只改 json 文件。**
    * *（如遇协议不兼容，可尝试将 `type` 后的 `socks5` 更改为 `http` 或 `https`）。*
 
