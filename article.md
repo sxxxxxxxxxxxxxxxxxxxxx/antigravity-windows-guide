@@ -18,12 +18,12 @@ image: /articles/antigravity/cover.png
 | 🛑 **账号地区/资格不符** | ⚠️ **网络超时/未接管** | 🛂 **人机扫码验证** |
 | :---: | :---: | :---: |
 | [![账号没资格](/articles/antigravity/auth-ineligible-account.png)](#faq-auth-ineligible) | [![网络超时](/articles/antigravity/auth-oauth-network-timeout.jpeg)](#network-config) | [![人机验证](/articles/antigravity/fatmouse/verify-sign-in-again.jpg)](#human-verify) |
-| **Sorry, this account is ineligible** | **oauth2.googleapis.com 连接失败** | **Further action is required** |
+| **Sorry, this account is ineligible** | **There was an unexpected issue setting up your account.** | **Further action is required** |
 | [👉 点此处理地区/资格/年龄](#faq-auth-ineligible) | [👉 点此按第三章配置网络](#network-config) | [👉 点此查看扫码验证流程](#human-verify) |
 
 > 💡 **怎么对号：**
 > * **账号没资格**：优先查地区与资格，再查年龄认证（==不要先反复注入==）。
-> * **oauth2 连接失败 / 网络超时**：就是客户端没真正走通代理——请按 **第三章网络配置** 处理（Tun / ProxyBridge 等）。
+> * **unexpected issue / 网络超时**：就是客户端没真正走通代理——请按 **第三章网络配置** 处理（Tun / ProxyBridge 等）。
 > * **Further action / 扫码验证**：登录阶段的人机验证，见扫码流程；**年龄认证**在「账号没资格」那一条处理。
 > * **对话时报 `400` 且提示 `User location is not supported for the API use.`**：==出口地区不被支持==，先换日/新等干净节点并重开客户端 → [点此直达排障 Q3](#faq-chat-400)。
 > * 只想要原来 VS Code 界面：下载 **Antigravity IDE**，==不要只点官网最上面的 Antigravity 2.0==。
@@ -363,7 +363,7 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 | --- | --- | --- |
 | 打开后不是 VS Code 那种界面 | 装成了 Antigravity 2.0，或旧版更新到了 2.0 | Q0 |
 | `Sorry, this account is ineligible to use Antigravity` | 账号地区/资格/年龄/订阅问题 | Q0.5 的账号没资格 |
-| `oauth2.googleapis.com` 连接失败、登录一直转圈 | 网络没真正走代理 | **第三章网络配置**（亦可看 Q0.5 的 OAuth 说明） |
+| `There was an unexpected issue setting up your account.`、登录一直转圈 | 网络没真正走代理 | **第三章网络配置**（亦可看 Q0.5 的 OAuth 说明） |
 | `There was an error with your authentication` | 本地授权状态或 Token 状态异常 | Q0.5 的认证错误 |
 | 点击登录后接近 1 分钟没反应 | 客户端请求超时，网络没接管 | Q1 / 第三章 |
 | 发消息一直转圈、按钮一直灰 | 网络未接管或节点不可用 | Q1 |
@@ -430,9 +430,9 @@ Thank you for your understanding and support.
 
 <a id="faq-oauth-network"></a>
 
-2. **提示 `oauth2.googleapis.com/token` 连接失败：优先修网络**
+2. **提示 `There was an unexpected issue setting up your account.`：优先修网络**
 
-   如果报错里出现 `Post "https://oauth2.googleapis.com/token"`、`connectex`、`failed to respond`、`connection attempt failed`，说明客户端请求 Google OAuth token 接口时没有走通网络。
+   如果看到大字报错 `There was an unexpected issue setting up your account.`，下方可能还带有 `Post "https://oauth2.googleapis.com/token"`、`connectex`、`failed to respond`、`connection attempt failed` 等详细信息，说明客户端请求 Google OAuth token 接口时没有走通网络。
 
    ![OAuth token 接口连接失败，通常是网络未接管](/articles/antigravity/auth-oauth-network-timeout.jpeg)
 
