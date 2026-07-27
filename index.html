@@ -1544,7 +1544,7 @@
 <body>
   <header class="top"><a class="brand" href="#"><span class="mark"><img src="./assets/icons/antigravity-color.svg" alt="Antigravity" width="20" height="20" decoding="async"></span><span>Antigravity Guide</span></a><nav><a href="#content">阅读全文</a><a href="https://antigravity-macos-guide.sumeetsxiang.com/" target="_blank" rel="noreferrer">MacOS 指南</a></nav></header>
   <main>
-    <section class="hero"><div class="hero-inner"><div class="eyebrow">✦ Windows Setup Guide</div><h1 id="title">Antigravity IDE / 2.0 (Windows) 终极网络配置与登录排障指南</h1><p>面向 Windows 用户的 Antigravity IDE 与 Antigravity 2.0 网络配置与登录排障指南，覆盖版本识别、Tun 模式、ProxyBridge 路径分流、账号注入与验证流程。</p><div class="meta" id="meta"></div><div class="tags" id="tags"></div></div><button class="hero-support" type="button" onclick="openQrModal()" aria-label="查看售后群二维码"><span class="hero-support-text"><span class="hero-support-title">遇到问题先加售后群</span><span class="hero-support-desc">群里可见可回。闲鱼请勿发敏感词。严格按教程多数可用；账号自身问题不退，远程不成全退。扫码有时看运气，风控请等 7 天～一个月。</span></span><img src="https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.webp" alt="售后群二维码" width="180" height="252" loading="lazy" decoding="async"></button></section>
+    <section class="hero"><div class="hero-inner"><div class="eyebrow" style="display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;"><span>✦ Windows Setup Guide</span><span style="display:inline-flex;align-items:center;gap:5px;background:#ecfdf5;color:#047857;border:1px solid #a7f3d0;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700;text-transform:none;letter-spacing:normal;"><span style="width:7px;height:7px;background:#10b981;border-radius:50%;"></span>🔄 本教程长期持续更新中</span></div><h1 id="title">Antigravity IDE / 2.0 (Windows) 终极网络配置与登录排障指南</h1><p>面向 Windows 用户的 Antigravity IDE 与 Antigravity 2.0 网络配置与登录排障指南，覆盖版本识别、Tun 模式、ProxyBridge 路径分流、账号注入与验证流程。</p><div class="meta" id="meta"></div><div class="tags" id="tags"></div></div><button class="hero-support" type="button" onclick="openQrModal()" aria-label="查看售后群二维码"><span class="hero-support-text"><span class="hero-support-title">遇到问题先加售后群</span><span class="hero-support-desc">群里可见可回。闲鱼请勿发敏感词。严格按教程多数可用；账号自身问题不退，远程不成全退。扫码有时看运气，风控请等 7 天～一个月。</span></span><img src="https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.webp" alt="售后群二维码" width="180" height="252" loading="lazy" decoding="async"></button></section>
     <!-- 对号入座：静态首屏，不依赖 article.md，打开即可显示 -->
     <section class="quick-triage-section" id="quick-triage-section">
       <div class="quick-triage article" id="quick-triage">
@@ -2116,7 +2116,7 @@
         const out = render(rest);
         document.title = meta.title || document.title;
         if (meta.title) document.getElementById("title").textContent = meta.title;
-        document.getElementById("meta").innerHTML = "<span>" + escapeHtml(meta.date) + "</span><span>" + platform + "</span><span>" + out.toc.filter(x => x.level === 2).length + " 个章节</span>";
+        document.getElementById("meta").innerHTML = "<span>" + escapeHtml(meta.date) + "</span><span>" + platform + "</span><span>" + out.toc.filter(x => x.level === 2).length + " 个章节</span><span style=\"color:#059669;font-weight:600;background:#ecfdf5;padding:2px 8px;border-radius:6px;border:1px solid #a7f3d0;\">🔄 长期持续更新</span>";
         document.getElementById("tags").innerHTML = (meta.tags || []).map(t => "<span>" + escapeHtml(t) + "</span>").join("");
         document.getElementById("toc").innerHTML = out.toc.map(x => '<li class="' + (x.level === 3 ? "sub" : "") + '"><a href="#' + x.id + '">' + escapeHtml(x.text) + "</a></li>").join("");
         document.getElementById("article").innerHTML = out.html;
@@ -2166,6 +2166,11 @@ tags:
   - Antigravity IDE
   - Antigravity 2.0
 image: ./assets/antigravity/cover.png
+---
+
+> 🔄 **【长期持续更新承诺】**
+> 本教程由团队**长期维护并持续更新**！我们会实时跟进 Google Antigravity 官方最新版本机制、风控规则、扫码验证打法与防封策解。只要官方有任何新变动或新报错，均会第一时间在此更新，请放心收藏关注！
+
 ---
 
 ## 🚑 先看这里：遇到问题先看图对号入座
@@ -2799,6 +2804,7 @@ ightarrow$ `Sign in again` 重新登录即可直接解决循环问题！
 
 如果您**严格按上述流程操作**，绝大多数情况下登录与使用问题都能解决。按教程把网络、环境、步骤做对，**正常可用是大概率事件**；若仍然用不了，多半是**账号自身异常**或**操作步骤有偏差**，而不是教程“没用”。对电脑不太熟练的用户，也可以直接联系客服下单**远程协助**，由专业人士一对一处理。感谢您的支持！
 
+- **教程持续更新保证**：软件或官方风控规则发生变动时，本教程会**第一时间同步更新最佳解决办法**，确保您始终能查阅到最新、最有效的排障指南。
 ### 售后群怎么用
 - 扫码加入售后群后，**群里消息大家都能看见、都可以回复**，有问题直接在群里发即可。
 - **闲鱼私聊请不要发敏感词**（例如违规引流、敏感平台名等），否则对方可能无法回复，问题会卡住。需要细聊技术细节，优先进售后群。
