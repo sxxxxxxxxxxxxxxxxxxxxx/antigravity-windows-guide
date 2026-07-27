@@ -410,7 +410,7 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 | 模型列表/模型名称刷不出来 | 节点异常或多套网络方案冲突 | Q2 |
 | ProxyBridge 不知道选哪个文件 | IDE 和 2.0 的 `language_server` 路径不同 | Q2.5 |
 | 蓝色 `Retry`，同时有 `400` | 先看报错正文再分流 | Q3 |
-| 报错里出现 `code: 400` 且含 `User location is not supported` | 当前出口地区/节点不被 API 支持 | [**Q3 地区 400**](#faq-chat-400) |
+| 报错里出现 `code: 400` 且含 `User location is not supported` | 当前出口地区/节点不被 API 支持 | [Q3 地区 400](#faq-chat-400) |
 | 验证成功后仍反复出现 `Verify / Sign in again` | 年龄验证或客户端登录状态未刷新 | Q4 |
 | 大字报错 `There was an unexpected issue setting up your account.` | 节点/登录状态/超时等综合问题 | Q5 |
 | 提示“您的身份无法被核实” / 需 Pixel 安全码 | 节点 IP 不够纯净 / 异地登录风控 | Q6 |
@@ -445,7 +445,7 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
       ![Antigravity 官方支持地区参考](./assets/antigravity/supported-regions.jpg)
 
       > 💡 **核心判定法则（非常重要）：**  
-      > ==**如果您的账号地区已经在官方支持列表中，但登录时仍显示“账号不符合资格 (ineligible)”，说明问题不在地区，而是需要进行「年龄认证」！请直接看下方的【处理建议 2】。**==
+      > ==如果您的账号地区已经在官方支持列表中，但登录时仍显示“账号不符合资格 (ineligible)”，说明问题不在地区，而是需要进行「年龄认证」！请直接看下方的【处理建议 2】。==
 
    2. **修改账号关联地区（若当前地区不在支持列表中）**：  
       如果页面提示 `Sorry, this account is ineligible to use Antigravity`，且账号关联的是不支持地区，请按以下步骤申请修改：
