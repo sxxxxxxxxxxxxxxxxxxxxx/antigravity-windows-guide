@@ -439,29 +439,38 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 
    先检查 Google 账号地区、付款资料地区、订阅状态和当前代理节点地区是否一致。此类问题目前不能再简单理解为“Cockpit 强制注入即可解决”；必要时只能调整地区环境或更换符合资格的账号。
 
-   如果页面提示 `Sorry, this account is ineligible to use Antigravity`，并且下方显示 `Authentication failed`，可以按下面方式尝试修改 Google 账号注册地：
+   1. **查验反重力官方支持地区**：  
+      访问反重力官方 FAQ 页面：[https://antigravity.google/docs/faq](https://antigravity.google/docs/faq)，可查阅反重力当前支持的全部账号国家/地区列表（如 Taiwan、Singapore、Japan、South Korea、United States 等）。
 
-   - **第 1 步：查验账号当前关联地区**  
-     先打开 Google 服务条款页查看当前账号关联地区：[https://policies.google.com/terms](https://policies.google.com/terms)。页面底部会明确显示该账号关联的国家/地区。如果显示为中国大陆、中国香港等不支持区域，则必须修改。
+      ![Antigravity 官方支持地区参考](./assets/antigravity/supported-regions.jpg)
 
-     ![Google 服务条款底部查看账号关联地区](./assets/antigravity/fatmouse/google-terms-country.jpg)
+      > 💡 **核心判定法则（非常重要）：**  
+      > ==**如果您的账号地区已经在官方支持列表中，但登录时仍显示“账号不符合资格 (ineligible)”，说明问题不在地区，而是需要进行「年龄认证」！请直接看下方的【处理建议 2】。**==
 
-   - **第 2 步：打开地区修改申请表单**  
-     访问 Google 官方地区更改申请页：[https://policies.google.com/country-association-form](https://policies.google.com/country-association-form)。
+   2. **修改账号关联地区（若当前地区不在支持列表中）**：  
+      如果页面提示 `Sorry, this account is ineligible to use Antigravity`，且账号关联的是不支持地区，请按以下步骤申请修改：
 
-     ![Google 账号关联地区更改申请表单](./assets/antigravity/fatmouse/google-country-change-form.jpg)
+      - **第 1 步：查验账号当前关联地区**  
+        打开 Google 服务条款页：[https://policies.google.com/terms](https://policies.google.com/terms)，滑动到页面最底部，查看该账号当前关联的国家/地区（如显示中国大陆、中国香港等受限地区则需修改）。
 
-   - **第 3 步：选择目标地区与提交方案**  
-     * **方案 A（快捷通过）**：在列表中选择您代理节点最常用的地区（如日本、新加坡、英国、加拿大等），勾选 **“我居住在此”** 并直接提交。
-       
-       ![选择居住在此提交](./assets/antigravity/fatmouse/google-country-change-option.jpg)
+        ![Google 服务条款底部查看账号关联地区](./assets/antigravity/fatmouse/google-terms-country.jpg)
 
-     * **方案 B（申诉说明）**：若选择最后一个 **“以上都不是”**，可在留言框说明：“*我因工作需要用到 Gemini / Antigravity，请帮我更改账号地区到 xxx*”。
+      - **第 2 步：打开地区修改申请表单**  
+        访问 Google 官方地区更改申请表单：[https://policies.google.com/country-association-form](https://policies.google.com/country-association-form)。
 
-   - **第 4 步：生效确认**  
-     *注意：Google 账号地区修改每年仅限申请 1 次。* 提交后等待邮件通知（通常 24 小时内生效），生效后再重新登录 Antigravity。
+        ![Google 账号关联地区更改申请表单](./assets/antigravity/fatmouse/google-country-change-form.jpg)
 
-   如果您确实因长期在美国居住、工作，并使用美国本地设备和付款方式，可以参考下面的英文说明。请按真实情况填写，不要提交虚假的居住、付款或地址信息：
+      - **第 3 步：选择目标地区与提交方案**  
+        * **方案 A（快捷通过）**：在列表中选择您代理节点最常用的地区（如日本、新加坡、英国、加拿大等），勾选 **“我居住在此”** 并直接提交。
+          
+          ![选择居住在此提交](./assets/antigravity/fatmouse/google-country-change-option.jpg)
+
+        * **方案 B（申诉说明）**：若选择最后一个 **“以上都不是”**，可在留言框说明：“*我因工作需要用到 Gemini / Antigravity，请帮我更改账号地区到 xxx*”。
+
+      - **第 4 步：生效确认与年限提醒**  
+        🚨 **【极重要提醒】**：==Google 账号地区修改每年仅允许申请一次！一旦修改成功，一年之内不允许再次修改。请务必确认好目标地区再提交！== 提交后等待邮件通知（通常 24 小时内生效），生效后再重新登录 Antigravity。
+
+      如果你确实长期在美国居住或工作，可以参考以下英文申诉模板：
 
 ```text
 Due to work arrangements, I am currently residing and working in the United States for an extended period. In order to better access local services (including payment methods, app downloads, and region-specific content), I would like to change my account region to the United States.
@@ -470,8 +479,6 @@ I have stable internet access and regularly use devices within the U.S., and I a
 
 Thank you for your understanding and support.
 ```
-
-   注意：Google 账号地区修改通常一年只能申请一次，提交前请确认目标地区和您长期使用的代理节点地区尽量一致，不要频繁乱改。
 
    **处理建议 2（其次）：人脸自拍年龄认证（解决 Verify -> Sign in again 无限循环）**
 
