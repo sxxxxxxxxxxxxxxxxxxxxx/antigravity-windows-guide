@@ -309,6 +309,8 @@ v2rayN默认端口 (Port): 10808
 
    ![输入短信验证码](./assets/antigravity/fatmouse/gcp-input-sms-code.jpg)
 
+   > 📌 **手机号验证使用须知**：每个手机号仅可成功验证 Antigravity 一次。若您的国内手机号此前已验证过其他账号，请更换家人或朋友的号码，或使用短效接码工具配合接收。
+
 5. **回到 Antigravity 完成登录**：
    * 短信验证成功后，回到 Antigravity 界面点击 `Verify` 按钮，浏览器会自动唤起并显示 **“身份验证成功”**！
    
@@ -338,7 +340,9 @@ v2rayN默认端口 (Port): 10808
 
    ![手机端确认与验证成功界面](./assets/antigravity/fatmouse/google-app-verify-confirm.jpg)
 
-4. **死磕与重试机制**：
+4. **真假成功判定与死磕重试（“焚决”心法）**：
+   * ⚠️ **真假成功判定**：手机扫码后，电脑网页无论显示“身份验证成功”还是“无法验证”，均不可作数！**必须且只有当手机屏幕最终显示“您现在已通过验证”** 时才算真正的成功。
+   * 🔄 **无限重试原则**：若手机提示“回到原设备确认”或“无法验证你的信息”（代表失败），切勿放弃！直接在 Antigravity 客户端点击 `Sign in again` 刷新二维码，**反复重试扫码（连续重试 7 次以上）**。若多次尝试仍未成功，可更换代理节点或改用【通道一】。
    * 如果手机显示验证手机号或电脑显示失败，**切记不要放弃，连续多试几次（反重力点 Sign in again 重新扫码，反复试 7 次以上）**。若仍然不行，可尝试通道一。
 
 ---
@@ -489,7 +493,7 @@ Thank you for your understanding and support.
 
      ![选择 Take a selfie 自拍人脸识别](./assets/antigravity/fatmouse/google-age-verification-options.jpg)
 
-   * **第 3 步**：页面生成二维码或 Link 链接，复制链接或手机扫码在手机浏览器完成刷脸（实测一张脸可无限次刷通过，手机与电脑需挂同一代理节点）。
+   * **第 3 步**：页面生成二维码或 Link 链接，复制链接或手机扫码在手机浏览器完成刷脸（实测一张脸可以无限次扫刷通过不同账号的年龄认证（手机与电脑需挂同一代理节点））。
 
      ![自拍人脸识别扫码与 Link 界面](./assets/antigravity/fatmouse/google-age-selfie-qr.jpg)
 
@@ -642,7 +646,7 @@ ightarrow$ `Sign in again` 重新登录即可直接解决循环问题！
 
 * **原因**：账号检测到异地登录或频繁变动出口 IP，触发了 Google 底层风控。
 * **三招避坑与解决方案**：
-  1. **检查与更换纯净 IP**：使用 [ping0.cc](https://ping0.cc) 或 [ippure.com](https://ippure.com) 检测代理节点的 IP 纯净度，优先选择美区住宅/家宽纯净 IP。
+  1. **检测并更换美区纯净 IP**：在登录前访问 [ping0.cc](https://ping0.cc) 或 [ippure.com](https://ippure.com) 检测代理节点的 IP 纯净度得分。**强烈推荐使用美区纯净家宽 (Residential IP)**，实测换为美区家宽节点后，隔天即可成功登录通关。
   2. **7 天固定设备养号法**：保持固定电脑设备与固定纯净节点，连续使用 Google / Gemini 满 7 天，系统会自动将其升级为受信任的“常用设备”，风控自动解除。
   3. **开通 Google 账户家庭组共享 Pro**：若有自己主号开通的 Pro，可通过家庭组邀请该账号加入共享会员（[邀请教程](https://ikunlove.best/gem)），直接用自己的主账号登录 Antigravity，彻底规避异地风控问题。
 
