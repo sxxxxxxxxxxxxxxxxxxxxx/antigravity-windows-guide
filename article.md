@@ -313,17 +313,10 @@ v2rayN默认端口 (Port): 10808
 
    > 📌 **手机号验证使用须知**：每个手机号仅可成功验证 Antigravity 一次。若您的国内手机号此前已验证过其他账号，请更换家人或朋友的号码，或使用短效接码工具配合接收。
 
-5. **回到 Antigravity 完成登录**：
-   * 短信验证成功后，回到 Antigravity 界面点击 `Verify` 按钮，浏览器会自动唤起并显示 **“身份验证成功”**！
-   
-     ![反重力点击 Verify 按钮](./assets/antigravity/fatmouse/antigravity-verify-btn.jpg)
+5. **回到 Antigravity 重新登录**：
+   谷歌云短信验证成功后，回到 Antigravity 客户端，直接点击 **`Sign in again`** 按钮重新登录，即可顺利成功进入反重力！
 
-     ![网页显示身份验证成功](./assets/antigravity/fatmouse/google-auth-success-page.jpg)
-
-   * 接着回到 Antigravity 客户端，点击 `Sign in again` 按钮重新登录，即可顺利成功进入 Antigravity！
-
-     ![点击 Sign in again 重新登录](./assets/antigravity/fatmouse/antigravity-signin-again-btn.jpg)
-
+   ![点击 Sign in again 重新登录](./assets/antigravity/fatmouse/antigravity-signin-again-btn.jpg)
 ---
 
 ### 📱 通道二：手机 Google App 内置扫码（“焚决”打法）
