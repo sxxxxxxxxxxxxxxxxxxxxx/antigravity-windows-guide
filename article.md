@@ -293,7 +293,7 @@ v2rayN默认端口 (Port): 10808
    建议在浏览器打开**无痕模式**，访问：[https://docs.cloud.google.com/docs/authentication?hl=zh-cn&cloudshell=true#service_accounts](https://docs.cloud.google.com/docs/authentication?hl=zh-cn&cloudshell=true#service_accounts)。登录您的目标 Google 账号。
 
 2. **激活 Cloud Shell 触发验证**：
-   登录后刷新页面，滑动到页面中下方，找到并点击 **“激活 Cloud Shell” (Activate Cloud Shell)** 蓝色按钮。
+   登录后刷新页面，==**第 1 步先点击页面右上角的 `[>_ Shell]` 图标按钮**==，页面底部才会弹出提示窗口，==**第 2 步点击弹窗中的 “激活 Cloud Shell” (Activate Cloud Shell) 蓝色按钮**==。
 
    ![谷歌云激活 Cloud Shell 验证界面](./assets/antigravity/fatmouse/gcp-cloud-shell-activate.jpg)
 
