@@ -2161,7 +2161,7 @@
       }
     };
 
-    fetch("./article.md?v=20260819-section3-unexpected-issue-notice", { cache: "no-cache" }).then(r => {
+    fetch("./article.md?v=20260819-section3-polished-layout", { cache: "no-cache" }).then(r => {
       if (!r.ok) throw new Error("article.md " + r.status);
       return r.text();
     }).then(raw => {
@@ -2268,16 +2268,19 @@ Google 更新后，Antigravity 已经不再只有一个客户端。请先确认�
 
 ## 三、必做：核心网络配置（三选一） {#network-config}
 
-> ⚠️ **【重要特征识别 · 出现此报错必看本章】**  
-> 如果您在登录时弹出了 **`There was an unexpected issue setting up your account.`**（如下图所示），或者提示 `oauth2.googleapis.com 连接超时`、`EOF`、`daily-cloudcode 请求失败`：
+> ⚠️ **【重要特征识别 · 出现此报错必看本章】**
+>
+> 如果您在登录阶段遇到了如下图所示的 **`There was an unexpected issue setting up your account.`**，或提示 `oauth2.googleapis.com 连接超时` / `EOF` / `daily-cloudcode 请求失败`：
+>
+> * 🚨 **核心本质**：==100% 说明客户端根本没有走通代理网络==（浏览器能上外网不代表客户端已接管）。
+> * ⚠️ **操作禁忌**：此时==千万不要反复注入账号或狂点登录==，必须先按本章配置好网络！
 > 
-> <img src="./assets/antigravity/auth-oauth-network-timeout.jpeg" width="360" style="border-radius:10px; border:1px solid #fed7aa; display:block; margin:8px 0;">
-> 
-> **🚨 本质原因：这 100% 说明您的客户端根本没有走通代理网络（网络未接管/连接超时）！**  
-> ⚠️ **【切记】此时千万不要反复注入账号或反复点登录**，请务必严格按照本章的**三种网络方案（强烈推荐首选 Tun 模式）**完成底层网络配置，确保客户端流量真正被代理接管后再登录！
+> ![登录网络超时报错：There was an unexpected issue setting up your account](./assets/antigravity/auth-oauth-network-timeout.jpeg)
 
 **📌 为什么必须要单独配置网络？**
-Antigravity IDE 和 Antigravity 2.0 的底层网络请求都不会完整遵循 Windows 的系统代理规则（普通代理工具无法稳定接管它们的代码与认证流量）。如果不开启 Tun 模式或配置分流，软件就会直接弹出上面的 `There was an unexpected issue setting up your account`，或出现发消息一直转圈、模型无法加载等问题。
+Antigravity IDE 和 Antigravity 2.0 的底层网络请求都不会完整遵循 Windows 的系统代理规则（常规代理软件无法稳定接管代码与认证流量）。如果不开启 Tun 模式或配置分流，软件就会直接弹出上面的 `There was an unexpected issue setting up your account`，或出现发消息一直转圈、模型无法加载等问题。
+
+请在以下三种方案中选择一种（==强烈建议直接使用「首选方案：Tun 模式」==）：
 
 ### 🌟 首选方案：Tun 模式虚拟网卡（最稳定、最快捷）
 
