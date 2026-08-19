@@ -178,21 +178,7 @@
       color: var(--text-muted);
       margin: 0 0 32px;
     }
-    .meta, .tags {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-    .meta span, .tags span {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      padding: 6px 14px;
-      border-radius: 999px;
-      font-size: 13px;
-      color: var(--text-muted);
-      font-weight: 600;
-    }
+    /* meta & tags removed for ultra clean hero */
     .tags span {
       background: #f1f5f9;
       border-color: transparent;
@@ -944,13 +930,7 @@
         margin-bottom: 12px;
         line-height: 1.65;
       }
-      .meta, .tags {
-        gap: 6px;
-      }
-      .meta span, .tags span {
-        font-size: 11px;
-        padding: 4px 8px;
-      }
+      /* meta & tags removed for ultra clean hero */
       .hero-support {
         padding: 12px;
         gap: 10px;
@@ -1577,7 +1557,7 @@
             <strong>【闲鱼私聊安全警告 · 有问题进售后群问】</strong>
             严禁在闲鱼平台私聊发送任何违禁词与敏感词（例如：<strong>谷歌、梯子、节点、翻墙、网络代理</strong>等词汇）！闲鱼监控极严，发送敏感词会导致账号禁言或消息卡住无法接收。<strong>有任何使用或技术问题，请直接扫码加入 <a href="javascript:void(0)" onclick="openQrModal()">售后群</a> 在群里问，群里随时回复！</strong>
           </div>
-        </div><div class="eyebrow" style="display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;"><span>✦ Windows Setup Guide</span><span style="display:inline-flex;align-items:center;gap:5px;background:#ecfdf5;color:#047857;border:1px solid #a7f3d0;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700;text-transform:none;letter-spacing:normal;"><span style="width:7px;height:7px;background:#10b981;border-radius:50%;"></span>🔄 本教程长期持续更新中</span></div><h1 id="title">Antigravity IDE / 2.0 (Windows) 终极网络配置与登录排障指南</h1><p>面向 Windows 用户的 Antigravity IDE 与 Antigravity 2.0 网络配置与登录排障指南，覆盖版本识别、Tun 模式、ProxyBridge 路径分流、账号注入与验证流程。</p><div class="meta" id="meta"></div><div class="tags" id="tags"></div></div><button class="hero-support" type="button" onclick="openQrModal()" aria-label="查看售后群二维码"><span class="hero-support-text"><span class="hero-support-title">遇到问题先加售后群</span><span class="hero-support-desc">群里可见可回。闲鱼请勿发敏感词。严格按教程多数可用；账号自身问题不退，远程不成全退。扫码有时看运气，风控请等 7 天～一个月。</span></span><img src="https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.webp" alt="售后群二维码" width="180" height="252" loading="lazy" decoding="async"></button></section>
+        </div><div class="eyebrow" style="display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;"><span>✦ Windows Setup Guide</span><span style="display:inline-flex;align-items:center;gap:5px;background:#ecfdf5;color:#047857;border:1px solid #a7f3d0;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700;text-transform:none;letter-spacing:normal;"><span style="width:7px;height:7px;background:#10b981;border-radius:50%;"></span>🔄 本教程长期持续更新中</span></div><h1 id="title">Antigravity IDE / 2.0 (Windows) 终极网络配置与登录排障指南</h1><p>面向 Windows 用户的 Antigravity IDE 与 Antigravity 2.0 网络配置与登录排障指南，覆盖版本识别、Tun 模式、ProxyBridge 路径分流、账号注入与验证流程。</p></div><button class="hero-support" type="button" onclick="openQrModal()" aria-label="查看售后群二维码"><span class="hero-support-text"><span class="hero-support-title">遇到问题先加售后群</span><span class="hero-support-desc">群里可见可回。闲鱼请勿发敏感词。严格按教程多数可用；账号自身问题不退，远程不成全退。扫码有时看运气，风控请等 7 天～一个月。</span></span><img src="https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.webp" alt="售后群二维码" width="180" height="252" loading="lazy" decoding="async"></button></section>
     <!-- 对号入座：静态首屏，不依赖 article.md，打开即可显示 -->
     <section class="quick-triage-section" id="quick-triage-section">
       <div class="quick-triage article" id="quick-triage">
@@ -2159,8 +2139,8 @@
         const out = render(rest);
         document.title = meta.title || document.title;
         if (meta.title) document.getElementById("title").textContent = meta.title;
-        document.getElementById("meta").innerHTML = "<span>" + escapeHtml(meta.date) + "</span><span>" + platform + "</span><span>" + out.toc.filter(x => x.level === 2).length + " 个章节</span><span style=\"color:#059669;font-weight:600;background:#ecfdf5;padding:2px 8px;border-radius:6px;border:1px solid #a7f3d0;\">🔄 长期持续更新</span>";
-        document.getElementById("tags").innerHTML = (meta.tags || []).map(t => "<span>" + escapeHtml(t) + "</span>").join("");
+        const metaEl = document.getElementById("meta"); if (metaEl) metaEl.innerHTML = "";font-weight:600;background:#ecfdf5;padding:2px 8px;border-radius:6px;border:1px solid #a7f3d0;\">🔄 长期持续更新</span>";
+        const tagsEl = document.getElementById("tags"); if (tagsEl) tagsEl.innerHTML = "";
         document.getElementById("toc").innerHTML = out.toc.map(x => '<li class="' + (x.level === 3 ? "sub" : "") + '"><a href="#' + x.id + '">' + escapeHtml(x.text) + "</a></li>").join("");
         document.getElementById("article").innerHTML = out.html;
         void document.getElementById("article").offsetHeight;
@@ -2182,7 +2162,7 @@
       }
     };
 
-    fetch("./article.md?v=20260819-ask-in-after-sales-group", { cache: "no-cache" }).then(r => {
+    fetch("./article.md?v=20260819-clean-hero-structure", { cache: "no-cache" }).then(r => {
       if (!r.ok) throw new Error("article.md " + r.status);
       return r.text();
     }).then(raw => {
