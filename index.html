@@ -2139,8 +2139,7 @@
         const out = render(rest);
         document.title = meta.title || document.title;
         if (meta.title) document.getElementById("title").textContent = meta.title;
-        const metaEl = document.getElementById("meta"); if (metaEl) metaEl.innerHTML = "";font-weight:600;background:#ecfdf5;padding:2px 8px;border-radius:6px;border:1px solid #a7f3d0;\">🔄 长期持续更新</span>";
-        const tagsEl = document.getElementById("tags"); if (tagsEl) tagsEl.innerHTML = "";
+        // meta & tags removed
         document.getElementById("toc").innerHTML = out.toc.map(x => '<li class="' + (x.level === 3 ? "sub" : "") + '"><a href="#' + x.id + '">' + escapeHtml(x.text) + "</a></li>").join("");
         document.getElementById("article").innerHTML = out.html;
         void document.getElementById("article").offsetHeight;
@@ -2162,7 +2161,7 @@
       }
     };
 
-    fetch("./article.md?v=20260819-clean-hero-structure", { cache: "no-cache" }).then(r => {
+    fetch("./article.md?v=20260819-render-fixed-ok", { cache: "no-cache" }).then(r => {
       if (!r.ok) throw new Error("article.md " + r.status);
       return r.text();
     }).then(raw => {
