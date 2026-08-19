@@ -18,25 +18,21 @@ image: ./assets/antigravity/cover.png
 
 ## 🚑 先看这里：遇到问题先看图对号入座
 
-目前大家遇到的绝大多数问题，都是下面这三种报错。**请先对照截图；网页里点图可放大查看，点下方蓝色链接会跳到对应解决办法。**
+目前大家遇到的绝大多数问题，都是下面这四种报错。**请先对照截图；网页里点图可放大查看，点下方蓝色链接会跳到对应解决办法。**
 
-| 🛑 **账号地区/资格不符** | ⚠️ **网络超时/未接管** | 🛂 **人机扫码验证** |
-| :---: | :---: | :---: |
-| [![账号没资格](./assets/antigravity/auth-ineligible-account.png)](#faq-auth-ineligible) | [![网络超时](./assets/antigravity/auth-oauth-network-timeout.jpeg)](#network-config) | [![人机验证](./assets/antigravity/fatmouse/verify-sign-in-again.jpg)](#human-verify) |
-| **Sorry, this account is ineligible** | **There was an unexpected issue setting up your account.** | **Further action is required** |
-| [👉 点此处理地区/资格/年龄](#faq-auth-ineligible) | [👉 点此按第三章配置网络](#network-config) | [👉 点此查看扫码验证流程](#human-verify) |
+| 🛑 **账号地区/资格不符** | ⚠️ **网络超时/未接管** | 🛂 **人机扫码验证** | ⚡ **对话中断/400报错** |
+| :---: | :---: | :---: | :---: |
+| [![账号没资格](./assets/antigravity/auth-ineligible-account.png)](#faq-auth-ineligible) | [![网络超时](./assets/antigravity/auth-oauth-network-timeout.jpeg)](#network-config) | [![人机验证](./assets/antigravity/fatmouse/verify-sign-in-again.jpg)](#human-verify) | [![对话中断报错](./assets/antigravity/fatmouse/agent-execution-error-dark.png)](#faq-chat-400) |
+| **Sorry, this account is ineligible** | **There was an unexpected issue setting up your account.** | **Further action is required** | **Agent execution terminated due to error** |
+| [👉 点此处理地区/资格/年龄](#faq-auth-ineligible) | [👉 点此按第三章配置网络](#network-config) | [👉 点此查看扫码验证流程](#human-verify) | [👉 点此换纯净家宽/处理400](#faq-chat-400) |
 
 > 💡 **怎么对号：**
 > * **账号没资格**：优先查地区与资格，再查年龄认证（==不要先反复注入==）。
 > * **unexpected issue / 网络超时**：就是客户端没真正走通代理——请按 **第三章网络配置** 处理（Tun / ProxyBridge 等）。
 > * **Further action / 扫码验证**：登录阶段的人机验证，见扫码流程；**年龄认证**在「账号没资格」那一条处理。
-> * **对话时报 `400` 且提示 `User location is not supported for the API use.`**：==出口地区不被支持==，先换日/新等干净节点并重开客户端 → [点此直达排障 Q3](#faq-chat-400)。
+> * **对话中断 / Agent terminated / 400 报错**：==100% 梯子 IP 被谷歌标记为受限地区==，请按 Q3 **换美/日纯净家宽 IP** 并彻底重启客户端 → [👉 点此直达排障 Q3](#faq-chat-400)。
 > * 只想要原来 VS Code 界面：下载 **Antigravity IDE**，==不要只点官网最上面的 Antigravity 2.0==。
 > * 发消息一直转圈、模型刷不出来：优先当网络未接管，==不要先反复注入账号==。
-
----
-
-
 
 ## 一、 环境配置与准备工作
 

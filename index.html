@@ -1548,8 +1548,8 @@
     <!-- 对号入座：静态首屏，不依赖 article.md，打开即可显示 -->
     <section class="quick-triage-section" id="quick-triage-section">
       <div class="quick-triage article" id="quick-triage">
-        <h2>🚑 先看这里：遇到问题先看图对号入座</h2>
-        <p>目前大家遇到的绝大多数问题，都是下面这三种报错。<strong>点图可放大对照；点下方蓝色链接跳到对应解决办法。</strong></p>
+                <h2>🚑 先看这里：遇到问题先看图对号入座</h2>
+        <p>目前大家遇到的绝大多数问题，都是下面这四种报错。<strong>点图可放大对照；点下方蓝色链接跳到对应解决办法。</strong></p>
         <div class="table-wrap">
           <table>
             <thead>
@@ -1557,6 +1557,7 @@
                 <th>🛑 <strong>账号地区/资格不符</strong></th>
                 <th>⚠️ <strong>网络超时/未接管</strong></th>
                 <th>🛂 <strong>人机扫码验证</strong></th>
+                <th>⚡ <strong>对话中断/400报错</strong></th>
               </tr>
             </thead>
             <tbody>
@@ -1579,16 +1580,24 @@
                     <span class="triage-shot-tip">🔍 点击放大</span>
                   </button>
                 </td>
+                <td>
+                  <button type="button" class="triage-shot" title="点击放大查看报错截图" aria-label="点击放大：对话中断报错截图">
+                    <img src="./assets/antigravity/fatmouse/agent-execution-error-dark.png" alt="Agent execution terminated due to error" width="220" height="140" loading="eager" fetchpriority="high" decoding="async">
+                    <span class="triage-shot-tip">🔍 点击放大</span>
+                  </button>
+                </td>
               </tr>
               <tr>
                 <td><strong>Sorry, this account is ineligible</strong></td>
                 <td><strong>There was an unexpected issue setting up your account.</strong></td>
                 <td><strong>Further action is required</strong></td>
+                <td><strong>Agent execution terminated / 400</strong></td>
               </tr>
               <tr>
                 <td><a href="#faq-auth-ineligible" class="inpage-link">👉 点此处理地区/资格/年龄</a></td>
                 <td><a href="#network-config" class="inpage-link">👉 点此按第三章配置网络</a></td>
                 <td><a href="#human-verify" class="inpage-link">👉 点此查看扫码验证流程</a></td>
+                <td><a href="#faq-chat-400" class="inpage-link">👉 点此换纯净家宽/处理400</a></td>
               </tr>
             </tbody>
           </table>
@@ -1596,16 +1605,17 @@
         <div class="alert-card alert-note">
           <div class="alert-header">
             <svg class="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M15.09 14c.18-.19.33-.42.44-.67.34-.76.77-1.7.77-2.83A4.3 4.3 0 0 0 12 6.25a4.3 4.3 0 0 0-4.3 4.25c0 1.13.43 2.07.77 2.83.11.25.26.48.44.67"></path></svg>
-            <span class="alert-title">怎么对号（先看这三句）</span>
+            <span class="alert-title">怎么对号（先看这几句）</span>
           </div>
           <div class="alert-content">
             <p>• <strong>账号没资格</strong>：先查地区与资格，再查年龄认证，<mark class="hl-danger">不要先反复注入</mark>。</p>
             <p>• <strong>unexpected issue / 网络超时</strong>：就是客户端没真正走通代理——请按 <a href="#network-config" class="inpage-link"><strong>第三章网络配置</strong></a> 处理（Tun / ProxyBridge 等）。</p>
             <p>• <strong>Further action / 扫码</strong>：登录阶段人机验证；年龄认证在「账号没资格」那条处理。<mark class="hl-danger">不要狂扫十几次</mark>。</p>
-            <p>• <strong>对话时报 <code>400</code> 且含 <code>User location is not supported</code></strong>：<mark class="hl-danger">出口地区不被支持</mark>，先换日/新等干净节点再重开客户端 → <a href="#faq-chat-400" class="inpage-link"><strong>点此直达排障 Q3</strong></a>。</p>
+            <p>• <strong>对话中断 / Agent terminated / 400 报错</strong>：<mark class="hl-danger">100% 梯子 IP 被谷歌标记为受限地区</mark>，请按 Q3 <a href="#faq-chat-400" class="inpage-link"><strong>换美/日纯净家宽 IP 并重开客户端</strong></a>。</p>
             <p>• 桌面图标偏白多半是 <strong>2.0</strong>，偏黑多半是 <strong>IDE</strong>（看桌面快捷方式，不是软件内部主题）；发消息一直转圈：优先当网络未接管，<mark class="hl-danger">不要先反复注入账号</mark>。</p>
           </div>
         </div>
+      </div>
       </div>
     </section>
     <div class="shell" id="content"><aside class="toc"><button class="toc-toggle" id="toc-toggle" type="button">目录 ▾</button><div class="toc-title">目录</div><ol id="toc"></ol></aside><article class="article" id="article"><p class="article-loading">正在加载正文教程</p></article></div>
@@ -2139,7 +2149,7 @@
       }
     };
 
-    fetch("./article.md?v=20260819-location-400-fix", { cache: "no-cache" }).then(r => {
+    fetch("./article.md?v=20260819-4card-hero-fix", { cache: "no-cache" }).then(r => {
       if (!r.ok) throw new Error("article.md " + r.status);
       return r.text();
     }).then(raw => {
@@ -2175,25 +2185,21 @@ image: ./assets/antigravity/cover.png
 
 ## 🚑 先看这里：遇到问题先看图对号入座
 
-目前大家遇到的绝大多数问题，都是下面这三种报错。**请先对照截图；网页里点图可放大查看，点下方蓝色链接会跳到对应解决办法。**
+目前大家遇到的绝大多数问题，都是下面这四种报错。**请先对照截图；网页里点图可放大查看，点下方蓝色链接会跳到对应解决办法。**
 
-| 🛑 **账号地区/资格不符** | ⚠️ **网络超时/未接管** | 🛂 **人机扫码验证** |
-| :---: | :---: | :---: |
-| [![账号没资格](./assets/antigravity/auth-ineligible-account.png)](#faq-auth-ineligible) | [![网络超时](./assets/antigravity/auth-oauth-network-timeout.jpeg)](#network-config) | [![人机验证](./assets/antigravity/fatmouse/verify-sign-in-again.jpg)](#human-verify) |
-| **Sorry, this account is ineligible** | **There was an unexpected issue setting up your account.** | **Further action is required** |
-| [👉 点此处理地区/资格/年龄](#faq-auth-ineligible) | [👉 点此按第三章配置网络](#network-config) | [👉 点此查看扫码验证流程](#human-verify) |
+| 🛑 **账号地区/资格不符** | ⚠️ **网络超时/未接管** | 🛂 **人机扫码验证** | ⚡ **对话中断/400报错** |
+| :---: | :---: | :---: | :---: |
+| [![账号没资格](./assets/antigravity/auth-ineligible-account.png)](#faq-auth-ineligible) | [![网络超时](./assets/antigravity/auth-oauth-network-timeout.jpeg)](#network-config) | [![人机验证](./assets/antigravity/fatmouse/verify-sign-in-again.jpg)](#human-verify) | [![对话中断报错](./assets/antigravity/fatmouse/agent-execution-error-dark.png)](#faq-chat-400) |
+| **Sorry, this account is ineligible** | **There was an unexpected issue setting up your account.** | **Further action is required** | **Agent execution terminated due to error** |
+| [👉 点此处理地区/资格/年龄](#faq-auth-ineligible) | [👉 点此按第三章配置网络](#network-config) | [👉 点此查看扫码验证流程](#human-verify) | [👉 点此换纯净家宽/处理400](#faq-chat-400) |
 
 > 💡 **怎么对号：**
 > * **账号没资格**：优先查地区与资格，再查年龄认证（==不要先反复注入==）。
 > * **unexpected issue / 网络超时**：就是客户端没真正走通代理——请按 **第三章网络配置** 处理（Tun / ProxyBridge 等）。
 > * **Further action / 扫码验证**：登录阶段的人机验证，见扫码流程；**年龄认证**在「账号没资格」那一条处理。
-> * **对话时报 `400` 且提示 `User location is not supported for the API use.`**：==出口地区不被支持==，先换日/新等干净节点并重开客户端 → [点此直达排障 Q3](#faq-chat-400)。
+> * **对话中断 / Agent terminated / 400 报错**：==100% 梯子 IP 被谷歌标记为受限地区==，请按 Q3 **换美/日纯净家宽 IP** 并彻底重启客户端 → [👉 点此直达排障 Q3](#faq-chat-400)。
 > * 只想要原来 VS Code 界面：下载 **Antigravity IDE**，==不要只点官网最上面的 Antigravity 2.0==。
 > * 发消息一直转圈、模型刷不出来：优先当网络未接管，==不要先反复注入账号==。
-
----
-
-
 
 ## 一、 环境配置与准备工作
 
