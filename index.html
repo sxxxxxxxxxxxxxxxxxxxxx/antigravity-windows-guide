@@ -95,11 +95,35 @@
     .hero {
       display: grid;
       grid-template-columns: minmax(0, 1fr) 320px;
-      align-items: center;
-      gap: 48px;
+      align-items: start;
+      gap: 40px;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 80px clamp(20px, 5vw, 40px);
+      padding: 32px clamp(20px, 5vw, 40px) 48px;
+    }
+    .xianyu-warning-card {
+      background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%);
+      border: 1px solid #fecdd3;
+      border-left: 5px solid #f43f5e;
+      color: #881337;
+      padding: 14px 18px;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      box-shadow: 0 4px 16px -4px rgba(244, 63, 94, 0.12);
+    }
+    .xianyu-warning-card strong {
+      color: #9f1239;
+      font-weight: 800;
+    }
+    .xianyu-warning-card a {
+      color: #be123c;
+      text-decoration: underline;
+      font-weight: 700;
     }
     .hero-inner {
       max-width: 760px;
@@ -1544,16 +1568,16 @@
 <body>
   <header class="top"><a class="brand" href="#"><span class="mark"><img src="./assets/icons/antigravity-color.svg" alt="Antigravity" width="20" height="20" decoding="async"></span><span>Antigravity Guide</span></a><nav><a href="#content">阅读全文</a><a href="https://antigravity-macos-guide.sumeetsxiang.com/" target="_blank" rel="noreferrer">MacOS 指南</a></nav></header>
   <main>
-    <!-- 闲鱼敏感词安全警告 Banner -->
-    <div class="xianyu-warning-banner" style="background:#fef2f2; border:1px solid #fca5a5; color:#991b1b; padding:12px 16px; border-radius:10px; margin:12px auto; max-width:1100px; font-size:14px; font-weight:600; display:flex; align-items:center; gap:10px; box-shadow:0 2px 5px rgba(239,68,68,0.08);">
-      <span style="font-size:18px; flex-shrink:0;">🚨</span>
-      <div>
-        <strong style="color:#7f1d1d;">【闲鱼私聊安全警告 · 有问题进售后群问】</strong>
-        严禁在闲鱼平台私聊发送任何违禁词与敏感词（例如：<strong>谷歌、梯子、节点、翻墙、网络代理</strong>等词汇）！闲鱼监控极严，发送敏感词会导致账号禁言或消息卡住无法接收。<strong>有任何使用或技术问题，请直接扫码加入 <a href="javascript:void(0)" onclick="openQrModal()" style="color:#b91c1c; text-decoration:underline; font-weight:700;">售后群</a> 在群里问，群里随时回复！</strong>
-      </div>
-    </div>
-
-    <section class="hero"><div class="hero-inner"><div class="eyebrow" style="display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;"><span>✦ Windows Setup Guide</span><span style="display:inline-flex;align-items:center;gap:5px;background:#ecfdf5;color:#047857;border:1px solid #a7f3d0;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700;text-transform:none;letter-spacing:normal;"><span style="width:7px;height:7px;background:#10b981;border-radius:50%;"></span>🔄 本教程长期持续更新中</span></div><h1 id="title">Antigravity IDE / 2.0 (Windows) 终极网络配置与登录排障指南</h1><p>面向 Windows 用户的 Antigravity IDE 与 Antigravity 2.0 网络配置与登录排障指南，覆盖版本识别、Tun 模式、ProxyBridge 路径分流、账号注入与验证流程。</p><div class="meta" id="meta"></div><div class="tags" id="tags"></div></div><button class="hero-support" type="button" onclick="openQrModal()" aria-label="查看售后群二维码"><span class="hero-support-text"><span class="hero-support-title">遇到问题先加售后群</span><span class="hero-support-desc">群里可见可回。闲鱼请勿发敏感词。严格按教程多数可用；账号自身问题不退，远程不成全退。扫码有时看运气，风控请等 7 天～一个月。</span></span><img src="https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.webp" alt="售后群二维码" width="180" height="252" loading="lazy" decoding="async"></button></section>
+    <section class="hero">
+      <div class="hero-inner">
+        <!-- 闲鱼敏感词安全警告 Banner（内置于 Hero 首屏，完美齐平与对齐） -->
+        <div class="xianyu-warning-card">
+          <span style="font-size:20px; flex-shrink:0; line-height:1;">🚨</span>
+          <div>
+            <strong>【闲鱼私聊安全警告 · 有问题进售后群问】</strong>
+            严禁在闲鱼平台私聊发送任何违禁词与敏感词（例如：<strong>谷歌、梯子、节点、翻墙、网络代理</strong>等词汇）！闲鱼监控极严，发送敏感词会导致账号禁言或消息卡住无法接收。<strong>有任何使用或技术问题，请直接扫码加入 <a href="javascript:void(0)" onclick="openQrModal()">售后群</a> 在群里问，群里随时回复！</strong>
+          </div>
+        </div><div class="eyebrow" style="display:inline-flex;align-items:center;gap:12px;flex-wrap:wrap;"><span>✦ Windows Setup Guide</span><span style="display:inline-flex;align-items:center;gap:5px;background:#ecfdf5;color:#047857;border:1px solid #a7f3d0;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700;text-transform:none;letter-spacing:normal;"><span style="width:7px;height:7px;background:#10b981;border-radius:50%;"></span>🔄 本教程长期持续更新中</span></div><h1 id="title">Antigravity IDE / 2.0 (Windows) 终极网络配置与登录排障指南</h1><p>面向 Windows 用户的 Antigravity IDE 与 Antigravity 2.0 网络配置与登录排障指南，覆盖版本识别、Tun 模式、ProxyBridge 路径分流、账号注入与验证流程。</p><div class="meta" id="meta"></div><div class="tags" id="tags"></div></div><button class="hero-support" type="button" onclick="openQrModal()" aria-label="查看售后群二维码"><span class="hero-support-text"><span class="hero-support-title">遇到问题先加售后群</span><span class="hero-support-desc">群里可见可回。闲鱼请勿发敏感词。严格按教程多数可用；账号自身问题不退，远程不成全退。扫码有时看运气，风控请等 7 天～一个月。</span></span><img src="https://sxxxxxxxxxxxxxxxxxxxxx.github.io/picx-images-hosting/售后群二维码.webp" alt="售后群二维码" width="180" height="252" loading="lazy" decoding="async"></button></section>
     <!-- 对号入座：静态首屏，不依赖 article.md，打开即可显示 -->
     <section class="quick-triage-section" id="quick-triage-section">
       <div class="quick-triage article" id="quick-triage">
