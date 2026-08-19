@@ -89,10 +89,16 @@ Google 更新后，Antigravity 已经不再只有一个客户端。请先确认�
 
 ## 三、必做：核心网络配置（三选一） {#network-config}
 
-**📌 为什么必须要单独配置网络？**
-Antigravity IDE 和 Antigravity 2.0 的底层网络请求都可能不会完整遵循 Windows 的系统代理规则（常规代理软件无法稳定接管它们的流量）。如果不进行额外配置，软件会出现"无网络"、模型无法加载、消息一直转圈等问题。
+> ⚠️ **【重要特征识别 · 出现此报错必看本章】**  
+> 如果您在登录时弹出了 **`There was an unexpected issue setting up your account.`**（如下图所示），或者提示 `oauth2.googleapis.com 连接超时`、`EOF`、`daily-cloudcode 请求失败`：
+> 
+> <img src="./assets/antigravity/auth-oauth-network-timeout.jpeg" width="360" style="border-radius:10px; border:1px solid #fed7aa; display:block; margin:8px 0;">
+> 
+> **🚨 本质原因：这 100% 说明您的客户端根本没有走通代理网络（网络未接管/连接超时）！**  
+> ⚠️ **【切记】此时千万不要反复注入账号或反复点登录**，请务必严格按照本章的**三种网络方案（强烈推荐首选 Tun 模式）**完成底层网络配置，确保客户端流量真正被代理接管后再登录！
 
-请根据您的实际情况，在以下三种方案中选择一种。==强烈建议直接使用「首选方案：Tun 模式」==，仅在遇到冲突时再尝试进阶方案。
+**📌 为什么必须要单独配置网络？**
+Antigravity IDE 和 Antigravity 2.0 的底层网络请求都不会完整遵循 Windows 的系统代理规则（普通代理工具无法稳定接管它们的代码与认证流量）。如果不开启 Tun 模式或配置分流，软件就会直接弹出上面的 `There was an unexpected issue setting up your account`，或出现发消息一直转圈、模型无法加载等问题。
 
 ### 🌟 首选方案：Tun 模式虚拟网卡（最稳定、最快捷）
 
