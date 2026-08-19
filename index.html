@@ -2139,7 +2139,7 @@
       }
     };
 
-    fetch("./article.md?v=20260804-gcp-both-images", { cache: "no-cache" }).then(r => {
+    fetch("./article.md?v=20260819-location-400-fix", { cache: "no-cache" }).then(r => {
       if (!r.ok) throw new Error("article.md " + r.status);
       return r.text();
     }).then(raw => {
@@ -2708,34 +2708,43 @@ ightarrow$ `Sign in again` 重新登录即可直接解决循环问题！
 * **排错重点**：需要 VS Code 风格界面时，请确认路径指向 **Antigravity IDE**。如果路径是 `C:\Users\您的用户名\AppData\Local\Programs\antigravity`，这通常是 Antigravity 2.0，不要按旧 IDE 截图硬套。
 * **提醒**：部分版本附带 Codex 相关能力，与 Antigravity 登录不是一回事；Antigravity 仍以 Google OAuth + 本地授权辅助为准。
 
-### Q3：蓝色 `Retry` / 对话报错 / HTTP 400 {#faq-chat-400}
+### Q3：蓝色 `Retry` / Agent execution terminated due to error / HTTP 400 {#faq-chat-400}
 
-对话时如果右下角或详情里出现报错，**先看两样东西就够定位大半：**
+对话时如果发送消息后右下角报错 `Agent execution terminated due to error`，或出现蓝色 `Retry` 按键，点击 `Copy debug info` 复制报错详情：
 
-1. **`code` 是多少**（常见是 `400`）
-2. **`message` / 英文说明写了什么**（不要只看 Trajectory ID、TraceID、Headers 这些一长串）
+![对话界面报错 Agent execution terminated due to error (深色主题)](./assets/antigravity/fatmouse/agent-execution-error-dark.png)
+
+![对话界面报错 Agent execution terminated due to error (浅色主题)](./assets/antigravity/fatmouse/agent-execution-error-light.png)
+
+如果复制出的报错信息中包含类似如下代码：
+
+```text
+Trajectory ID: 3522b9cf-69be-4d6b-9a4e-d94529be73bd
+Error: HTTP 400 Bad Request
+Sherlog: 
+TraceID: 0xd0732eb5227e8b44
+{
+  "error": {
+    "code": 400,
+    "message": "User location is not supported for the API use.",
+    "status": "FAILED_PRECONDITION"
+  }
+}
+```
 
 <a id="faq-user-location-400"></a>
 
-#### 先认这种高频 400（地区不被支持）
+#### 🚨 核心本质原因：
+**出现此报错 100% 是梯子/网络节点的问题！**  
+因为 **Google 会定期更新全局 IP 数据库**，许多机场节点或公共数据中心 (Datacenter) 的 IP 会被 Google 官方自动标记判定为中国大陆或不受支持地区。即便是您的浏览器能够正常打开 Google 首页，Antigravity API 后台请求仍会被服务端直接拦截并弹窗提示 `User location is not supported`。
 
-如果详情里类似下面这样（字段可能略有出入，认关键词即可）：
+#### 💡 解决方案与排错步骤：
+1. **更换纯净家宽 IP (Residential IP)**：强烈建议换用美区或日区纯净度更高的**家宽/住宅 IP 节点**。您可在 [ping0.cc](https://ping0.cc) 或 [ippure.com](https://ippure.com) 测试当前节点的 IP 纯净得分（避免使用已被污染的大陆机场节点）。
+2. **换节点后彻底重启客户端**：更换纯净节点后，**务必彻底退出 Antigravity（包含任务管理器中的后台进程）** 再重新打开软件，重新发起对话测试。
+3. **保持节点固定**：请固定使用长期稳定的优质节点，切忌在对话过程中频繁切换跨国 IP，避免再次被系统判定风控。
+4. 若换多个纯净节点仍报 `User location is not supported`，请再检查 **Google 账号关联地区**（详见 [Q0.5 账号没资格](#faq-auth-ineligible)）。
 
-* `HTTP 400 Bad Request` 或 `"code": 400`
-* `"message": "User location is not supported for the API use."`
-* `"status": "FAILED_PRECONDITION"`
-
-**含义：** 官方按您当前请求出口判断「所在地区不支持该 API」。多数是 **代理节点出口地区不对 / 节点被识别为不支持地区 / 出口不干净**，不一定是账号密码错了。
-
-**处理顺序（按这个做）：**
-1. **立刻换节点**：优先日本、新加坡、台湾、香港等常用且稳定的节点；避免大陆直连、避免来历不明的脏节点。
-2. 换节点后 **彻底退出 Antigravity（含后台进程）再打开**，重新发一条测试消息。
-3. 保持 **长期固定同一地区节点**，不要对话中途频繁跨国跳 IP（既容易 400，也容易触发账号风控）。
-4. 若换多个干净节点仍是同一句 `User location is not supported`：再回头查 **Google 账号地区/订阅资格**（见 Q0.5「账号没资格」），以及是否账号本身处于异常状态。
-5. ==不要用 Cockpit 反复硬注入来「绕地区」==——Cockpit 解决不了服务端对 location 的校验。
-
-> 💡 一眼口诀：==看见 `400` + `User location is not supported` → 先换支持地区的干净节点，再重开客户端。==
-
+> 💡 一眼口诀：==看见 `Agent execution terminated` 或 `400` + `User location is not supported` → 100% 梯子节点 IP 被封锁，换纯净家宽/干净节点并重开客户端！==
 #### 其他导致 Retry / 发消息失败的常见原因
 
 若不是上面的 location 文案，再按下面排查：
