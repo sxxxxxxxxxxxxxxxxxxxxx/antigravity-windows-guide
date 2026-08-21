@@ -602,8 +602,7 @@ Thank you for your understanding and support.
 
      ![自拍人脸识别扫码与 Link 界面](./assets/antigravity/fatmouse/google-age-selfie-qr.jpg)
 
-   * **第 4 步**：当手机显示 **“Your age is verified”** 年龄验证成功后，回到 Antigravity 再次点击 `Verify` $
-ightarrow$ `Sign in again` 重新登录即可直接解决循环问题！
+   * **第 4 步**：当手机显示 **“Your age is verified”** 年龄验证成功后，回到 Antigravity 再次点击 `Verify` ➔ `Sign in again` 重新登录即可直接解决循环问题！
 
      ![年龄验证成功界面](./assets/antigravity/fatmouse/google-age-verified-success.jpg)
 
@@ -768,7 +767,7 @@ TraceID: 0xd0732eb5227e8b44
 
 ---
 
-## 💬 售后支持与结语
+## 九、售后支持与结语
 
 如果您**严格按上述流程操作**，绝大多数情况下登录与使用问题都能解决。按教程把网络、环境、步骤做对，**正常可用是大概率事件**；若仍然用不了，多半是**账号自身异常**或**操作步骤有偏差**，而不是教程“没用”。对电脑不太熟练的用户，也可以直接联系客服下单**远程协助**，由专业人士一对一处理。感谢您的支持！
 
