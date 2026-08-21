@@ -375,6 +375,8 @@ v2rayN默认端口 (Port): 10808
 
 #### 1. 下载汉化包
 1. 访问开源项目页面：[qqxpee/antigravity2-cn (GitHub 官方仓库)](https://github.com/qqxpee/antigravity2-cn)
+
+   ![Antigravity 2.0 开源汉化补丁仓库](./assets/antigravity/fatmouse/antigravity2-cn-github.png)
 2. 点击页面右上角绿色的 **Code** 按钮，在下拉菜单中选择 **Download ZIP** 下载压缩包。
 3. 将下载好的压缩包解压到您电脑本地任意文件夹（例如您的 `Downloads` 或 `桌面`）。
 
@@ -403,6 +405,8 @@ v2rayN默认端口 (Port): 10808
 1. 点击左侧边栏的 **扩展（Extensions）** 图标（快捷键 `Ctrl+Shift+X`）。
 2. 在顶部搜索框中输入 **`Chinese`**。
 3. 找到并点击安装由 Microsoft 维护的 **`Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code`**（插件标识符：`ms-ceintl.vscode-language-pack-zh-hans`）。
+
+   ![VS Code 微软官方简体中文语言包](./assets/antigravity/fatmouse/chinese-language-pack-guide.png)
 
 #### 2. 配置显示语言为简体中文
 1. 按下快捷键 **`Ctrl+Shift+P`** 调出顶部全局命令面板。
