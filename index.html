@@ -2171,7 +2171,7 @@
       }
     };
 
-    fetch("./article.md?v=20260821-country-appeal-enhanced-v6", { cache: "no-cache" }).then(r => {
+    fetch("./article.md?v=20260821-ai-prompt-appeal-v7", { cache: "no-cache" }).then(r => {
       if (!r.ok) throw new Error("article.md " + r.status);
       return r.text();
     }).then(raw => {
@@ -2714,7 +2714,7 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 
         ![Google 账号关联地区更改申请表单](./assets/antigravity/fatmouse/google-country-change-form.jpg)
 
-            - **第 3 步：选择目标地区与提交方案**  
+                  - **第 3 步：选择目标地区与提交方案**  
         * **方案 A（快捷通过）**：在列表中选择您代理节点最常用的地区（如日本、新加坡、英国、加拿大等），勾选 **“我居住在此”** 并直接提交。
           
           ![选择居住在此提交](./assets/antigravity/fatmouse/google-country-change-option.jpg)
@@ -2728,9 +2728,24 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
         > 
         > ⚠️ **【审核机制与预期】**：改区申请均由 Google 官方客服团队人工审核，通过与否存在一定运气成分（取决于客服审核严格度）。请以平常心对待，提交后耐心等待 24~48 小时内的邮件审核通知即可。
 
-      - **高成功率英文申诉模板（写明工作急需使用 Antigravity，避免失业风险）：**
-        
-        > 📌 **模板使用提示**：直接复制下方英文。若申请修改为其他国家，只需将文中的 `the United States` 替换为 `Japan`、`Taiwan` 或 `Singapore` 即可。
+      - **🤖 推荐：让 AI 帮您生成独一无二的高通过率申诉信（避免模板撞车）**
+
+        > 💡 **为什么推荐让 AI 写？**  
+        > 如果所有人都提交一模一样的英文模板，容易被 Google 客服系统判定为机器人批量申请。**直接复制下方专门调优的【AI 提示词 (Prompt)】，发给任意 AI 工具（ChatGPT / Claude / Kimi / 豆包等），几秒钟即可为您量身定制独一无二的地道英文申诉信，通过率更高！**
+
+```copy-dashboard
+你是一名精通英文商务公文与 Google 客服沟通的专业申诉顾问。
+我目前遇到了 Google 账号因地区不符导致无法使用 Google Antigravity / Gemini AI 编程工具的问题（报错：Sorry, this account is ineligible to use Antigravity）。
+现在我需要向 Google 官方客服提交地区修改申诉（申请将账号地区更改为 [填入目标国家，如：美国 / 日本 / 中国台湾]）。
+
+请帮我写一封极其专业、礼貌且令人信服的英文申诉信（提交给 Google Support Team），需包含以下核心要素：
+1. 【工作紧急性】：说明我因公司跨国项目/外派工作，长期居住并在目标国家工作，日常开发重度依赖 Google Antigravity 及 Gemini 生产力工具。
+2. 【不可替代与后果】：说明若无法及时在当前地区开通 Antigravity 访问权限，将导致开发项目彻底停滞，我将面临被解雇（loss of employment）的重大职场危机，情况万分紧急。
+3. 【合规说明】：强调我在当地拥有稳定的网络环境、常用设备与支付手段，完全符合该地区的账号使用条件。
+4. 【语气与格式】：语气诚恳谦逊但态度急迫，结构清晰，语言地道且符合母语表达习惯，避免模板化生硬用词。
+```
+
+      - **📋 备用成品现成英文申诉模板（不想用 AI 可直接复制）：**
 
 ```copy-dashboard
 Subject: Urgent Request to Update Account Region for Critical Work Needs (Google Antigravity)
