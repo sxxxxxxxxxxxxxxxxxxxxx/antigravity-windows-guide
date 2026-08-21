@@ -389,6 +389,8 @@ v2rayN默认端口 (Port): 10808
    * `3`：显示中文品牌名 `反重力智能编程`。
 4. 脚本执行完毕后，重新打开 Antigravity 2.0 软件，即可畅享全中文界面！
 
+   ![Antigravity 2.0 全中文设置与操作界面效果](./assets/antigravity/fatmouse/antigravity-2-chinese-ui.png)
+
 #### 3. 一键卸载与无痕还原官方英文
 如果后续软件官方大版本更新，或者您想恢复官方原版英文：
 1. 完全退出 Antigravity 客户端。
