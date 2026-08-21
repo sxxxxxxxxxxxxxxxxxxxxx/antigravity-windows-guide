@@ -2171,7 +2171,7 @@
       }
     };
 
-    fetch("./article.md?v=20260821-ai-prompt-appeal-v7", { cache: "no-cache" }).then(r => {
+    fetch("./article.md?v=20260821-display-prompt-fixed-v8", { cache: "no-cache" }).then(r => {
       if (!r.ok) throw new Error("article.md " + r.status);
       return r.text();
     }).then(raw => {
@@ -2733,7 +2733,7 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
         > 💡 **为什么推荐让 AI 写？**  
         > 如果所有人都提交一模一样的英文模板，容易被 Google 客服系统判定为机器人批量申请。**直接复制下方专门调优的【AI 提示词 (Prompt)】，发给任意 AI 工具（ChatGPT / Claude / Kimi / 豆包等），几秒钟即可为您量身定制独一无二的地道英文申诉信，通过率更高！**
 
-```copy-dashboard
+```text
 你是一名精通英文商务公文与 Google 客服沟通的专业申诉顾问。
 我目前遇到了 Google 账号因地区不符导致无法使用 Google Antigravity / Gemini AI 编程工具的问题（报错：Sorry, this account is ineligible to use Antigravity）。
 现在我需要向 Google 官方客服提交地区修改申诉（申请将账号地区更改为 [填入目标国家，如：美国 / 日本 / 中国台湾]）。
@@ -2747,7 +2747,7 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 
       - **📋 备用成品现成英文申诉模板（不想用 AI 可直接复制）：**
 
-```copy-dashboard
+```text
 Subject: Urgent Request to Update Account Region for Critical Work Needs (Google Antigravity)
 
 Dear Google Support Team,
