@@ -270,7 +270,7 @@
     .quick-triage td img {
       background: #0f172a;
       aspect-ratio: 16 / 10;
-      object-fit: contain;
+      object-fit: cover;
     }
     /* 对号入座截图：悬浮提示 + 点击放大 */
     .triage-shot {
@@ -1561,65 +1561,65 @@
     <!-- 对号入座：静态首屏，不依赖 article.md，打开即可显示 -->
     <section class="quick-triage-section" id="quick-triage-section">
       <div class="quick-triage article" id="quick-triage">
-                        <h2>🚑 先看这里：遇到问题先看图对号入座</h2>
+                                <h2>🚑 先看这里：遇到问题先看图对号入座</h2>
         <p>目前大家遇到的绝大多数问题与汉化需求，都是下面这五种情况。<strong>点图可放大对照；点下方蓝色链接跳到对应解决办法。</strong></p>
         <div class="table-wrap">
-          <table>
+          <table style="table-layout:fixed; width:100%;">
             <thead>
               <tr>
-                <th>🛑 <strong>账号地区/资格不符</strong></th>
-                <th>⚠️ <strong>网络超时/未接管</strong></th>
-                <th>🛂 <strong>人机扫码验证</strong></th>
-                <th>⚡ <strong>对话中断/400报错</strong></th>
-                <th>🇨🇳 <strong>界面中文汉化</strong></th>
+                <th style="width:20%; font-size:13px; padding:10px 4px;">🛑 <strong>账号地区/资格</strong></th>
+                <th style="width:20%; font-size:13px; padding:10px 4px;">⚠️ <strong>网络连接超时</strong></th>
+                <th style="width:20%; font-size:13px; padding:10px 4px;">🛂 <strong>人机扫码验证</strong></th>
+                <th style="width:20%; font-size:13px; padding:10px 4px;">⚡ <strong>对话中断/400</strong></th>
+                <th style="width:20%; font-size:13px; padding:10px 4px;">🇨🇳 <strong>界面中文汉化</strong></th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>
                   <button type="button" class="triage-shot" title="点击放大查看报错截图" aria-label="点击放大：账号没资格报错截图">
-                    <img src="./assets/antigravity/auth-ineligible-account.png" alt="账号没资格" width="220" height="140" loading="eager" fetchpriority="high" decoding="async">
+                    <img src="./assets/antigravity/triage/triage-card1-ineligible.png" alt="账号没资格" width="220" height="140" style="object-fit:cover;" loading="eager" fetchpriority="high" decoding="async">
                     <span class="triage-shot-tip">🔍 点击放大</span>
                   </button>
                 </td>
                 <td>
                   <button type="button" class="triage-shot" title="点击放大查看报错截图" aria-label="点击放大：网络超时报错截图">
-                    <img src="./assets/antigravity/auth-oauth-network-timeout.jpeg" alt="网络超时" width="220" height="140" loading="eager" fetchpriority="high" decoding="async">
+                    <img src="./assets/antigravity/triage/triage-card2-timeout.png" alt="网络超时" width="220" height="140" style="object-fit:cover;" loading="eager" fetchpriority="high" decoding="async">
                     <span class="triage-shot-tip">🔍 点击放大</span>
                   </button>
                 </td>
                 <td>
                   <button type="button" class="triage-shot" title="点击放大查看报错截图" aria-label="点击放大：人机验证报错截图">
-                    <img src="./assets/antigravity/fatmouse/verify-sign-in-again.jpg" alt="人机验证" width="220" height="140" loading="eager" fetchpriority="high" decoding="async">
+                    <img src="./assets/antigravity/triage/triage-card3-verify.png" alt="人机验证" width="220" height="140" style="object-fit:cover;" loading="eager" fetchpriority="high" decoding="async">
                     <span class="triage-shot-tip">🔍 点击放大</span>
                   </button>
                 </td>
                 <td>
                   <button type="button" class="triage-shot" title="点击放大查看报错截图" aria-label="点击放大：对话中断报错截图">
-                    <img src="./assets/antigravity/fatmouse/agent-execution-error-dark.png" alt="Agent execution terminated due to error" width="220" height="140" loading="eager" fetchpriority="high" decoding="async">
+                    <img src="./assets/antigravity/triage/triage-card4-chat400.png" alt="Agent execution terminated due to error" width="220" height="140" style="object-fit:cover;" loading="eager" fetchpriority="high" decoding="async">
                     <span class="triage-shot-tip">🔍 点击放大</span>
                   </button>
                 </td>
                 <td>
                   <button type="button" class="triage-shot" title="点击放大查看汉化指南截图" aria-label="点击放大：界面中文汉化截图">
-                    <img src="./assets/antigravity/fatmouse/chinese-language-pack-guide.png" alt="界面中文汉化" width="220" height="140" loading="eager" fetchpriority="high" decoding="async">
+                    <img src="./assets/antigravity/triage/triage-card5-chinese.png" alt="界面中文汉化" width="220" height="140" style="object-fit:cover; background:#fff;" loading="eager" fetchpriority="high" decoding="async">
                     <span class="triage-shot-tip">🔍 点击放大</span>
                   </button>
                 </td>
               </tr>
-              <tr>
+              <tr style="font-size:12px; line-height:1.4;">
                 <td><strong>Sorry, this account is ineligible</strong></td>
-                <td><strong>There was an unexpected issue setting up your account.</strong></td>
+                <td><strong>There was an unexpected issue setting up...</strong></td>
                 <td><strong>Further action is required</strong></td>
                 <td><strong>Agent execution terminated / 400</strong></td>
                 <td><strong>Antigravity IDE / 2.0 全中文设置</strong></td>
               </tr>
-              <tr>
-                <td><a href="#faq-auth-ineligible" class="inpage-link">👉 点此处理地区/资格/年龄</a></td>
-                <td><a href="#network-config" class="inpage-link">👉 点此按第三章配置网络</a></td>
-                <td><a href="#human-verify" class="inpage-link">👉 点此查看扫码验证流程</a></td>
-                <td><a href="#faq-chat-400" class="inpage-link">👉 点此换纯净家宽/处理400</a></td>
-                <td><a href="#faq-localization" class="inpage-link">👉 点此查看一键汉化教程</a></td>
+              <tr style="font-size:13px; font-weight:700;">
+                <td><a href="#faq-auth-ineligible" class="inpage-link">👉 处理地区/资格</a></td>
+                <td><a href="#network-config" class="inpage-link">👉 按第三章配网</a></td>
+                <td><a href="#human-verify" class="inpage-link">👉 查看扫码流程</a></td>
+                <td><a href="#faq-chat-400" class="inpage-link">👉 换纯净家宽/400</a></td>
+                <td><a href="#faq-localization" class="inpage-link">👉 查看一键汉化</a></td>
               </tr>
             </tbody>
           </table>
@@ -2171,7 +2171,7 @@
       }
     };
 
-    fetch("./article.md?v=20260821-user-chinese-ui-image", { cache: "no-cache" }).then(r => {
+    fetch("./article.md?v=20260821-perfect-triage-layout-v3", { cache: "no-cache" }).then(r => {
       if (!r.ok) throw new Error("article.md " + r.status);
       return r.text();
     }).then(raw => {
@@ -2211,11 +2211,11 @@ image: ./assets/antigravity/cover.png
 
 目前大家遇到的绝大多数问题与汉化需求，都是下面这五种情况。**请先对照截图；网页里点图可放大查看，点下方蓝色链接会跳到对应解决办法。**
 
-| 🛑 **账号地区/资格不符** | ⚠️ **网络超时/未接管** | 🛂 **人机扫码验证** | ⚡ **对话中断/400报错** | 🇨🇳 **界面中文汉化** |
+| 🛑 **账号地区/资格** | ⚠️ **网络连接超时** | 🛂 **人机扫码验证** | ⚡ **对话中断/400** | 🇨🇳 **界面中文汉化** |
 | :---: | :---: | :---: | :---: | :---: |
-| [![账号没资格](./assets/antigravity/auth-ineligible-account.png)](#faq-auth-ineligible) | [![网络超时](./assets/antigravity/auth-oauth-network-timeout.jpeg)](#network-config) | [![人机验证](./assets/antigravity/fatmouse/verify-sign-in-again.jpg)](#human-verify) | [![对话中断报错](./assets/antigravity/fatmouse/agent-execution-error-dark.png)](#faq-chat-400) | [![界面中文汉化](./assets/antigravity/fatmouse/chinese-language-pack-guide.png)](#faq-localization) |
-| **Sorry, this account is ineligible** | **There was an unexpected issue setting up your account.** | **Further action is required** | **Agent execution terminated due to error** | **Antigravity IDE / 2.0 全中文设置** |
-| [👉 点此处理地区/资格/年龄](#faq-auth-ineligible) | [👉 点此按第三章配置网络](#network-config) | [👉 点此查看扫码验证流程](#human-verify) | [👉 点此换纯净家宽/处理400](#faq-chat-400) | [👉 点此查看一键汉化教程](#faq-localization) |
+| [![账号没资格](./assets/antigravity/triage/triage-card1-ineligible.png)](#faq-auth-ineligible) | [![网络超时](./assets/antigravity/triage/triage-card2-timeout.png)](#network-config) | [![人机验证](./assets/antigravity/triage/triage-card3-verify.png)](#human-verify) | [![对话中断报错](./assets/antigravity/triage/triage-card4-chat400.png)](#faq-chat-400) | [![界面中文汉化](./assets/antigravity/triage/triage-card5-chinese.png)](#faq-localization) |
+| **Sorry, this account is ineligible** | **There was an unexpected issue setting up...** | **Further action is required** | **Agent execution terminated due to error** | **Antigravity IDE / 2.0 全中文设置** |
+| [👉 点此处理地区/资格](#faq-auth-ineligible) | [👉 点此按第三章配置网络](#network-config) | [👉 点此查看扫码流程](#human-verify) | [👉 点此换纯净家宽/400](#faq-chat-400) | [👉 点此查看一键汉化](#faq-localization) |
 
 > 💡 **怎么对号：**
 > * **客户端全是英文 / 界面汉化**：2.0 运行开源一键注入脚本，IDE 安装微软官方语言包 → [👉 点此直达汉化指南](#faq-localization)。
