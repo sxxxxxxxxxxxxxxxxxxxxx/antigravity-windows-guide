@@ -1561,8 +1561,8 @@
     <!-- 对号入座：静态首屏，不依赖 article.md，打开即可显示 -->
     <section class="quick-triage-section" id="quick-triage-section">
       <div class="quick-triage article" id="quick-triage">
-                <h2>🚑 先看这里：遇到问题先看图对号入座</h2>
-        <p>目前大家遇到的绝大多数问题，都是下面这四种报错。<strong>点图可放大对照；点下方蓝色链接跳到对应解决办法。</strong></p>
+                        <h2>🚑 先看这里：遇到问题先看图对号入座</h2>
+        <p>目前大家遇到的绝大多数问题与汉化需求，都是下面这五种情况。<strong>点图可放大对照；点下方蓝色链接跳到对应解决办法。</strong></p>
         <div class="table-wrap">
           <table>
             <thead>
@@ -1571,6 +1571,7 @@
                 <th>⚠️ <strong>网络超时/未接管</strong></th>
                 <th>🛂 <strong>人机扫码验证</strong></th>
                 <th>⚡ <strong>对话中断/400报错</strong></th>
+                <th>🇨🇳 <strong>界面中文汉化</strong></th>
               </tr>
             </thead>
             <tbody>
@@ -1599,18 +1600,26 @@
                     <span class="triage-shot-tip">🔍 点击放大</span>
                   </button>
                 </td>
+                <td>
+                  <button type="button" class="triage-shot" title="点击放大查看汉化指南截图" aria-label="点击放大：界面中文汉化截图">
+                    <img src="./assets/antigravity/fatmouse/chinese-language-pack-guide.png" alt="界面中文汉化" width="220" height="140" loading="eager" fetchpriority="high" decoding="async">
+                    <span class="triage-shot-tip">🔍 点击放大</span>
+                  </button>
+                </td>
               </tr>
               <tr>
                 <td><strong>Sorry, this account is ineligible</strong></td>
                 <td><strong>There was an unexpected issue setting up your account.</strong></td>
                 <td><strong>Further action is required</strong></td>
                 <td><strong>Agent execution terminated / 400</strong></td>
+                <td><strong>Antigravity IDE / 2.0 全中文设置</strong></td>
               </tr>
               <tr>
                 <td><a href="#faq-auth-ineligible" class="inpage-link">👉 点此处理地区/资格/年龄</a></td>
                 <td><a href="#network-config" class="inpage-link">👉 点此按第三章配置网络</a></td>
                 <td><a href="#human-verify" class="inpage-link">👉 点此查看扫码验证流程</a></td>
                 <td><a href="#faq-chat-400" class="inpage-link">👉 点此换纯净家宽/处理400</a></td>
+                <td><a href="#faq-localization" class="inpage-link">👉 点此查看一键汉化教程</a></td>
               </tr>
             </tbody>
           </table>
@@ -1621,6 +1630,7 @@
             <span class="alert-title">怎么对号（先看这几句）</span>
           </div>
           <div class="alert-content">
+            <p>• <strong>客户端全是英文 / 界面汉化</strong>：2.0 运行开源一键注入脚本，IDE 安装微软官方语言包 → <a href="#faq-localization" class="inpage-link"><strong>点此直达汉化指南</strong></a>。</p>
             <p>• <strong>账号没资格</strong>：先查地区与资格，再查年龄认证，<mark class="hl-danger">不要先反复注入</mark>。</p>
             <p>• <strong>unexpected issue / 网络超时</strong>：就是客户端没真正走通代理——请按 <a href="#network-config" class="inpage-link"><strong>第三章网络配置</strong></a> 处理（Tun / ProxyBridge 等）。</p>
             <p>• <strong>Further action / 扫码</strong>：登录阶段人机验证；年龄认证在「账号没资格」那条处理。<mark class="hl-danger">不要狂扫十几次</mark>。</p>
@@ -2161,7 +2171,7 @@
       }
     };
 
-    fetch("./article.md?v=20260821-chinese-localization-guide", { cache: "no-cache" }).then(r => {
+    fetch("./article.md?v=20260821-5card-hero-localization", { cache: "no-cache" }).then(r => {
       if (!r.ok) throw new Error("article.md " + r.status);
       return r.text();
     }).then(raw => {
@@ -2199,15 +2209,16 @@ image: ./assets/antigravity/cover.png
 
 ## 🚑 先看这里：遇到问题先看图对号入座
 
-目前大家遇到的绝大多数问题，都是下面这四种报错。**请先对照截图；网页里点图可放大查看，点下方蓝色链接会跳到对应解决办法。**
+目前大家遇到的绝大多数问题与汉化需求，都是下面这五种情况。**请先对照截图；网页里点图可放大查看，点下方蓝色链接会跳到对应解决办法。**
 
-| 🛑 **账号地区/资格不符** | ⚠️ **网络超时/未接管** | 🛂 **人机扫码验证** | ⚡ **对话中断/400报错** |
-| :---: | :---: | :---: | :---: |
-| [![账号没资格](./assets/antigravity/auth-ineligible-account.png)](#faq-auth-ineligible) | [![网络超时](./assets/antigravity/auth-oauth-network-timeout.jpeg)](#network-config) | [![人机验证](./assets/antigravity/fatmouse/verify-sign-in-again.jpg)](#human-verify) | [![对话中断报错](./assets/antigravity/fatmouse/agent-execution-error-dark.png)](#faq-chat-400) |
-| **Sorry, this account is ineligible** | **There was an unexpected issue setting up your account.** | **Further action is required** | **Agent execution terminated due to error** |
-| [👉 点此处理地区/资格/年龄](#faq-auth-ineligible) | [👉 点此按第三章配置网络](#network-config) | [👉 点此查看扫码验证流程](#human-verify) | [👉 点此换纯净家宽/处理400](#faq-chat-400) |
+| 🛑 **账号地区/资格不符** | ⚠️ **网络超时/未接管** | 🛂 **人机扫码验证** | ⚡ **对话中断/400报错** | 🇨🇳 **界面中文汉化** |
+| :---: | :---: | :---: | :---: | :---: |
+| [![账号没资格](./assets/antigravity/auth-ineligible-account.png)](#faq-auth-ineligible) | [![网络超时](./assets/antigravity/auth-oauth-network-timeout.jpeg)](#network-config) | [![人机验证](./assets/antigravity/fatmouse/verify-sign-in-again.jpg)](#human-verify) | [![对话中断报错](./assets/antigravity/fatmouse/agent-execution-error-dark.png)](#faq-chat-400) | [![界面中文汉化](./assets/antigravity/fatmouse/chinese-language-pack-guide.png)](#faq-localization) |
+| **Sorry, this account is ineligible** | **There was an unexpected issue setting up your account.** | **Further action is required** | **Agent execution terminated due to error** | **Antigravity IDE / 2.0 全中文设置** |
+| [👉 点此处理地区/资格/年龄](#faq-auth-ineligible) | [👉 点此按第三章配置网络](#network-config) | [👉 点此查看扫码验证流程](#human-verify) | [👉 点此换纯净家宽/处理400](#faq-chat-400) | [👉 点此查看一键汉化教程](#faq-localization) |
 
 > 💡 **怎么对号：**
+> * **客户端全是英文 / 界面汉化**：2.0 运行开源一键注入脚本，IDE 安装微软官方语言包 → [👉 点此直达汉化指南](#faq-localization)。
 > * **账号没资格**：优先查地区与资格，再查年龄认证（==不要先反复注入==）。
 > * **unexpected issue / 网络超时**：就是客户端没真正走通代理——请按 **第三章网络配置** 处理（Tun / ProxyBridge 等）。
 > * **Further action / 扫码验证**：登录阶段的人机验证，见扫码流程；**年龄认证**在「账号没资格」那一条处理。

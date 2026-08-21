@@ -20,15 +20,16 @@ image: ./assets/antigravity/cover.png
 
 ## 🚑 先看这里：遇到问题先看图对号入座
 
-目前大家遇到的绝大多数问题，都是下面这四种报错。**请先对照截图；网页里点图可放大查看，点下方蓝色链接会跳到对应解决办法。**
+目前大家遇到的绝大多数问题与汉化需求，都是下面这五种情况。**请先对照截图；网页里点图可放大查看，点下方蓝色链接会跳到对应解决办法。**
 
-| 🛑 **账号地区/资格不符** | ⚠️ **网络超时/未接管** | 🛂 **人机扫码验证** | ⚡ **对话中断/400报错** |
-| :---: | :---: | :---: | :---: |
-| [![账号没资格](./assets/antigravity/auth-ineligible-account.png)](#faq-auth-ineligible) | [![网络超时](./assets/antigravity/auth-oauth-network-timeout.jpeg)](#network-config) | [![人机验证](./assets/antigravity/fatmouse/verify-sign-in-again.jpg)](#human-verify) | [![对话中断报错](./assets/antigravity/fatmouse/agent-execution-error-dark.png)](#faq-chat-400) |
-| **Sorry, this account is ineligible** | **There was an unexpected issue setting up your account.** | **Further action is required** | **Agent execution terminated due to error** |
-| [👉 点此处理地区/资格/年龄](#faq-auth-ineligible) | [👉 点此按第三章配置网络](#network-config) | [👉 点此查看扫码验证流程](#human-verify) | [👉 点此换纯净家宽/处理400](#faq-chat-400) |
+| 🛑 **账号地区/资格不符** | ⚠️ **网络超时/未接管** | 🛂 **人机扫码验证** | ⚡ **对话中断/400报错** | 🇨🇳 **界面中文汉化** |
+| :---: | :---: | :---: | :---: | :---: |
+| [![账号没资格](./assets/antigravity/auth-ineligible-account.png)](#faq-auth-ineligible) | [![网络超时](./assets/antigravity/auth-oauth-network-timeout.jpeg)](#network-config) | [![人机验证](./assets/antigravity/fatmouse/verify-sign-in-again.jpg)](#human-verify) | [![对话中断报错](./assets/antigravity/fatmouse/agent-execution-error-dark.png)](#faq-chat-400) | [![界面中文汉化](./assets/antigravity/fatmouse/chinese-language-pack-guide.png)](#faq-localization) |
+| **Sorry, this account is ineligible** | **There was an unexpected issue setting up your account.** | **Further action is required** | **Agent execution terminated due to error** | **Antigravity IDE / 2.0 全中文设置** |
+| [👉 点此处理地区/资格/年龄](#faq-auth-ineligible) | [👉 点此按第三章配置网络](#network-config) | [👉 点此查看扫码验证流程](#human-verify) | [👉 点此换纯净家宽/处理400](#faq-chat-400) | [👉 点此查看一键汉化教程](#faq-localization) |
 
 > 💡 **怎么对号：**
+> * **客户端全是英文 / 界面汉化**：2.0 运行开源一键注入脚本，IDE 安装微软官方语言包 → [👉 点此直达汉化指南](#faq-localization)。
 > * **账号没资格**：优先查地区与资格，再查年龄认证（==不要先反复注入==）。
 > * **unexpected issue / 网络超时**：就是客户端没真正走通代理——请按 **第三章网络配置** 处理（Tun / ProxyBridge 等）。
 > * **Further action / 扫码验证**：登录阶段的人机验证，见扫码流程；**年龄认证**在「账号没资格」那一条处理。
