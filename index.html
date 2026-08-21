@@ -2171,7 +2171,7 @@
       }
     };
 
-    fetch("./article.md?v=20260821-code-optimized-v5", { cache: "no-cache" }).then(r => {
+    fetch("./article.md?v=20260821-country-appeal-enhanced-v6", { cache: "no-cache" }).then(r => {
       if (!r.ok) throw new Error("article.md " + r.status);
       return r.text();
     }).then(raw => {
@@ -2714,12 +2714,41 @@ Marketplace Gallery URL: https://marketplace.visualstudio.com/_apis/public/galle
 
         ![Google 账号关联地区更改申请表单](./assets/antigravity/fatmouse/google-country-change-form.jpg)
 
-      - **第 3 步：选择目标地区与提交方案**  
+            - **第 3 步：选择目标地区与提交方案**  
         * **方案 A（快捷通过）**：在列表中选择您代理节点最常用的地区（如日本、新加坡、英国、加拿大等），勾选 **“我居住在此”** 并直接提交。
           
           ![选择居住在此提交](./assets/antigravity/fatmouse/google-country-change-option.jpg)
 
-        * **方案 B（申诉说明）**：若选择最后一个 **“以上都不是”**，可在留言框说明：“*我因工作需要用到 Gemini / Antigravity，请帮我更改账号地区到 xxx*”。
+        * **方案 B（人工申诉与梯队降级策略）**：若选择最后一个 **“以上都不是”**，可填写专属英文申诉留言，由 Google 客服团队进行人工审核。
+
+        > 💡 **【改区梯队降级策略】（不必死磕单一地区）：**
+        > * 🥇 **第一梯队（首选）**：**美国 (United States)** —— 官方最核心支持区，功能最全、体验最完整。
+        > * 🥈 **第二梯队（备选）**：**日本 (Japan)** —— 亚太主力支持区，审核通过率较高且网络延迟极佳。
+        > * 🥉 **第三梯队（兜底）**：**中国台湾 (Taiwan) / 新加坡 (Singapore) / 英国 (United Kingdom)** —— 均在官方支持列表内，中文与网络兼容性极好。
+        > 
+        > ⚠️ **【审核机制与预期】**：改区申请均由 Google 官方客服团队人工审核，通过与否存在一定运气成分（取决于客服审核严格度）。请以平常心对待，提交后耐心等待 24~48 小时内的邮件审核通知即可。
+
+      - **高成功率英文申诉模板（写明工作急需使用 Antigravity，避免失业风险）：**
+        
+        > 📌 **模板使用提示**：直接复制下方英文。若申请修改为其他国家，只需将文中的 `the United States` 替换为 `Japan`、`Taiwan` 或 `Singapore` 即可。
+
+```copy-dashboard
+Subject: Urgent Request to Update Account Region for Critical Work Needs (Google Antigravity)
+
+Dear Google Support Team,
+
+Due to my company's strict work arrangements and engineering requirements, I am currently residing and working remotely in the United States for an extended period. 
+
+Our team heavily relies on Google's official development tools, specifically Google Antigravity and the Gemini AI coding suite, for our daily production tasks. However, due to my account region currently being associated with an unsupported region, I am completely blocked from accessing Google Antigravity ("Sorry, this account is ineligible to use Antigravity").
+
+This regional block has brought my development work to a complete halt. If I cannot access these essential tools immediately, I will be unable to complete my core deliverables and face severe workplace penalties, including the imminent risk of termination/employment loss.
+
+I have stable local network access, regularly use devices in the United States, and conduct business transactions locally. Therefore, I urgently and kindly request that you update my account region to the United States so that I can resume my vital work duties.
+
+Thank you very much for your urgent assistance and understanding!
+
+Sincerely,
+```
 
       - **第 4 步：生效确认与年限提醒**  
         🚨 **【极重要提醒】**：==Google 账号地区修改每年仅允许申请一次！一旦修改成功，一年之内不允许再次修改。请务必确认好目标地区再提交！== 提交后等待邮件通知（通常 24 小时内生效），生效后再重新登录 Antigravity。
