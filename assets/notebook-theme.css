@@ -316,3 +316,16 @@ img { -webkit-user-drag: none; }
 .shop-entry a { flex-shrink:0; display:inline-flex; align-items:center; gap:18px; padding:12px 18px; border:1.5px solid #30332b; border-radius:999px; background:#dcebbd; color:#30332b; font-weight:700; text-decoration:none; box-shadow:2px 3px 0 #30332b; }
 .shop-entry a:hover { background:#f5d96d; }
 @media(max-width:600px) { .shop-entry { width:calc(100% - 32px); padding:20px; align-items:flex-start; flex-direction:column; } .shop-entry strong { font-size:17px; } }
+
+/* Readable support notes with deliberate phrase wrapping. */
+@media(min-width:901px){.hero{grid-template-columns:minmax(0,1fr) 320px}}
+.hero-support-title{font-size:21px;line-height:1.5}
+.hero-support-desc{font-size:15px;line-height:1.85;color:#494532;text-wrap:pretty;word-break:normal;overflow-wrap:normal}
+.support-line{display:block;margin-top:10px}
+.support-line:first-child{margin-top:0;font-weight:750;color:#343b29}
+.support-keep{white-space:nowrap}
+.xianyu-warning-card{font-size:14px;line-height:1.9;text-wrap:pretty}
+.xianyu-warning-card>div>strong:first-child{display:block;font-size:15px;margin-bottom:8px}
+.xianyu-warning-card>div>strong:last-child{display:block;margin-top:8px}
+@media(max-width:600px){.hero-support{align-items:flex-start}.hero-support-title{font-size:19px}.hero-support-desc{font-size:14px;line-height:1.85}.hero-support img{width:88px;height:auto;flex-basis:88px}.xianyu-warning-card{font-size:13px}.xianyu-warning-card>div>strong:first-child{font-size:14px}}
+@media(max-width:380px){.hero-support{flex-direction:column}.hero-support img{width:130px;align-self:center;flex-basis:auto}}
