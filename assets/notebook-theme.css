@@ -308,3 +308,11 @@ img { -webkit-user-drag: none; }
  #article blockquote { padding:14px; }
  .toc a { font-size:13px; }
 }
+
+.shop-entry { max-width:1240px; width:calc(100% - 56px); margin:0 auto 36px; padding:22px 26px; display:flex; align-items:center; justify-content:space-between; gap:20px; background:#fff6cd; border:1.5px solid #30332b; border-radius:16px; box-shadow:3px 4px 0 #30332b; color:#30332b; }
+.shop-kicker { display:block; font-size:11px; letter-spacing:.12em; color:#706548; margin-bottom:7px; }
+.shop-entry strong { display:block; font-size:18px; }
+.shop-entry p { margin:8px 0 0; font-size:13px; color:#66634e; line-height:1.7; }
+.shop-entry a { flex-shrink:0; display:inline-flex; align-items:center; gap:18px; padding:12px 18px; border:1.5px solid #30332b; border-radius:999px; background:#dcebbd; color:#30332b; font-weight:700; text-decoration:none; box-shadow:2px 3px 0 #30332b; }
+.shop-entry a:hover { background:#f5d96d; }
+@media(max-width:600px) { .shop-entry { width:calc(100% - 32px); padding:20px; align-items:flex-start; flex-direction:column; } .shop-entry strong { font-size:17px; } }
